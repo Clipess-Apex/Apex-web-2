@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+.timeEntryCard {
+  width: 95%;
+  min-height: 40px;
+  height: auto;
+  font-family: "Inter", sans-serif;
+  border: solid #264653 2px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.created-time {
+  flex: 0 0 20%;
+}
+
+.created-time p {
+  margin-left: 10px;
+}
+
+.card-text {
+  flex: 0 0 60%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-text p {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.card-text p .duration {
+  margin-top: 15px;
+  display: block;
+  font-style: italic;
+  font-size: 12.5px;
+}
+
+.Update-delete-buttonContainer {
+  flex: 0 0 20%;
+  justify-content: flex-end;
+}
+
+.Update-delete-buttonContainer span {
+  gap: 10px;
+  display: flex;
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-content: right;
+}
+
+
+
+.Update-delete-buttonContainer .taskButtons {
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  background-color: #fff;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.19);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.Update-delete-buttonContainer .taskButtons:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+
+.Update-delete-buttonContainer .eventButtons {
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  background-color: #fff;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.19);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.Update-delete-buttonContainer .eventButtons:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+.Update-delete-buttonContainer img {
+  width: 20px;
+  height: 20px;
+}
+
+
+
+@media only screen and (max-width:1000px) {
+  .created-time{
+    flex: 0 0 15%;
+  }
+
+  .created-time p{
+    margin-left: 5px;
+  }
+
+  .card-text{
+    flex: 0 0 58%;
+    text-align: center;
+    display: flex;
+     flex-direction: column;
+    align-items: center;
+  }
+
+  .card-text p{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .Update-delete-buttonContainer{
+    flex: 0 0 27%;
+  }
+
+  .Update-delete-buttonContainer span{
+    gap: 5px;
+    display: flex;
+    margin-left: 5px;
+    margin-right: 5px;
+    justify-content: right;
+  }
+
+}
+
+
+@media only screen and (max-width:550px) {
+  .timeEntryCard {
+    flex-direction: column;
+    padding-top: 2px;
+    padding-bottom: 5px;
+  }
+
+
+
+  .created-time p {
+    margin-left: 0px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+
+
+  .card-text p {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-text p .duration {
+    margin-top: 12px;
+    display: block;
+    font-style: italic;
+    font-size: 12.5px;
+  }
+
+  .Update-delete-buttonContainer{
+    margin-bottom: 5px;
+  }
+
+}

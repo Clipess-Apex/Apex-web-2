@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+.EmpMonthlyRecord-data-container {
+    padding: 20px;
+}
+
+.EmpMonthlyRecord-header-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.EmpMonthlyRecord-header {
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 20PX;
+    background-color: #00a7a7;
+}
+
+.EmpMonthlyRecord-header .wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.EmpMonthlyRecord-header .wrapper .data {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    font-weight: 650;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center
+}
+
+.EmpMonthlyRecord-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.EmpMonthlyRecord-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.EmpMonthlyRecord-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.EmpMonthlyRecord-card ul li {
+    margin: 1px 0;
+}
+
+.EmpMonthlyRecord-card .wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.EmpMonthlyRecord-card .wrapper .data {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    font-weight: 650;
+    font-size: 14px;
+    color: #283029;
+    text-align: center
+}

@@ -1,0 +1,175 @@
+.employee-details-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 50px;
+  /* border: 1px solid #ccc; */
+  border-radius: 15px;
+  background-color: rgba(0, 167, 167, 0.05);
+}
+
+.employee-details-row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 50px;
+  margin-bottom: 15px;
+}
+
+.employee-details-button-row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 140px;
+  margin-bottom: 15px;
+  margin-top: 50px;
+}
+
+.employee-details-row input[type="text"],
+.employee-details-row input[type="email"],
+.employee-details-row input[type="date"],
+.employee-details-row input[type="file"],
+.employee-details-row select {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #00a7a7;
+  border-radius: 10px;
+  min-width: 500px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.employee-details-row input[type="text"]:focus,
+.employee-details-row input[type="email"]:focus,
+.employee-details-row input[type="date"]:focus,
+.employee-details-row input[type="file"]:focus,
+.employee-details-row select:focus {
+  border-color: #252c58;
+  outline: none;
+}
+
+.employee-details-row input[type="file"] {
+  padding: 5px;
+}
+
+.employee-details-row label {
+  font-weight: 600;
+  color: #00a7a7;
+  padding-bottom: 0px;
+}
+
+.employee-details-image-container {
+  position: relative;
+  display: inline-block;
+  width: 150px; 
+  height: 150px;
+}
+
+.employee-details-profile-picture {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.placeholder-employee-details-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; 
+  color: #aaa; 
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.employee-details-image-file-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.employee-details-image-container:hover .employee-details-profile-picture
+.employee-details-image-container:hover .placeholder-employee-details-image {
+  opacity: 0.7; /* Make the image semi-transparent on hover */
+}
+
+.employee-details-image-container:hover::after {
+  content: "Click to update";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.admin-employeeDetails-btn-done {
+  background-color: transparent;
+  color: #252c58;
+  border: 1px solid #252c58;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.admin-employeeDetails-btn-done:hover{
+  background-color: #252c58;
+  color: #ccc;
+}
+
+.admin-employeeDetails-btn-save {
+  border-radius: 12px;
+  background-color: #00a7a7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.admin-employeeDetails-btn-save:hover{
+  background-color: rgb(0, 167, 167, 0.15);
+  color: #00a7a7;
+}
+
+.admin-employeeDetails-btn-delete {
+  border-radius: 12px;
+  background-color: rgb(247, 102, 128, 0.15);
+  color: #e44c67;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.admin-employeeDetails-btn-delete:hover{
+  background-color: rgb(247, 102, 128, 0.3);
+}
+
+.admin-employeeDetails-btn-cancel {
+  background-color: transparent;
+  color: #252c58;
+  border: 1px solid #252c58;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.admin-employeeDetails-btn-cancel:hover{
+  background-color: #252c58;
+  color: #ccc;
+}

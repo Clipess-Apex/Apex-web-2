@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.MagMonthlyCal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  font-family: "Inter", sans-serif;
+}
+
+.MagMonthlyCal .textContainer {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-evenly;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  min-width: 250px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.MagMonthlyCal img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.MagMonthlyCal .monthRange {
+  position: absolute;
+  z-index: 100;
+  margin-top: 10px;
+  margin-left: -200px;
+}

@@ -1,0 +1,64 @@
+.modal2{
+    display: block;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modalContent2{
+    margin: auto;
+    display: block;
+    width: 40%;
+    max-width: 800px;
+    max-height: 80%;
+    z-index: 20;
+    background-color: white;
+    height: 200px;
+    border-radius: 8px;
+    position: absolute;
+}
+.message{
+    position: relative;
+    right:-30px;
+    top:30px;
+    font-size:18px ;
+   
+    width:550px;
+}
+.ConfirmButton{
+ position:relative;
+ left:430px;
+ top:60px;
+ width:150px;
+ height:40px;
+ border-radius: 5px;
+ background-color: red;
+ color: #fff;
+ border: 2px solid red;
+}
+.CancelButton{
+    position: relative;
+    right:120px;
+    top:60px;
+    width:150px;
+    height:40px;
+    border-radius: 5px;
+    background-color: gray;
+    color: #fff;
+    border: 2px solid gray;
+}
+.DeleteHeading{
+    position: relative;
+    bottom: 220px;
+    left:30px;
+    font-size: 30px;
+}

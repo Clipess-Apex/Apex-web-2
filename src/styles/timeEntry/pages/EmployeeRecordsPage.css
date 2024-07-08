@@ -1,0 +1,52 @@
+.EmployeeRecordsPage .mainContainer {
+  display: flex;
+  margin-top: 80px;
+  height: auto;
+  overflow-y: auto;
+}
+
+.EmployeeRecordsPage .content-container {
+  margin-left: 220px;
+  flex-grow: 1;
+  height: auto;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+@media (max-width: 768px) {
+  .EmployeeRecordsPage .content-container {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.EmployeeRecordsPage .topic {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  border-top: 1px solid #9a9c9f;
+  border-bottom: 1px solid #9a9c9f;
+  padding-top: 0;
+  height: 40px;
+  align-items: center;
+  margin-left: 15px;
+  margin-right: 25px;
+  column-gap: 50px;
+}
+
+.EmployeeRecordsPage .topic p {
+  font-size: 18px;
+  color: #575a5f;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.EmployeeRecordsPage .topic p:hover {
+  color: #303133;
+}
+
+.EmployeeRecordsPage .topic p.active {
+  font-weight: bold;
+  color: #00a7a7
+}

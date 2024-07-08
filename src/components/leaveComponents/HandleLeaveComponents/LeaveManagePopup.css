@@ -1,0 +1,53 @@
+.leave-manage-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.leave-manage-popup-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+}
+
+.leave-manage-popup-message {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.leave-manage-popup-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.leave-manage-popup-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.leave-manage-popup-button.confirm {
+  background-color: rgba(0, 167, 167, 1);
+  color: #fff;
+}
+
+.leave-manage-popup-button.cancel {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.leave-manage-popup-button:hover {
+  opacity: 0.8;
+}

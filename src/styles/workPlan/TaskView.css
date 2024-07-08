@@ -1,0 +1,43 @@
+.TaskView .form-container {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  padding: 15px;
+  margin-top: 10px;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.TaskView .modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.TaskView .modal-form label {
+  font-family: "Calibri", sans-serif;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+.TaskView .modal-form select {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ced4da;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.TaskView .modal-form select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.TaskView .modal-form option {
+  font-family: "Calibri", sans-serif;
+  font-size: 16px;
+}

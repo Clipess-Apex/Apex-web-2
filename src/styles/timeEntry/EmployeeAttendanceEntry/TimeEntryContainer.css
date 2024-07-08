@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+.taskAddContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.taskAddContainer .taskAddButton {
+  width: 245px;
+  height: 65px;
+  border-radius: 50px;
+  background-color: #fff;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 1.5px 2.5px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  row-gap: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: auto;
+}
+
+.taskAddContainer .taskAddButton img {
+  width: 35px;
+  height: 35px;
+}
+
+.taskAddContainer .taskAddButton p {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  color: #00A7A7;
+  font-size: 18px;
+}
+
+.attendance-mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+
+.attendance-Left-subContainer {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #040a00;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.attendance-Right-subContainer {
+  display: flex;
+  width: 50vw;
+  min-height: 300px;
+  height: auto;
+  border: 2px solid #0b0010;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  flex-direction: column;
+  /* background-color: rgb(201, 135, 69); */
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.timeEntryEventButton {
+  background-color: #00A7A7;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 17px;
+  border: solid #264653 2px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.timeEntryTaskButton {
+  background-color: rgba(0, 167, 167, 0.10);
+  color: #040a00;
+  font-weight: 400;
+  font-size: 15px;
+  border: solid #264653 2px;
+  text-align: justify;
+  text-align: center;
+}
+
+.attendance-backButton-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 45px;
+  padding-bottom: 50px;
+}
+
+@media only screen and (max-width:1000px) {
+
+  .attendance-mainContainer {
+    column-gap: 20px;
+  }
+
+  .attendance-Left-subContainer {
+    width: 20vw;
+  }
+
+  .attendance-Right-subContainer {
+    width: 45vw;
+  }
+
+}
+
+
+
+@media only screen and (max-width:768px) {
+  .attendance-mainContainer {
+    justify-content: space-around;
+  }
+
+  .attendance-Left-subContainer {
+    width: 25vw;
+  }
+
+  .attendance-Right-subContainer {
+    width: 60vw;
+  }
+
+}
+
+@media only screen and (max-width:425px) {
+
+  .taskAddContainer{
+    justify-content: center;
+  }
+
+  .attendance-mainContainer{
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
+
+  .attendance-Left-subContainer{
+    width: 60%;
+  }
+
+  .attendance-Right-subContainer{
+    width: 95%;
+  }
+
+}

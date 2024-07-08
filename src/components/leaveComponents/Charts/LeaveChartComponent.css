@@ -1,0 +1,25 @@
+.leave-chart-card {
+    width: 100%;
+    height: 100%;
+    max-width: 500px; 
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.leave-chart-container {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.leave-chart-details {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}

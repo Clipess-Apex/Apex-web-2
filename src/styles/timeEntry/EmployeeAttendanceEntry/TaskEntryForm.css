@@ -1,0 +1,92 @@
+.TaskEntryForm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.TaskEntryForm-mainContainer {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 10px;
+  width: 300px;
+  margin: 0 auto;
+  font-family: Roboto, sans-serif;
+}
+
+.TaskEntryForm-heading {
+  margin-top: 0;
+  font-weight: 900;
+  font-size: 28px;
+  color: #00A7A7;
+  text-transform: uppercase;
+}
+
+.TaskEntryForm-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 900;
+  font-size: 14px;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.TaskEntryForm-input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+}
+
+.TaskEntryForm-button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.TaskEntryForm-submit-btn,
+.TaskEntryForm-cancel-btn {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  font-weight: 700;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.TaskEntryForm-submit-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.TaskEntryForm-submit-btn:hover {
+  background-color: #45a049;
+}
+
+.TaskEntryForm-cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.TaskEntryForm-cancel-btn:hover {
+  background-color: #d32f2f;
+}
+
+.TaskEntryForm-taskError {
+  color: #fc1919;
+  font-size: 14px;
+  margin-top: -10px;
+  text-transform: uppercase;
+}

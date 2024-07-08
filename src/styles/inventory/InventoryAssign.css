@@ -1,0 +1,96 @@
+
+.heading-InventoryAssign{
+    width:30%;
+    color:#00A7A7;
+    font-size: 35px;
+  
+    
+} 
+
+.pagination-InventoryAssign button{
+    height:50px;
+    width:50px;
+    position:"relative";
+    margin: auto;
+    left:"600px";
+    right:200px;
+    border: none;
+    margin: 5px;
+    border-radius: 50%;
+
+}
+
+.search-bar-InventoryAssign{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 60px;
+}
+
+
+.search-bar-InventoryAssign input{
+    
+    width:300px;
+    height:60px;
+    border: 2px solid #00A7A7;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-right: -40px;
+}
+.unassigned-inventory-length{
+    width:200px;
+    height:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#a6e1e1 ;
+    border-radius: 5px;
+    border: 2px solid #00A7A7;
+    margin-left: -30px;
+}
+
+.inventory-list-InventoryAssign{
+    display: flex;
+    justify-content: center;
+
+}
+
+.pagination-container-inventoryAssign{
+    display:flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 50px;
+  
+}
+
+.navigateButton-InventoryAssign{
+    width: 150px;
+    height:60px;
+    border: none;
+    border-radius: 5px;
+    background-color:#00A7A7;
+    font-size: 15px;
+    color:white;
+}
+
+.navigateButton-InventoryAssign:hover{
+background-color: #006666;
+}
+
+.no-requests-message-InventoryAssign{
+   display: flex;
+   justify-content:space-around;
+   align-items: center; 
+   gap:50px;
+   background-color: #00A7A7;
+   color: #fff;
+   padding: 30px;
+   border-radius: 5px;
+   margin-top: 50px;
+}
+.InventoryAssign-inventory-list{
+   display: flex;
+   justify-content: center;
+   align-items: center; 
+}

@@ -1,0 +1,9 @@
+.btn-dashboard {
+  border-radius: 20px;
+  background-color: #701a75;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}

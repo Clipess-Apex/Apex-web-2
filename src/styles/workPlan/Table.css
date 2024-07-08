@@ -1,0 +1,76 @@
+.workplan-header .table {
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Added border radius for a smooth edge */
+  overflow: hidden; /* Ensures rounded corners are applied to the table */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.workplan-header .table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #00a7a7;
+  color: white; /* White text color for better readability */
+  text-transform: uppercase; /* Uppercase headers for emphasis */
+}
+.workplan-header .table tr{
+  height: auto;
+}
+
+.workplan-header .table th,
+.workplan-header .table td {
+  width: 500px; /* Increased padding for better spacing */
+  border: 1px solid #ddd;
+  color: #333; /* Darker text color for better aesthetics */
+  line-height: normal;
+  padding: 8px;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  justify-content:center ;
+  justify-items: center;
+}
+
+.workplan-header .table td {
+  font-size: 16px;
+  
+}
+
+.workplan-header .table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Very light blue background for alternating rows */
+}
+
+.workplan-header .table tr:hover {
+  background-color: #ddd; /* Slightly darker light blue on hover */
+}
+
+.workplan-header .deleteButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: red;
+  font-size: 18px;
+  display: block;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  transition: color 0.3s;
+}
+.workplan-header .center-content {
+  display: flex;
+  justify-content: center; /* Centers horizontally within the cell */
+  align-items: center; /* Centers vertically within the cell */
+}
+
+.workplan-header .deleteButton:hover {
+  color: red; /* Darker light blue on hover */
+}
+
+.workplan-header ul.no-style {
+  all: unset; /* Resets all properties */
+  list-style: none;
+}

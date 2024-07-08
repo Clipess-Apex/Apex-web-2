@@ -1,0 +1,82 @@
+
+
+.inventoryTypePage .heading-typePage{
+    color:#00A7A7;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 20px;
+} 
+
+.inventoryTypePage .search-bar-inventoryType{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.add-button-inventoryType{
+  background-color: #00A7A7;
+  border: none;
+  color:#fff;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border:2px solid #00A7A7;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  transition: background-color 0.3s ease;
+  transition: box-shadow 0.2s ease-in-out;
+  height:50px;
+  margin-right: -180px;
+} 
+
+.button-container-inventoryType{
+  display:flex;
+  justify-content:space-around;
+  align-items: center;
+  margin-top: 50px;
+
+}
+.InventoryTypeList-inventoryType{
+  display: flex;
+  justify-content: center;
+ 
+}
+
+.pagination-button-inventoryType{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.navigateButton-inventoryType button{
+  width: 150px;
+  height: 60px;
+  border: none;
+  border-radius: 5px;
+  background-color:#00A7A7;
+  font-size: 15px;
+  color:white;
+  left:78%;
+  margin-bottom: 40px;
+  
+}
+
+.navigateButton-inventoryType button:hover{
+  background-color: #006666;
+} 
+
+.NumberOfInventories-inventoryType{
+width:200px;
+height:40px;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color:#a6e1e1 ;
+border-radius: 5px;
+border: 2px solid #00A7A7;
+margin-left: -140px;
+}

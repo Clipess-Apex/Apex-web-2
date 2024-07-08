@@ -1,0 +1,57 @@
+ 
+ .inventory-card-inventoryType-card{
+    width: 900px; 
+    border: 1px solid #ddd;
+    border-radius: 0px 0px 10px 10px;
+    cursor: pointer;
+    transition: height 0.7s ease-out, opacity 0.5s ease-out; 
+    overflow: hidden; 
+}  
+.initial-card-inventoryType-card{
+    border: 1px solid #ddd;
+    border-radius: 10px 10px 0px 0px;
+    height:65px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    width: 900px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: 30px;
+}
+ 
+ 
+  .inventoryTypeName-inventoryType-card{
+    margin-left: 50px;
+  }
+  .button_arrange-inventoryType-card{
+    margin-right: 50px;
+  }
+  
+.button_arrange-inventoryType-card{
+  
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    gap: 20px;
+    align-items: center;
+  }
+.viewReport-Button-inventoryType-card{
+  width:100px;
+  height:40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#a6e1e1 ;
+  border-radius: 5px;
+  border: 2px solid #00A7A7;
+}
+.viewReport-Button-inventoryType-card.disabled{
+  background-color: #c0bdbd;
+  border: none;
+}
+
+ 
+
+   
