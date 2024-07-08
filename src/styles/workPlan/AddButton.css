@@ -1,0 +1,24 @@
+.workplanAdd {
+  justify-content: right;
+  align-content: right;
+  align-items: right;
+  justify-items: right;
+  align-self: right;
+  text-align: right;
+}
+
+.workplanAdd .AddButton {
+  width: 200px;
+  padding: 10px;
+  margin-left: 1000px;
+  margin-top: 50px;
+  justify-content: right;
+  border-radius: 10px;
+  background: #00a7a7;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  border: none;
+}

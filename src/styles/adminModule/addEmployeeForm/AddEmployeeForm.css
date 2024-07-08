@@ -1,0 +1,118 @@
+.add-employee-form-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-left: 50px;
+  padding-left: 30px;
+  /* background-color: rgb(0, 167, 167, 0.15); */
+}
+
+/* Styling the dividers for better layout */
+.add-employee-form-dividers {
+  display: flex;
+  flex-direction: row;
+  column-gap: 50px;
+  margin-bottom: 15px;
+}
+
+.add-employee-form-h3{
+  margin-top: 30px;
+  margin-bottom: 0px;
+  color:#252c58;
+}
+
+/* Styling individual input fields */
+.add-employee-form-dividers input[type="text"],
+.add-employee-form-dividers input[type="email"],
+.add-employee-form-dividers input[type="date"],
+.add-employee-form-dividers input[type="file"],
+.add-employee-form-dividers select {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid rgb(0, 167, 167);
+  border-radius: 10px;
+  min-width: 500px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.add-employee-form-dividers input[type="text"]:focus,
+.add-employee-form-dividers input[type="email"]:focus,
+.add-employee-form-dividers input[type="date"]:focus,
+.add-employee-form-dividers input[type="file"]:focus,
+.add-employee-form-dividers select:focus {
+  border-color: #00a7a7;  
+  outline: none;
+}
+
+.add-employee-form-dividers input[type="file"] {
+  padding: 5px;
+}
+
+.add-employee-form-dividers label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #00a7a7;
+  padding: 0 10px;
+  background-color: white;
+  position:relative;
+  top: 10px;
+  left: 10px;
+}
+
+.add-employee-form-button-container button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-addEmployee {
+  background-color: rgb(0, 167, 167,0.8);
+  transition: rgb(0, 167, 167,0.6);
+  color: white;
+  border-color: #00a7a7;
+}
+
+.btn-addEmployee:hover {
+  background-color: rgb(0, 167, 167,0.9);
+  transform: scale(1.05);
+}
+
+.add-employee-form-btn-cancel {
+  background-color: transparent;
+  color: #252c58;
+  border: 2px solid #252c58;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.add-employee-form-btn-cancel:hover{
+  transform: scale(1.05); 
+}
+
+/* Styling error messages */
+.add-employee-form-dividers span {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .dividers {
+    flex-direction: column;
+  }
+
+  .add-employee-form-dividers input[type="text"],
+  .add-employee-form-dividers input[type="email"],
+  .add-employee-form-dividers input[type="date"],
+  .add-employee-form-dividers select {
+    width: 100%;
+  }
+}

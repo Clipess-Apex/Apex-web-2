@@ -1,0 +1,198 @@
+ 
+
+  
+  .request-card-request {
+      width: 900px; 
+      border: 1px solid #ddd;
+      border-radius: 0px 0px 10px 10px;
+      padding: 0px;
+      background-color:white;
+      cursor: pointer;
+      height:0px;
+      transition: height 0.7s ease-out, opacity 0.5s ease-out; 
+      /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);  */
+      margin-bottom: 20px;
+      display: grid;
+      place-items: center;
+      overflow: hidden; 
+      transform-origin: top;
+    
+    }
+    .initial-card-request{
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
+      border-radius: 10px 10px 0px 0px;
+      height:70px;
+      width: 900px;
+      background-color: #fff; 
+    
+      
+    }
+    
+  
+    .initial-card-request.expanded{
+      background-color: #c3ecec
+    }
+    
+    .request-card-request.expanded {
+      height: 300px;
+      opacity: 1;
+     
+    }
+    
+    .card-header {
+      text-align: center;
+      font-weight: bold; 
+    }
+    
+    .Requestdetails{
+      margin-top: 10px;
+      margin-left: 30px;
+      width: 900px;
+      height:300px;
+      position: relative;
+     
+    }
+     .buttons{
+       display: flex;
+       justify-content: space-between;
+       width:300px;
+       position: relative;
+       right:-540px;
+       bottom: 60px;
+}
+
+    .readButton{
+      width:140px;
+      height:40px;
+      color:white;
+      background-color: rgb(122, 232, 122);
+      border: none;
+      border-radius: 10px;
+    }
+    
+    .readButton.disabled{
+      background-color: rgb(193, 188, 188);
+    }
+    
+    .readButton:hover{
+        background-color:rgb(73, 237, 73) ;
+    }
+    .readButton.disabled:hover{
+      background-color:rgb(193, 188, 188) ;
+  }
+    
+    .RequestedInventoryName-ex{
+      
+      position: absolute;
+      top:20px;
+
+    }
+    .RequestedInventoryType-ex{
+     
+      position: relative;
+      right:-540px;
+      top: 20px;
+      margin-left: 0;
+     
+      
+    }
+    .RequestedDate-ex{
+      position: relative;
+      right:-540px;
+      top:60px;
+    }
+   
+   
+    
+    .details p {
+      margin-bottom: 5px; 
+    }
+    
+  
+   
+    .requestlist_init{
+      list-style-type: none;
+      display: flex;
+      width:500px;
+      position: relative;
+      top:10px;
+    }
+    .requestlist_init-name{
+      position: relative;
+      left:100px;
+      top: 8px;
+    }
+    
+    .dropdowniconForRequest{
+     position: relative;
+     left:50px; 
+     color:gray;
+     font-size:30px;
+     transition: transform 0.5s ease-out;
+    }
+    .dropdowniconForRequest.expanded{
+      transform: rotate(90deg);
+     
+    }
+    
+  .icon-container{
+      position: relative;
+      left:300px;
+      top:15px;
+      
+    }
+    .icon-container i{
+      font-size: 25px;
+     
+      padding: 8px;
+      border-radius: 50%;
+      background-color: #c7cccc;
+    }
+
+    .buttonForAccept-requestCard{
+      border-radius: 12px;
+      background-color: rgb(0, 167, 167, 0.15);
+      color: #00a7a7;
+      border: none;
+      padding: 10px 20px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    
+    
+    .labelForReject-requestCard{
+      border-radius: 12px;
+      background-color: rgb(247, 102, 128, 0.15);
+      color: #e44c67;
+      border: none;
+      padding: 10px 20px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    
+    
+    .buttonForPending-requestCard{
+      border-radius: 12px;
+      background-color: rgba(255, 255, 0, 0.3);
+
+      color: #FFCC00;
+      border: none;
+      padding: 10px 20px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .buttonForUnread-requestCard{
+      border-radius: 12px;
+      background-color: rgba(0, 128, 255, 0.3);
+      color: #007BFF; 
+      border: none;
+      padding: 10px 20px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    
+    
+    
+      

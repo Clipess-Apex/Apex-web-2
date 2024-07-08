@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+.attendanceCard {
+    width: 240px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20PX;
+    border-radius: 16px;
+    background: rgba(0, 167, 167, 0.10);
+    box-shadow: 8px 8px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.attendanceCard .card-icon {
+    width: 60px;
+}
+
+.attendanceCard .card-title {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    color: #00A7A7;
+    text-align: center;
+}

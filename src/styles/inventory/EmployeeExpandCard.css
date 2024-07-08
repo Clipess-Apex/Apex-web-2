@@ -1,0 +1,147 @@
+
+  .inventory-card-inventory {
+      width: 800px; 
+      border: 1px solid #ddd;
+      border-radius: 0px 0px 10px 10px;
+      padding: 0px;
+      background-color:white;
+      cursor: pointer;
+      height:0px;
+      transition: height 0.7s ease-out, opacity 0.5s ease-out; 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); 
+      margin-bottom: 20px;
+      display: grid;
+      place-items: center;
+      overflow: hidden; 
+      transform-origin: top;
+   
+      
+     
+     
+    }
+    .initial-card-inventory{
+      border: 1px solid #ddd;
+     
+      border-radius: 10px 10px 0px 0px;
+      height:70px;
+      width: 800px;
+      background-color: #fff; 
+     
+    }
+    .initial-card-inventory:hover{
+      background-color: rgba(210, 208, 208, 0.561);
+    }
+  
+    .initial-card-inventory.expanded{
+      background-color: #c3ecec
+    }
+    
+    .inventory-card-inventory.expanded {
+      height: 350px;
+      opacity: 1;
+     
+    }
+    
+    .card-header {
+      text-align: center;
+      font-weight: bold; 
+    }
+    
+    .details{
+      margin-top: 10px;
+      margin-left: 30px;
+      width: 800px;
+      height:300px;
+      position: relative;
+     
+    }
+     .button_arrange{
+       display: flex;
+       justify-content: space-between;
+       width:120px;
+      
+    } 
+    .InventoryName-ex{
+      
+      position: absolute;
+      top:-20px;
+    }
+    .InventoryType-ex{
+     
+      position: absolute;
+      right:300px;
+      top: 80px;
+      
+      margin-left: 0;
+     
+      
+    }
+    .AssignedDate{
+     
+      position: absolute;
+      right:300px;
+      top:180px;
+    }
+    .InventoryFile-ex{
+     
+      position: absolute;
+      right:110px;
+      bottom: 30px;
+      height:100px;
+      width:100px;
+      border:2px solid #b4b2b2;
+      bottom: 60px;
+      
+    }
+    .InventoryImage-ex{
+      
+      position: absolute;
+      right:100px;
+      
+      height:100px;
+      width:110px;
+      border:2px solid #b4b2b2;
+      bottom: 223px;
+    }
+    
+    .details p {
+      margin-bottom: 5px; 
+    }
+    
+    .button-container {
+      display: flex;
+      
+    }
+    
+   
+    .inventorylist_init{
+      list-style-type: none;
+      display: flex;
+      width:500px;
+    }
+    .inventorylist_init-name{
+      position: relative;
+      left:100px;
+      top: 8px;
+    }
+   
+  
+  
+    .dropdownicon{
+     position: relative;
+     left:50px; 
+     color:gray;
+     font-size:30px;
+     transition: transform 0.5s ease-out;
+    }
+    .dropdownicon.expanded{
+      transform: rotate(90deg);
+     
+    }
+  
+    .imagethubnail{
+      position: relative;
+      left:580px;
+      bottom: 30px;
+      border:2px soli red;
+    }

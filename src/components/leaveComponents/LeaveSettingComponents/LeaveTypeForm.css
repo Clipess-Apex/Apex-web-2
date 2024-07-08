@@ -1,0 +1,113 @@
+.leave-type-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-sizing: border-box;
+    margin-top: 12%;
+}
+
+.leave-type-form {
+    background: rgba(0, 167, 167, 0.2);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 1px 4px 1px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+}
+
+.form-group-leave-type {
+    margin-bottom: 20px;
+}
+
+.form-group-leave-type label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group-leave-type input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group-leave-type input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.error-message-leave-type {
+    color: #ff3860;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 5px;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.form-buttons-leave-type {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-buttons-leave-type button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.form-buttons-leave-type button:hover {
+    background-color: #0b6a21;
+}
+
+.form-buttons-leave-type button:active {
+    background-color: #60b776;
+}
+
+.form-buttons-leave-type button[type="button"] {
+    background-color: #ff3860;
+}
+
+.form-buttons-leave-type button[type="button"]:hover {
+    background-color: #9c2f3a;
+}
+
+.form-buttons-leave-type button[type="button"]:active {
+    background-color: #de727d;
+}
+
+@media (max-width: 768px) {
+    .leave-type-form {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .leave-type-form {
+        padding: 15px;
+    }
+
+    .form-buttons-leave-type button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .form-buttons-leave-type {
+        flex-direction: column;
+    }
+}

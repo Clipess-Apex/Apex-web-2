@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.PdfViewer-mainConatiner {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.PdfViewer-mainConatiner .pdfViewer {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    height: 900px;
+    width: 850px;
+}
+
+.PdfViewer-mainConatiner .PdfNotAvailable {
+    margin-top: 60px;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+.PdfViewer-backButtonContainer {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 75px;
+}

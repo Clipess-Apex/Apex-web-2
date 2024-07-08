@@ -1,0 +1,175 @@
+.lookup-table-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2em;
+}
+
+.admin-btn-add{
+  border-radius: 12px;
+  background-color: #00a7a7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.admin-btn-add:hover{
+  transform: scale(1.05);
+}
+
+.table-container {
+  display: grid;
+}
+
+.admin-lookup-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Add some spacing from the top */
+}
+
+.admin-lookup-table td,
+.lookup-table-container th {
+  padding: 8px;
+  text-align: center;
+}
+
+.lookup-table-container tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* .lookup-table-container tr:hover {
+  background-color: #ddd;
+} */
+
+.lookup-table-container th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #00a7a7;
+  color: white;
+}
+
+.btn-lookup-edit {
+  border-radius: 12px;
+  background-color: rgb(0, 167, 167, 0.15);
+  color: #00a7a7;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btn-lookup-edit:hover{
+  background-color: rgb(0, 167, 167, 0.3);
+}
+
+.btn-lookup-remove {
+  border-radius: 12px;
+  background-color: rgb(247, 102, 128, 0.15);
+  color: #e44c67;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btn-lookup-remove:hover{
+  background-color: rgb(247, 102, 128, 0.3);
+}
+
+/* Styles for the popup container */
+.admin-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure the popup is above other elements */
+}
+
+/* Styles for the popup content */
+.admin-popup-inner {
+  background-color: white; /* White background for the popup content */
+  border-radius: 10px; 
+  padding: 20px; /* Padding around the content */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: 500px; /* Maximum width of the popup */
+  width: 100%; 
+  text-align: center; 
+}
+
+/* Styles for the form elements */
+.admin-popup-inner form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between form elements */
+}
+
+.admin-popup-inner form label {
+  font-weight: bold; /* Bold labels */
+}
+
+.admin-popup-inner form input[type="text"] {
+  padding: 10px; /* Padding inside the text inputs */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px; /* Rounded corners for inputs */
+  font-size: 16px; /* Larger font size */
+}
+
+/* Styles for the buttons */
+.admin-popup-inner button {
+  padding: 10px 20px; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; 
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.admin-popup-inner button[type="submit"] {
+  background-color: #00a7a7; /* Submit button background color */
+  color: white; /* White text */
+}
+
+.admin-popup-inner button[type="submit"]:hover {
+  background-color: rgb(0, 167, 167, 0.5); /* Darker background color on hover */
+}
+
+.admin-popup-inner button[type="button"] {
+  background-color: rgb(0, 167, 167, 0.15); /* Cancel button background color */
+  color: #00a7a7; /* White text */
+}
+
+.admin-popup-inner button[type="button"]:hover {
+  background-color: rgb(0, 167, 167, 0.3); /* Darker background color on hover */
+}
+
+/* Styles for the popup title */
+.admin-popup-inner h2 {
+  margin-bottom: 20px; /* Space below the title */
+  font-size: 24px; /* Larger font size */
+  color: #333; /* Dark gray color */
+}
+
+/* Styles for the text inputs */
+.admin-popup-inner input[type="text"] {
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.lookup-row-delete{
+  color: #ffff;
+  background-color: #d32f2f;
+}
+
+.lookup-row-delete-cancel{
+  color: #ffff;
+  background-color: #4e4e4e;
+}

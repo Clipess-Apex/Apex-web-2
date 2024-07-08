@@ -1,0 +1,60 @@
+.popup-rejectReason{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+.popup-inner-rejectReason {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width:700px;
+    z-index: 20;
+    height: 320px;
+}
+
+.reason-rejectReason textarea{
+    width:600px;
+    border-radius: 5px;
+    border: 2px solid #00A7A7;
+    font-size: 20px;
+    position: relative;
+    left:50px;
+    top:40px;
+}
+.button-submit-rejectReason{
+    position: relative;
+   bottom: 40px;
+    left:-550px;
+}
+.rejectReason-heading{
+    color: #00A7A7;
+    font-size:30px;
+    position: relative;
+    left:50px;
+    bottom: 0px;
+}
+.button-close-rejectReason{
+    position: relative;
+    bottom: 100px;
+    left:-70px;
+}
+
+
+
+.rejectReason-Error{
+    color:red;
+    font-size: 15px;
+    width:300px;
+    height:20px; 
+    position: relative;
+    bottom:-30px;
+    right:-40px;
+   
+}
