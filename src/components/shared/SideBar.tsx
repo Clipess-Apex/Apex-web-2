@@ -21,7 +21,7 @@ const managerSideBar = [
     { name: "Inventory", path: "/inventory/manager", icon: <img src={InventoryIcon} alt="Inventory Icon" /> },
     { name: "Attendance", path: "/timeEntry/manager", icon: <img src={AttendanceIcon} alt="Attendance Icon" /> },
     { name: "Workplan", path: "/workplan/manager", icon: <img src={WorkplanIcon} alt="Workplan Icon" /> },
-    { name: "Leave", path: "/company-leave-history", icon: <img src={LeaveIcon} alt="Leave Icon" /> },
+    { name: "Leave", path: "/leave/manager", icon: <img src={LeaveIcon} alt="Leave Icon" /> },
     { name: "Settings", path: "/contact", icon: <img src={SettingsIcon} alt="Settings Icon" /> },
   ];
 
@@ -31,7 +31,7 @@ const managerSideBar = [
     { name: "Inventory", path: "/inventory/employee", icon: <img src={InventoryIcon} alt="Inventory Icon" /> },
     { name: "Attendance", path: "/timeEntry/employee", icon: <img src={AttendanceIcon} alt="Attendance Icon" /> },
     { name: "Workplan", path: "/workplan/employee", icon: <img src={WorkplanIcon} alt="Workplan Icon" /> },
-    { name: "Leave", path: "/company-leave-history", icon: <img src={LeaveIcon} alt="Leave Icon" /> },
+    { name: "Leave", path: "/leave/employee", icon: <img src={LeaveIcon} alt="Leave Icon" /> },
     { name: "Settings", path: "/contact", icon: <img src={SettingsIcon} alt="Settings Icon" /> },
   ];
 

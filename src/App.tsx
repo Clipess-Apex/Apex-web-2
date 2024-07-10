@@ -15,19 +15,18 @@ import InventoryDashboard from './pages/inventory/layoutPage/InventoryDashboardL
 import InventoryAssignLayout from './pages/inventory/layoutPage/InventoryAssignLayout'
 import EmployeeRequestLayout from './pages/inventory/layoutPage/EmployeeRequestLayout';
 import EmployeeInventoryDashboard from './pages/inventory/layoutPage/EmployeeInventoryDashboardLayout'
-import Login from './pages/LoginPage';
-import Layout from './components/leaveLayout/layout/Layout';
-import ManagerPage from './pages/LeaveDashboard/ManagerPage';
-import LeaveSettingDashboard from './pages/leavePages/LeaveSettings/LeaveSettingsDashboard';
+
+import LeaveManagerPage from './pages/leavePages/LeaveLayoutPages/ManagerLeaveDashboardLayout';
+import HandleLeaves from './pages/leavePages/LeaveLayoutPages/LeaveHandleLayout';
+import CompanyLeaveHistory from './pages/leavePages/LeaveLayoutPages/CompanyLeaveHistoryLayout';
+import LeaveSettingDashboard from './pages/leavePages/LeaveLayoutPages/LeaveSettingsLayout';
+import LeaveReportGenerate from './pages/leavePages/LeaveLayoutPages/LeaveReportGenerationLayout';
+import CreateLeaves from './pages/leavePages/LeaveLayoutPages/LeaveCreateLayout';
 import LeaveTypeForm from './components/leaveComponents/LeaveSettingComponents/LeaveTypeForm';
-import EmployeeLeaveHistory from './components/leaveComponents/EmployeeLeaveHistory/EmployeeLeaveHistory';
-//import EmployeePage from './pages/EmployeePage';
-import CompanyLeaveHistory from './components/leaveComponents/CompanyLeaveHistory/CompanyLeaveHistory';
-import HandleLeaves from './components/leaveComponents/HandleLeaveComponents/HandlePendingLeaves';
-import CreateLeaves from './components/leaveComponents/LeaveCreateComponents/LeaveCreateForm';
-import RemainingLeaves from './pages/leavePages/RemainingLeaves/RemainingLeaves';
-import LeaveReportGenerate from './pages/leavePages/LeaveReports/LeaveReportsGeneration';
-//import PendingLeaves from './components/leaveComponents/LeaveCreateComponents/PendingLeaves';
+import EmployeeLeaveHistory from './pages/leavePages/LeaveLayoutPages/EmployeeLeaveHistoryLayout';
+import RemainingLeaves from './pages/leavePages/LeaveLayoutPages/RemainingLeaveLayout';
+import PendingLeaves from './pages/leavePages/LeaveLayoutPages/PendingLeaveLayout';
+import LeaveEmployeePage from './pages/leavePages/LeaveLayoutPages/EmployeeLeaveDashboard'
 import './App.css';
 
 import EmployeeAttendanceEntryPage from './pages/timeEntry/EmployeeAttendanceEntryPage';
@@ -79,19 +78,23 @@ const AppRoutes = () => {
     { path: "/timeEntry/employee", element: <EmployeeDashBoardPage/> }, 
     { path: "/timeEntry/manager", element: <ManagerDashBoardPage/> },
 
-    { path: "/manager" ,element: <ManagerPage /> },
-    { path: "/leave-settings" ,element: <LeaveSettingDashboard />},
+    { path: "/leave/manager" ,element: <LeaveManagerPage /> },
+    { path: '/leave/manager/manage-leave', element: <HandleLeaves/> },
+    { path: '/leave/manager/company-leave-history', element: <CompanyLeaveHistory/> },
+    { path: "/leave/manager/leave-settings" ,element: <LeaveSettingDashboard />},
+    { path: '/leave/manager/report-generation', element: <LeaveReportGenerate/> },
+    { path: '/leave/manager/leave-request', element: <CreateLeaves/> },
     { path: "/create-leave-type", element: <LeaveTypeForm /> },
     { path: "/edit-leave-type/:id", element: <LeaveTypeForm /> },
-    { path: "/leave-history", element: <EmployeeLeaveHistory employeeId={employeeId}/> },
-    { path: '/company-leave-history', element: <CompanyLeaveHistory/>},
-    { path:'/company-leave-history', element: <CompanyLeaveHistory/> },
-    { path: '/manage-leave', element: <HandleLeaves/> },
-    { path: '/leave-request', element: <CreateLeaves/> },
-    { path: '/remaining-leaves', element: <RemainingLeaves employeeId={employeeId}/> },
-    { path: '/report-generation', element: <LeaveReportGenerate/> },
-    { path: '/report-generation', element: <LeaveReportGenerate/> },
-
+    { path: "/leave/manager/leave-history", element: <EmployeeLeaveHistory/> },
+    { path: '/leave/manager/remaining-leaves', element: <RemainingLeaves/> },
+    { path: '/leave/employee' , element:<LeaveEmployeePage/> },
+    { path: '/leave/employee/leave-request' , element:<CreateLeaves/> },
+    { path: '/leave/employee/leave-history' , element:<EmployeeLeaveHistory/> },
+    { path: '/leave/employee/remaining-leaves' , element:<RemainingLeaves/> },
+    { path: '/leave/pending-leaves' , element:<PendingLeaves/> },
+    { path: '/leave/employee/pending-leaves' , element:<PendingLeaves/> },
+    
     { path: "/inventory/manager", element: <InventoryDashboard/> },
     { path: "/inventory/employee", element: <EmployeeInventoryDashboard/> },
     {path:"/inventory/employee/employeeinventory",element:<EmployeePageLayout/>},

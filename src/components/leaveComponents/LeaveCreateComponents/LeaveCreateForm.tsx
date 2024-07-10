@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { submitLeaveRequest, getLeaveById, updateLeave, fetchCurrentLeaveCount } from '../../../services/LeaveServices';
 import { fetchLeaveTypes } from '../../../services/LeaveTypeServices';
@@ -9,11 +8,15 @@ import { LeaveType } from '../../../models/LeaveTypes';
 import { LeaveDetails, LeaveResponse } from '../../../models/LeaveDetailes';
 import LeaveChart from './LeaveCreateChart';
 import { createNotification } from '../../../services/LeaveNotificationServices';
+import { useAuth } from '../../../providers/AuthContextProvider';
+import { format } from 'date-fns';
 
 const LeaveForm: React.FC = () => {
+    const { employeeId } = useAuth();
+    console.log(employeeId);
     const [leaveTypes, setLeaveTypes] = useState<LeaveType[]>([]);
     const [selectedLeaveTypeId, setSelectedLeaveTypeId] = useState<string>('');
-    const [leaveDate, setLeaveDate] = useState<string>('');
+    const [leaveDate, setLeaveDate] = useState<string>(new Date().toISOString().split('T')[0]);
     const [reason, setReason] = useState<string>('');
     const [message, setMessage] = useState<string>('');
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -21,7 +24,6 @@ const LeaveForm: React.FC = () => {
     const [remainingLeaves, setRemainingLeaves] = useState<number | null>(null);
     const navigate = useNavigate();
     const location = useLocation();
-    const employeeId = 4; 
     const [formPosition, setFormPosition] = useState<'centered' | 'left'>('centered');
 
     useEffect(() => {
@@ -55,17 +57,18 @@ const LeaveForm: React.FC = () => {
         setSelectedLeaveTypeId(selectedTypeId);
         setFormPosition('left');
 
-        if (selectedTypeId) {
+        if (selectedTypeId && employeeId !== null) {
             const selectedLeaveType = leaveTypes.find(
                 (type) => type.leaveTypeId === parseInt(selectedTypeId, 10)
             );
             if (selectedLeaveType) {
-                const currentLeaveCount = await fetchCurrentLeaveCount(employeeId, selectedLeaveType?.leaveTypeId ?? 0);
+                const leaveDateObj = new Date(leaveDate);
+                const currentLeaveCount = await fetchCurrentLeaveCount(employeeId, selectedLeaveType.leaveTypeId, leaveDateObj);
                 const remainingBalance = (selectedLeaveType.maxLeaveCount ?? 0) - currentLeaveCount;
                 setRemainingLeaves(remainingBalance);
 
                 if (remainingBalance <= 0) {
-                    setMessage("Sorry, you don't have enough remaining leaves.");
+                    setMessage("Sorry, you don't have enough remaining leaves for the current month.");
                 } else {
                     setMessage('');
                 }
@@ -76,26 +79,56 @@ const LeaveForm: React.FC = () => {
         }
     };
 
+    const handleLeaveDateChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const selectedDate = event.target.value;
+        setLeaveDate(selectedDate);
+        setFormPosition('left');
+
+        if (selectedLeaveTypeId && employeeId !== null) {
+            const selectedLeaveType = leaveTypes.find(
+                (type) => type.leaveTypeId === parseInt(selectedLeaveTypeId, 10)
+            );
+            if (selectedLeaveType) {
+                const leaveDateObj = new Date(selectedDate);
+                const currentLeaveCount = await fetchCurrentLeaveCount(employeeId, selectedLeaveType.leaveTypeId, leaveDateObj);
+                const remainingBalance = (selectedLeaveType.maxLeaveCount ?? 0) - currentLeaveCount;
+                setRemainingLeaves(remainingBalance);
+
+                if (remainingBalance <= 0) {
+                    setMessage("You don't have enough remaining leaves for the selected date.");
+                } else {
+                    setMessage('');
+                }
+            }
+        }
+    };
+
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
-
-        if (!selectedLeaveTypeId || !leaveDate || !reason) {
+    
+        if (!selectedLeaveTypeId || !leaveDate || !reason || employeeId === null) {
             return;
         }
-
+    
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (leaveDate < currentDate) {
+            setMessage('You cannot request leave for a past date.');
+            return;
+        }
+    
         if (remainingLeaves !== null && remainingLeaves <= 0) {
             setMessage('You cannot request leave for this type because you have no remaining leave balance.');
             return;
         }
-
+    
         const selectedLeaveType = leaveTypes.find(
             (type) => type.leaveTypeId === parseInt(selectedLeaveTypeId, 10)
         );
-
+    
         if (!selectedLeaveType) {
             return;
         }
-
+    
         const leaveDetails: LeaveDetails = {
             LeaveId: isEditMode ? (leaveId ?? undefined) : undefined,
             EmployeeId: employeeId,
@@ -109,7 +142,7 @@ const LeaveForm: React.FC = () => {
             Reason: reason,
             StatusId: 1
         };
-
+    
         let result: LeaveResponse | undefined;
         if (isEditMode) {
             const updateResult = await updateLeave(leaveId!, leaveDetails);
@@ -118,34 +151,32 @@ const LeaveForm: React.FC = () => {
             const submitResult = await submitLeaveRequest(leaveDetails);
             result = submitResult ?? undefined;
             if (result) {
-                const currentDateTime = new Date().toISOString();
+                const currentDateTime = format(new Date(), 'yyyy-MM-dd \'at\' HH:mm');
                 const notificationData = {
-                    EmployeeId: employeeId!,
+                    EmployeeId: employeeId,
                     LeaveId: result.leaveId,
                     Message: `New leave request from Employee ${employeeId} for ${selectedLeaveType.leaveTypeName} on ${leaveDate}. Requested on ${currentDateTime}`,
-                    ManagerId: 1,
-                    CreatedAt: currentDateTime
                 };
                 await createNotification(notificationData);
             }
         }
-
+    
         if (result) {
             setMessage(isEditMode ? 'Leave updated successfully.' : 'Leave request submitted.');
             setTimeout(() => {
-                navigate('/pending-leaves');
+                navigate('/leave/pending-leaves');
             }, 500);
         } else {
             console.error('Failed to submit leave request.');
         }
-    };
+    };    
 
     return (
         <div>
             <div className={`leave-form-chart-container ${formPosition}`}>
                 <div className="leave-form-section">
                     <div className='leave-Request-Header'>
-                    <h1>{isEditMode ? 'Edit Leave Request' : 'Request for Leaves'}</h1>
+                        <h1>{isEditMode ? 'Edit Leave Request' : 'Request for Leaves'}</h1>
                     </div>
                     <form className="leave-form" onSubmit={handleSubmit}>
                         <label>
@@ -168,7 +199,8 @@ const LeaveForm: React.FC = () => {
                             <input
                                 type="date"
                                 value={leaveDate}
-                                onChange={(e) => setLeaveDate(e.target.value)}
+                                onChange={handleLeaveDateChange}
+                                min={new Date().toISOString().split('T')[0]} // Set minimum date to today
                                 required
                             />
                         </label>
@@ -185,7 +217,7 @@ const LeaveForm: React.FC = () => {
                     {message && <p className='leave-form-error-message'>{message}</p>}
                 </div>
                 {selectedLeaveTypeId && (
-                    <LeaveChart selectedLeaveTypeId={parseInt(selectedLeaveTypeId)} employeeId={employeeId} />
+                    <LeaveChart selectedLeaveTypeId={parseInt(selectedLeaveTypeId)} employeeId={employeeId!} leaveDate={leaveDate} />
                 )}
             </div>
             <div className='pending-leave-section'>

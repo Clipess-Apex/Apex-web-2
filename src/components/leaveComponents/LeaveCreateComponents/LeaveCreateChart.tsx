@@ -3,7 +3,6 @@ import { fetchLeaveTypes } from '../../../services/LeaveTypeServices';
 import { fetchCurrentLeaveCount } from '../../../services/LeaveServices';
 import LeaveChartComponents from '../Charts/LeaveChartComponent';
 import '../../../pages/leavePages/RemainingLeaves/RemainingLeaves.css';
-import { useAuth } from '../../../providers/AuthContextProvider';
 import { LeaveType } from '../../../models/LeaveTypes';
 
 interface LeaveData {
@@ -18,18 +17,24 @@ interface LeaveData {
 interface Props {
     selectedLeaveTypeId?: number | null;
     employeeId: number;
+    leaveDate: string; // Date string from LeaveForm
 }
 
-const LeaveChart: React.FC<Props> = ({ selectedLeaveTypeId, employeeId }) => {
+const LeaveChart: React.FC<Props> = ({ selectedLeaveTypeId, employeeId, leaveDate }) => {
     const [leaveData, setLeaveData] = useState<LeaveData[]>([]);
-    // const { employeeId } = useAuth();
 
     useEffect(() => {
         const getData = async () => {
             try {
-                const leaveTypes: LeaveType[] = await fetchLeaveTypes(); 
+                const leaveTypes: LeaveType[] = await fetchLeaveTypes();
+                
+                // Convert leaveDate to Date object
+                const selectedDate = new Date(leaveDate);
+                
                 const leaveCounts = await Promise.all(
-                    leaveTypes.map((type) => fetchCurrentLeaveCount(employeeId, type.leaveTypeId))
+                    leaveTypes.map((type) => 
+                        fetchCurrentLeaveCount(employeeId, type.leaveTypeId, selectedDate)
+                    )
                 );
 
                 const data = leaveTypes.map((type, index) => {
@@ -52,10 +57,10 @@ const LeaveChart: React.FC<Props> = ({ selectedLeaveTypeId, employeeId }) => {
             }
         };
 
-        if (employeeId) {
+        if (employeeId && leaveDate) {
             getData();
         }
-    }, [employeeId, selectedLeaveTypeId]);
+    }, [employeeId, selectedLeaveTypeId, leaveDate]);
 
     const filteredLeaveData = selectedLeaveTypeId
         ? leaveData.filter((data) => data.leaveTypeId === selectedLeaveTypeId)

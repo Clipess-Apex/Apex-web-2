@@ -160,9 +160,36 @@ export const deleteLeave = async (leaveId: number): Promise<boolean> => {
 
 
 
-export const fetchCurrentLeaveCount = async (employeeId: number, leaveTypeId: number): Promise<number> => {
+// export const fetchCurrentLeaveCount = async (employeeId: number, leaveTypeId: number): Promise<number> => {
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/leaveCounts?employeeId=${employeeId}&leaveTypeId=${leaveTypeId}`);
+//         if (response.ok) {
+//             const data = await response.json();
+//             console.log(`API response data for leaveTypeId ${leaveTypeId}:`, data); // Log the entire API response data
+
+//             const count = data;
+//             console.log(`Fetched leave count for leaveTypeId ${leaveTypeId}:`, count);
+
+//             return count;
+//         } else {
+//             console.error(`Failed to fetch current leave count. Status: ${response.status}, Status Text: ${response.statusText}`);
+//             return 0;  // Fallback to a default value
+//         }
+//     } catch (error) {
+//         console.error('Error fetching current leave count:', error);
+//         return 0;  // Fallback to a default value
+//     }
+// };
+
+export const fetchCurrentLeaveCount = async (employeeId: number, leaveTypeId: number, leaveDate: Date): Promise<number> => {
     try {
-        const response = await fetch(`${API_BASE_URL}/leaveCounts?employeeId=${employeeId}&leaveTypeId=${leaveTypeId}`);
+        // Convert leaveDate to an ISO string to be used in the query parameters
+        const leaveDateString = leaveDate.toISOString();
+
+        const response = await fetch(
+            `${API_BASE_URL}/leaveCounts?employeeId=${employeeId}&leaveTypeId=${leaveTypeId}&leaveDate=${leaveDateString}`
+        );
+
         if (response.ok) {
             const data = await response.json();
             console.log(`API response data for leaveTypeId ${leaveTypeId}:`, data); // Log the entire API response data
