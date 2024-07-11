@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 import '../../../styles/timeEntry/EmployeeRecords/EmployeePdfViewer.css'
 import BackButton from '../common/BackButton';
 import { Viewer } from '@react-pdf-viewer/core';
@@ -15,6 +15,9 @@ import { pageNavigationPlugin } from '@react-pdf-viewer/page-navigation';
 import '@react-pdf-viewer/page-navigation/lib/styles/index.css';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
+import { jwtDecode } from 'jwt-decode';
+import { useAuth } from '../../../providers/AuthContextProvider';
+
 interface MonthlyTimeEntry {
   monthlyTimeEntryId: number;
   employeeId: number;
@@ -27,9 +30,39 @@ interface EmployeePdfViewerProps {
   monthProp: string | undefined;
 }
 
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
+
+interface DecodedToken {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+}
+
 const EmployeePdfViewer: React.FC<EmployeePdfViewerProps> = ({ monthProp }) => {
 
-  const [employeeId, setEmployeeId] = useState<number>(5);
+  const { token } = useAuth();
+  const { logout } = useAuth();
+
+let decodedToken: DecodedToken | null = null;
+
+if (token) {
+  decodedToken = jwtDecode<DecodedToken>(token);
+  console.log("Decoded token inside sideBar:", decodedToken);
+}
+
+const userRole = decodedToken
+? decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+: null;
+
+const normalizedUserRole = userRole?.toLowerCase();
+
+  const Employee = useRef<StoredUser | null>(null); // Ref for storing user data
+
+  const [employeeId, setEmployeeId] = useState<number>();
   const [month, setMonth] = useState<string | undefined>();
   const [monthlyTimeEntry, setMonthlyTimeEntry] = useState<MonthlyTimeEntry | undefined>(undefined);
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
@@ -37,6 +70,15 @@ const EmployeePdfViewer: React.FC<EmployeePdfViewerProps> = ({ monthProp }) => {
   const getFilePluginInstance = getFilePlugin();
   const themePluginInstance = themePlugin();
   const pageNavigationPluginInstance = pageNavigationPlugin();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      Employee.current = parsedUser
+      setEmployeeId(Employee.current.EmployeeID)
+    }
+  },[])
 
   useEffect(() => {
     setMonth(monthProp);
@@ -91,7 +133,7 @@ const EmployeePdfViewer: React.FC<EmployeePdfViewerProps> = ({ monthProp }) => {
       </div>
 
       <div className="PdfViewer-backButtonContainer">
-        <BackButton path={"/timeEntry/manager"} />
+        <BackButton path={normalizedUserRole === 'manager' ? "/timeEntry/manager" : "/timeEntry/employee"} />
       </div>
     </>
   )

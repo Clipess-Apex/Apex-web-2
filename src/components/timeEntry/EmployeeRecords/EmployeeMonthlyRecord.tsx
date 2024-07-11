@@ -5,6 +5,9 @@ import '../../../styles/timeEntry/EmployeeRecords/EmployeeDropdownContainer.css'
 import '../../../styles/timeEntry/EmployeeRecords/EmployeeMonthlyRecord.css'
 import BackButton from '../common/BackButton';
 
+import { jwtDecode } from 'jwt-decode';
+import { useAuth } from '../../../providers/AuthContextProvider';
+
 
 interface MonthlyTimeEntry {
   employeeId: string;
@@ -19,11 +22,43 @@ interface EmployeeMonthlyRecordpROPS {
   yearProp: string | undefined;
 }
 
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
+
+interface DecodedToken {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+}
+
 const EmployeeMonthlyRecord: React.FC<EmployeeMonthlyRecordpROPS> = ({ yearProp }) => {
+
+  const { token } = useAuth();
+  const { logout } = useAuth();
+
+let decodedToken: DecodedToken | null = null;
+
+if (token) {
+  decodedToken = jwtDecode<DecodedToken>(token);
+  console.log("Decoded token inside sideBar:", decodedToken);
+}
+
+
+const userRole = decodedToken
+? decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+: null;
+
+const normalizedUserRole = userRole?.toLowerCase();
+
+  const Employee = useRef<StoredUser | null>(null); // Ref for storing user data
+
 
   const [monthlyData, setMonthlyData] = useState<MonthlyTimeEntry[]>([]);
   const [year, setYear] = useState<string | undefined>(yearProp);
-  const [employeeId, setEmployeeId] = useState<number>(5)
+  const [employeeId, setEmployeeId] = useState<number>()
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageItems, setPageItems] = useState<number>(5);
   const [totalCount, setTotalCount] = useState<number | undefined>();
@@ -33,6 +68,15 @@ const EmployeeMonthlyRecord: React.FC<EmployeeMonthlyRecordpROPS> = ({ yearProp 
   const [isAscending, setIsAscending] = useState<boolean>(false);
   const [sortingValue, setSortingValue] = useState<number>(1);
   const currentPageRef = useRef<number>(currentPage);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      Employee.current = parsedUser
+      setEmployeeId(Employee.current.EmployeeID)
+    }
+  },[])
 
   useEffect(() => {
     currentPageRef.current = currentPage;
@@ -197,7 +241,7 @@ const EmployeeMonthlyRecord: React.FC<EmployeeMonthlyRecordpROPS> = ({ yearProp 
       </div>
 
       <div className="Employee-Paginate-container">
-        <BackButton path={"/timeEntry/manager"} />
+        <BackButton path={normalizedUserRole === 'manager' ? "/timeEntry/manager" : "/timeEntry/employee"} />
         <ReactPaginate
           breakLabel=". . ."
           nextLabel="Next >"

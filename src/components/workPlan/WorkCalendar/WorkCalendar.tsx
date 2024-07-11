@@ -4,13 +4,34 @@ import { ProjectTask } from "../../../models/workPlan/ProjectTask";
 import { getTasks } from "../../../services/workPlan/TaskServices";
 import "react-calendar/dist/Calendar.css";
 import "../../../styles/workPlan/WorkCalendar.css";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../../../providers/AuthContextProvider";
+
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
 
 const WorkCalendar = () => {
   const [dateInfo, setDateInfo] = useState<{ [key: string]: string }>({});
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   let EmployeeData: ProjectTask[] = [];
   let items: ProjectTask[] = [];
-  let employeeId: number = 1;
+  const [employeeId, setEmployeeId] = useState<number | undefined>(); // ID, Should use from Token
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+  
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      setEmployeeId(parsedUser.EmployeeID)
+      console.log("Employee id in daily time netry is",employeeId);
+      console.log("Header Parsed user is",parsedUser.EmployeeID)
+    }
+  },[])
 
   const formatDate = (datetime: Date): string => {
     if (datetime) {
