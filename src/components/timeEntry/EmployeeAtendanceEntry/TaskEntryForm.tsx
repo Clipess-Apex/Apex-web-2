@@ -17,12 +17,12 @@ interface TaskEntryFormProps {
   onCancel: () => void;
   getTimeEntries: () => void;
   TaskFormtypeId: number | undefined;
-  employeeId: number;
+  employeeId: number | undefined ;
   currentTaskData?: TaskData | undefined;
 }
 
 interface EmployeeData {
-  employeeID: number;
+  employeeID: number | undefined;
   timeEntryTypeId: number | undefined;
   duration: string;
   description: string;
