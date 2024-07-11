@@ -28,7 +28,7 @@ function InventoryTypeManager() {
   const navigate = useNavigate();
 
   const NavigateToInventoryTypePage = () => {
-    navigate('/inventory');
+    navigate('/inventory/manager');
   };
 
 
@@ -121,7 +121,7 @@ function InventoryTypeManager() {
           </div>
 
           <div className='navigateButton-inventoryType'>
-            <button onClick={NavigateToInventoryTypePage}><i className="fa-solid fa-arrow-left" style={{ color: "white" }}></i>  To Inventory</button>
+            <button onClick={NavigateToInventoryTypePage}>Back To Dashboard</button>
           </div>
         </div>
         {showPopup && <CardComponent handleClose={togglePopup} />}

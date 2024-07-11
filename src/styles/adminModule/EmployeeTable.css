@@ -20,14 +20,14 @@
 }
 
 .employee-table td, .employee-table th{
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
   text-align: left;
   padding: 8px;
 }
 
 .employee-table th{
-  color: #252c58;
-  background-color: #ddd;
+  color: white;
+  background-color: #00a7a7;
 }
 
 .employee-table tr:hover {
@@ -38,6 +38,9 @@
   color: #5d6679;
 }
 
+.employee-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
 .employee-table-search-container {
   border: none;

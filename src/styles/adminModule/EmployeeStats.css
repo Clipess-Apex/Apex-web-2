@@ -5,8 +5,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-top: 20px;
   width: 500px;
-  height: 150px;
+  height: 175px;
 }
+
 .admin-dashboard-employee-stats__title {
   display: flex;
 }
@@ -30,6 +31,7 @@
 .admin-dashboard-stats {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .admin-dashboard-stat-item {
@@ -39,7 +41,7 @@
 }
 
 .admin-dashboard-stat-item span:first-child {
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 10px;
   font-size: 20px;
   color: #252c58;

@@ -1,6 +1,6 @@
 import React, { useState, ReactNode, useContext, FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; 
+import { jwtDecode } from "jwt-decode"; // Correct import statement
 
 interface DecodedToken {
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
@@ -58,7 +58,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const login = (newToken: string) => {
-    setToken(newToken); 
+    setToken(newToken); // Set state first to avoid null assignment
     if (newToken) {
       localStorage.setItem("token", newToken);
       decodeAndSetUser(newToken);
@@ -89,7 +89,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({ children }) =
     const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
-      const parsedUser: StoredUser = JSON.parse(storedUser); 
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
       updateUser(parsedUser);
       console.log("Parsed user is",parsedUser.EmployeeID)
       console.log("pASED USER IS", user)

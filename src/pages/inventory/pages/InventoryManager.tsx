@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import InventoryCard from '../../../components/inventory/InventoryDetails';
 import '../../../styles/inventory/InventoryManager.css';
 import CardComponent from '../../../components/inventory/PopupCard';
@@ -7,6 +7,8 @@ import InventoryTypeSelect from '../../../components/inventory/InventoryTypeFilt
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../../../components/inventory/PaginationInventory';
 import LottieAnimation from '../../../components/inventory/LotieAnimation';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 interface Employee {
     employeeID: number;
@@ -33,6 +35,7 @@ interface Inventory {
     imageUrl: string;
     assignedDate: string;
 }
+
 function InventoryManager() {
     const [employees, setEmployees] = useState<Employee[]>([]);
     const [inventoryTypes, setInventoryTypes] = useState<InventoryType[]>([]);
@@ -44,11 +47,12 @@ function InventoryManager() {
     const itemsPerPage: number = 5;
     const [activePage, setActivePage] = useState<number>(1);
     const [searchTerm, setSearchTerm] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
     const NavigateToInventoryTypePage = () => {
-        navigate('/inventorytype');
+        navigate('/inventory/manager');
     };
 
     const handleClick = (pageNumber: number) => {
@@ -57,17 +61,14 @@ function InventoryManager() {
     };
 
     useEffect(() => {
-
-        fetchInventories();
-    }, [selectedEmployeeId, selectedInventoryTypeId, currentPage]);
-
-
-
-    useEffect(() => {
         fetchEmployees();
         fetchInventoryTypes();
     }, []);
 
+    useEffect(() => {
+       
+        fetchInventories();
+    }, [selectedEmployeeId, selectedInventoryTypeId, currentPage]);
 
     const fetchEmployees = async () => {
         try {
@@ -96,7 +97,9 @@ function InventoryManager() {
     };
 
     const fetchInventories = async () => {
+        setLoading(true);
         try {
+            
             let url = 'https://localhost:7166/api/inventory/filter';
             if (!selectedInventoryTypeId && !selectedEmployeeId) {
                 url = 'https://localhost:7166/api/inventory/filter/employee';
@@ -117,6 +120,8 @@ function InventoryManager() {
             setInventories(data);
         } catch (error) {
             console.error('Error fetching inventories:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -149,103 +154,89 @@ function InventoryManager() {
         setSearchTerm(e.target.value);
         setCurrentPage(1); // Reset to first page on search
     };
-
+    const handleAddInventory = () => {
+        fetchInventories(); // Refetch inventories after adding a new one
+    };
 
     return (
-        <>
-
-          
-
-            <div className="InventoryManagerPage">
-
-                
-
-                <div className="filtering-section">
+        <div className="InventoryManagerPage">
+            <div className="filtering-section">
                 <div className="heading">
-                    <h2 >Inventory Manager</h2>
+                    <h2>Inventory Manager</h2>
                 </div>
-
-                    <div style={{marginTop:"40px"}}>
-                        <EmployeeSelect
-                            employees={employees}
-                            selectedEmployeeId={selectedEmployeeId}
-                            handleEmployeeChange={handleEmployeeChange}
-                            AllOrNone="All"
-                        />
-                    </div>
-
-                    <div style={{marginTop:"40px"}}>
-                        <InventoryTypeSelect
-                            inventoryTypes={inventoryTypes}
-                            selectedInventoryTypeId={selectedInventoryTypeId}
-                            handleInventoryTypeChange={handleInventoryTypeChange}
-                            AllOrNone="All"
-                        />
-                    </div>
-                    <div style={{marginTop:"40px"}}>
-                        <input
-                            type="text"
-                            className='search-bar-InventoryPage'
-                            placeholder="Search by inventory name"
-                            value={searchTerm}
-                            onChange={handleSearchChange}
-                            style={{ width: "280px", height: "60px", borderRadius: "5px", border: "2px solid #00A7A7", fontSize: "20px" }}
-                        />
-
-                    </div>
-
-
+                <div style={{ marginTop: "40px" }}>
+                    <EmployeeSelect
+                        employees={employees}
+                        selectedEmployeeId={selectedEmployeeId}
+                        handleEmployeeChange={handleEmployeeChange}
+                        AllOrNone="All"
+                    />
                 </div>
-
-                <div className="button-container">
-                    <div className='NumberOfInventories-InventoryPage'>
-                        <h3 >{filteredInventories.length} items</h3>
-                    </div>
-
-                    <div>
-                        <button type="button" className ='add-button-inventorypage' onClick={togglePopup} ><i className="fa-solid fa-plus"></i> Add</button>
-                    </div>
+                <div style={{ marginTop: "40px" }}>
+                    <InventoryTypeSelect
+                        inventoryTypes={inventoryTypes}
+                        selectedInventoryTypeId={selectedInventoryTypeId}
+                        handleInventoryTypeChange={handleInventoryTypeChange}
+                        AllOrNone="All"
+                    />
                 </div>
-                <div className='InventoryManager-inventory-list'>
-                    {filteredInventories.length > 0 ? (
-                         <div className="inventoryCardContainer">
-                         <InventoryCard inventories={displayedInventories}/>
-                         </div>
+                <div style={{ marginTop: "40px" }}>
+                    <input
+                        type="text"
+                        className='search-bar-InventoryPage'
+                        placeholder="Search by inventory name"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        style={{ width: "280px", height: "60px", borderRadius: "5px", border: "2px solid #00A7A7", fontSize: "20px" }}
+                    />
+                </div>
+            </div>
+            <div className="button-container">
+                <div className='NumberOfInventories-InventoryPage'>
+                    <h3>{filteredInventories.length} items</h3>
+                </div>
+                <div>
+                    <button type="button" className='add-button-inventorypage' onClick={togglePopup}><i className="fa-solid fa-plus"></i> Add</button>
+                </div>
+            </div>
+            <div className='InventoryManager-inventory-list'>
+            {loading ? (
+                        <div className="skeleton-container">
+                            {Array.from({ length: itemsPerPage }).map((_, index) => (
+                                <div key={index} className="skeleton-item">
+                                    <Skeleton height={200} />
+                                </div>
+                            ))}
+                        </div>
                     ) : (
-                        <div className='no-requests-message'>
+                    filteredInventories.length > 0 ? (
+                        <div className="inventoryCardContainer">
+                            <InventoryCard inventories={displayedInventories}  />
+                        </div>
+                    ) : (
+                        <div className='no-inventory-message-InventoryManagerPage'>
                             <h2>No inventories</h2>
                             <div>
                                 <LottieAnimation height="100px" width="100px" />
                             </div>
                         </div>
-                    )}
-                </div>
-
-
-
-               
-
-
-                <div className='pagination-container'>
-                    <div className='pagination-buton-inventoryPage'>
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={Math.ceil(filteredInventories.length / itemsPerPage)}
-                            onPageChange={handleClick}
-                        />
-                    </div>
-
-                    <div className='navigation-button'>
-                        <button onClick={NavigateToInventoryTypePage}>Inventory Types<i className="fa-solid fa-arrow-right" style={{ color: "white" }}></i></button>
-                    </div>
-                </div>
-
-
-           {showPopup && <CardComponent handleClose={togglePopup}/>} 
-
+                    )
+                )}
             </div>
-
-        </>
+            <div className='pagination-container'>
+                <div className='pagination-buton-inventoryPage'>
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={Math.ceil(filteredInventories.length / itemsPerPage)}
+                        onPageChange={handleClick}
+                    />
+                </div>
+                <div className='navigation-button'>
+                    <button onClick={NavigateToInventoryTypePage}>Back To Dashboard</button>
+                </div>
+            </div>
+            {showPopup && <CardComponent handleClose={togglePopup} onAdd={handleAddInventory}/>}
+        </div>
     );
 }
 

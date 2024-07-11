@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import '../../../styles/shared/PasswordReset.css'
+import '../../../styles/shared/PasswordReset.css';
+import { toast } from "react-toastify";
 
 const PasswordReset: React.FC = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -67,7 +68,7 @@ const PasswordReset: React.FC = () => {
         );
 
         if (response.ok) {
-          setSuccess("Your password has been reset successfully.");
+          toast.success("Your password has been reset successfully.");
         } else {
           const responseData = await response.json();
           if (responseData.errors && responseData.errors.ConfirmPassword) {
@@ -85,7 +86,7 @@ const PasswordReset: React.FC = () => {
   return (
     <div className="password-reset-container">
       <h2>Change Your Password</h2>
-      <p>Enter a new password below to change your password.</p>
+      <p className="password-reset-container-p">Enter a new password below to change your password.</p>
       <form onSubmit={handleResetPassword}>
         <div className="password-reset-input-group">
           <input

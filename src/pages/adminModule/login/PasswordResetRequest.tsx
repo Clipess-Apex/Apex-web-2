@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import '../../../styles/shared/PasswordResetRequest.css'
+import { toast } from "react-toastify";
 
 const PasswordResetRequest: React.FC = () => {
   const [companyEmail, setCompanyEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
+    setSuccess("");
 
     try {
       const response = await fetch('https://localhost:7166/api/Auth/forgotPassword', {
@@ -19,7 +22,7 @@ const PasswordResetRequest: React.FC = () => {
       });
 
       if (response.ok) {
-        setMessage('Password reset request sent. Please check your email.');
+        toast.success('Password reset request sent. Please check your email.');
       } else {
         setMessage('Failed to send password reset request. Please try again.');
       }
@@ -33,7 +36,7 @@ const PasswordResetRequest: React.FC = () => {
       <h2>Password Reset Request</h2>
       <form onSubmit={handleSubmit}>
         <div className='password-reset-request-inner'>
-          <label>Email:</label>
+          <label className='password-reset-request-inner-label'>Email:</label>
           <input
             type="email"
             id="email"
@@ -44,7 +47,8 @@ const PasswordResetRequest: React.FC = () => {
         </div>
         <button className='password-request-button' type="submit">Request Password Reset</button>
       </form>
-      {message && <p>{message}</p>}
+      {success && <p className="password-reset-request-success-message">{success}</p>}
+      {message && <p className="password-reset-request-error-message">{message}</p>}
     </div>
   );
 };

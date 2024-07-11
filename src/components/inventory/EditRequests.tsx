@@ -19,7 +19,9 @@ interface Props {
     message: string;
     reason: string;
     handleClose: () => void;
+    //onAdd: () => void;
 }
+
 
 const CardComponent: React.FC<Props> = ({
     inventoryType,
@@ -28,7 +30,8 @@ const CardComponent: React.FC<Props> = ({
     message,
     selectedEditId,
     reason,
-    handleClose
+    handleClose,
+    //onAdd
 }) => {
     const [values, setValues] = useState({
         InventoryType: inventoryType,
@@ -162,6 +165,7 @@ const CardComponent: React.FC<Props> = ({
 
             const res = await axios.put(`https://localhost:7166/api/Request/updateEmployeeRequest/${selectedEditId}`, otherData);
             console.log(res);
+            //onAdd();
             handleClose();
         } catch (err) {
             console.log(err);

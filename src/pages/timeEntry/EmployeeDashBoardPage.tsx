@@ -6,7 +6,7 @@ import { ReactComponent as AttendanceIcon } from '../../icons/timeEntry/Attendan
 import { ReactComponent as RecordIcon } from '../../icons/timeEntry/RecordIcon.svg'
 import { Link, useNavigate } from "react-router-dom";
 import Card from '../../components/timeEntry/Dashboard/Card'
-import Header from '../../components/shared/Header'
+import Header from '../../components/shared/AdminHeader'
 import SideBar from '../../components/shared/SideBar'
 
 

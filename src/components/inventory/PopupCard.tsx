@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import '../../styles/inventory/Popup.css'; 
+import '../../styles/inventory/Popup.css';
 import axios from 'axios';
 import EmployeeSelect from './EmployeeFilter';
 import InventoryTypeSelect from './InventoryTypeFilter';
@@ -31,7 +31,17 @@ interface Employee {
     lastName: string;
 }
 
-const CardComponent: React.FC<{ handleClose: () => void }> = ({ handleClose }) => {
+interface Notification {
+    employeeId: number;
+    notification: string;
+}
+
+interface CardComponentProps {
+    handleClose: () => void;
+    onAdd: () => void;  // new prop to refetch inventories
+}
+
+const CardComponent: React.FC<CardComponentProps> = ({ handleClose, onAdd }) => {
     const [values, setValues] = useState<Inventory2>({
         InventoryTypeId: 0,
         InventoryName: '',
@@ -40,7 +50,7 @@ const CardComponent: React.FC<{ handleClose: () => void }> = ({ handleClose }) =
         Deleted: false,
         file: null,
         image: null,
-        DeletedBy: 2 // to store the selected image file
+        DeletedBy: 2
     });
 
     const [inventoryTypes, setInventoryTypes] = useState<InventoryType[]>([]);
@@ -146,7 +156,13 @@ const CardComponent: React.FC<{ handleClose: () => void }> = ({ handleClose }) =
 
             console.log(res);
             handleClose();
-            toast.success('Inventory updated successfully');
+            toast.success('Inventory created successfully');
+            if (selectedEmployeeId !== 0) {
+                handleNotification();
+            }
+
+            // Call the onAdd prop to refetch inventories
+            onAdd();
 
             // Reset form values
             setValues({
@@ -159,9 +175,26 @@ const CardComponent: React.FC<{ handleClose: () => void }> = ({ handleClose }) =
                 image: null,
                 DeletedBy: 2
             });
+
         } catch (err) {
             console.log(err);
             toast.error('Error updating inventory');
+        }
+    };
+
+    const handleNotification = async () => {
+        try {
+            const setNotification = {
+                employeeId: selectedEmployeeId,
+                notification: `${values.InventoryName} has been assigned to you`,
+            };
+
+            const res = await axios.post("https://localhost:7166/api/InventoryNotification/add", setNotification);
+            console.log("notification created successfully");
+
+        } catch (err) {
+            console.log(err);
+            toast.error('Failed to post notification');
         }
     };
 
@@ -182,12 +215,10 @@ const CardComponent: React.FC<{ handleClose: () => void }> = ({ handleClose }) =
         setFileError(error);
     };
 
-    // Setting the employee selected from dropdown menu
     const handleEmployeeChange = (selectedEmployeeId: number) => {
         setSelectedEmployeeId(selectedEmployeeId);
     };
 
-    // Setting the inventory type selected from dropdown menu
     const handleInventoryTypeChange = (selectedInventoryTypeId: number) => {
         setSelectedInventoryTypeId(selectedInventoryTypeId);
     };
@@ -205,109 +236,85 @@ const CardComponent: React.FC<{ handleClose: () => void }> = ({ handleClose }) =
     return (
         <div className="popup-inventorypost">
             <div className="popup-inner-inventorypost">
-              
                 <div className='InventorySelect-inventorypost'>
                     <InventoryTypeSelect
                         inventoryTypes={inventoryTypes}
                         selectedInventoryTypeId={selectedInventoryTypeId}
                         handleInventoryTypeChange={handleInventoryTypeChange}
-                       
                     />
                 </div>
 
-                <div className='employeeSelect-inventorypost' >
+                <div className='employeeSelect-inventorypost'>
                     <EmployeeSelect
                         employees={employees}
                         selectedEmployeeId={selectedEmployeeId}
                         handleEmployeeChange={handleEmployeeChange}
-                       
                     />
                 </div>
 
                 <form onSubmit={handleSubmit}>
-
                     <div className='Add-Inventory-heading'>
-                        <h3 >Add Inventory</h3>
+                        <h3>Add Inventory</h3>
                     </div>
 
+                    <div className='Inventoryname-inventorypost'>
+                        <InputField
+                            placeholder="Enter Inventory Name"
+                            value={values.InventoryName}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setValues({ ...values, InventoryName: e.target.value })}
+                        />
+                    </div>
 
+                    <div className='InventoryNameError-inventorypost'>
+                        {InventoryNameValidationError}
+                    </div>
 
-                            <div className ='Inventoryname-inventorypost'>
-                                <InputField
-                                    placeholder ="Enter Inventory Name"
-                                    value={values.InventoryName}
-                                    onChange={(e: ChangeEvent<HTMLInputElement>)=> setValues({ ...values, InventoryName: e.target.value })}
-                                />
-                            </div>
-                            <div className ='InventoryNameError-inventorypost'>
-                               {InventoryNameValidationError}
-                            </div>
-                   
-
-
-                   
-                        <div className = 'InventoryType-fill-inventorypost'>
-                            <DisplayValue
-                                placeholder = "Selected Type"
-                                value={getInventoryTypeName(selectedInventoryTypeId)}
-                            />
-                        </div>
-                        <div className='InventoryTypeError-inventorypost'>
-                            {InventoryTypeValidationError}
-                        </div>
-                    
+                    <div className='InventoryType-fill-inventorypost'>
+                        <DisplayValue
+                            placeholder="Selected Type"
+                            value={getInventoryTypeName(selectedInventoryTypeId)}
+                        />
+                    </div>
+                    <div className='InventoryTypeError-inventorypost'>
+                        {InventoryTypeValidationError}
+                    </div>
 
                     <div className='Employee-fill-inventorypost'>
                         <DisplayValue
                             placeholder="Assigned To"
-                            
-                            
                             value={getEmployeeName(selectedEmployeeId)}
                         />
                     </div>
 
-
-                    
                     <div className='FileInput-inventorypost'>
                         <div className='file-input-button-inventorypost'>
-                            <label htmlFor="fileInput" className="custom-file-upload" style={{paddingBottom:"15px",position:"relative",left:"20px"}}>
+                            <label htmlFor="fileInput" className="custom-file-upload" style={{ paddingBottom: "15px", position: "relative", left: "20px" }}>
                                 Choose file
-                            </label> 
+                            </label>
                         </div>
-                      
 
-
-                      
                         <input
                             type="file"
                             id="fileInput"
                             onChange={handleFileChange}
-                            style={{ display: "none", border: "2px solid #00A7A7",height:"100px",width:"100px"}}
+                            style={{ display: "none", border: "2px solid #00A7A7", height: "100px", width: "100px" }}
                         />
-                      
-                       
+
                         <input
                             type='text'
                             readOnly
                             value={values.file ? values.file.name : "No Files selected"}
                             className="custom-file-upload2"
-                            style={{ border: "2px solid #00A7A7",borderRadius:"5px" }}
+                            style={{ border: "2px solid #00A7A7", borderRadius: "5px" }}
                         />
-                       
-                        
                     </div>
                     <div className='file-input-error'>
-                            {fileError && <div>{fileError}</div>}
+                        {fileError && <div>{fileError}</div>}
                     </div>
-                 
 
-
-
-
-                  
                     <div className='imageInput-inventorypost'>
                         <div className='image-input-button-inventorypost'>
-                            <label htmlFor="imageFile" className="custom-file-upload" style={{paddingRight:"20px",paddingBottom:"40px",position:"relative",left:"20px"}}>
+                            <label htmlFor="imageFile" className="custom-file-upload" style={{ paddingRight: "20px", paddingBottom: "40px", position: "relative", left: "20px" }}>
                                 Choose image
                             </label>
                         </div>
@@ -316,27 +323,19 @@ const CardComponent: React.FC<{ handleClose: () => void }> = ({ handleClose }) =
                             id="imageFile"
                             name="imageFile"
                             onChange={handleImageChange}
-                            style={{display: "none", border: "2px solid #00A7A7",backgroundColor:"gray",color:"white"}}
+                            style={{ display: "none", border: "2px solid #00A7A7", backgroundColor: "gray", color: "white" }}
                         />
                         <input
                             type='text'
                             readOnly
                             value={values.image ? values.image.name : "No images selected"}
                             className="custom-file-upload2"
-                            style={{ border: "2px solid #00A7A7",borderRadius:"5px"}}
+                            style={{ border: "2px solid #00A7A7", borderRadius: "5px" }}
                         />
-
                     </div>
-                            <div style={{height:'15px'}} className='image-input-error'>
-                            {imageError && <div>{imageError}</div>}
-                            </div>
-                    
-
-
-
-
-
-
+                    <div style={{ height: '15px' }} className='image-input-error'>
+                        {imageError && <div>{imageError}</div>}
+                    </div>
 
                     <div className="button-submit-inventorypost">
                         <AdvancedButton type="submit">Submit</AdvancedButton>
@@ -345,11 +344,9 @@ const CardComponent: React.FC<{ handleClose: () => void }> = ({ handleClose }) =
                     <div className="button-close-inventorypost">
                         <AdvancedButton onClick={handleClose} type="button">Cancel</AdvancedButton>
                     </div>
-                  
                 </form>
-                </div>
             </div>
-  
+        </div>
     );
 }
 

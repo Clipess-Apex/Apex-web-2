@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useAuth } from "../../providers/AuthContextProvider"
 import axios from "axios";
 import EditButton from "../../components/adminModule/EditButton";
 import "../../styles/adminModule/EmployeeDetails.css";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
+
+interface DecodedToken{
+  EmployeeID: string;
+}
 
 interface Employee {
   employeeID: number;
@@ -27,6 +34,8 @@ interface Employee {
   imageUrl: string;
   fileUrl: string;
   deleted: boolean;
+  deletedDate: string;
+  deletedBy:string;
 }
 
 interface Role {
@@ -62,6 +71,16 @@ const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({
   showButtons = true,
   showHeader = true,
 }) => {
+
+  const { token } = useAuth();
+
+  let decodedToken: DecodedToken | null = null;
+
+  if (token) {
+    decodedToken = jwtDecode<DecodedToken>(token);
+    console.log("Decoded token:", decodedToken);
+  }
+
   const { id } = useParams<{ id: string }>();
   const [employee, setEmployee] = useState<Employee | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -242,40 +261,24 @@ const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({
   };
 
   const confirmDelete = async () => {
-    if (employeeToRemove) {
+    if (employeeToRemove && decodedToken) {
       try {
         const updateData = {
           ...employeeToRemove,
           deleted: true,
-          firstName: employeeToRemove.firstName,
-          lastName: employeeToRemove.lastName,
-          nic: employeeToRemove.nic,
-          personalEmail: employeeToRemove.personalEmail,
-          companyEmail: employeeToRemove.companyEmail,
-          mobileNumber: employeeToRemove.mobileNumber,
-          telephoneNumber: employeeToRemove.telephoneNumber,
-          address: employeeToRemove.address,
-          designation: employeeToRemove.designation,
-          emergencyContactPersonName: employeeToRemove.emergencyContactPersonName,
-          emergencyContactPersonMobileNumber:
-          employeeToRemove.emergencyContactPersonMobileNumber,
-          emergencyContactPersonAddress: employeeToRemove.emergencyContactPersonAddress,
-          reportingEmployeeID: employeeToRemove.reportingEmployeeID,
-          employeeTypeID: employeeToRemove.employeeTypeID,
-          roleID: employeeToRemove.roleID,
-          departmentID: employeeToRemove.departmentID,
-          maritalStatusID: employeeToRemove.maritalStatusID,
-          imageUrl: employeeToRemove.imageUrl,
+          deletedDate: new Date().toISOString(),
+          deletedBy: decodedToken.EmployeeID,
         };
-
-        const response = await axios.put<Employee>(
+  
+        const response = await axios.put<Employee>(      
           `https://localhost:7166/api/employee/UpdateDeleteStatus/${employeeToRemove.employeeID}`,
           updateData
         );
         if (response.status === 200) {
           console.log("Employee delete status updated successfully");
           setEmployee(response.data);
-          alert("Employee status updated to deleted successfully.");
+          toast.success("Employee status updated to deleted successfully.");
+          setShowRemovePopup(false);
         } else {
           throw new Error("Failed to update employee delete status");
         }
@@ -289,6 +292,7 @@ const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({
       }
     }
   };
+  
 
   const cancelDelete = () => {
     setShowRemovePopup(false);

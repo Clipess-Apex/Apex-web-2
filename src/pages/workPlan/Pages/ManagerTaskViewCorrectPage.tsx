@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../../components/shared/Header'
+import Header from '../../../components/shared/AdminHeader'
 import SideBar from '../../../components/shared/SideBar'
 import '../../../styles/AlternativeLayout/AlternativeLayout.css'
 import TaskView from '../ManagerView/TaskView'

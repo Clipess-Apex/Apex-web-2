@@ -21,7 +21,7 @@
     
 }
 .employeeSelect-inventorypost{
-   position: relative;
+    position: relative;
     left:750px;
     top:95px;
 }
@@ -106,7 +106,6 @@
     font-size:18px;
     width:300px;
     height:20px;
-   
     position: relative;
     bottom:80px;
     left:40px;
@@ -120,19 +119,18 @@
     position: relative;
     bottom: 130px;
     left:40px;
-    
     left:40px;
    
 }
 
 .file-input-button-inventorypost{
-    background-color: rgb(165, 161, 161);
+    background-color: #00A7A7;
     color:white;
     border-radius: 5px 0 0 5px;
 }
 
 .image-input-button-inventorypost{
-    background-color: rgb(165, 161, 161);
+    background-color: #00A7A7;
     color: white;
     border-radius: 5px 0 0 5px;
 }

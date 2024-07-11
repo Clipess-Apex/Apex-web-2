@@ -119,6 +119,11 @@ const InventoryRequestCard: React.FC<Props> = ({ requests }) => {
     }
   };
 
+  
+//   const handleAddInventory = () => {
+//     fetchRequestDetails(selectedEditId);// Refetch inventories after adding a new one
+// };
+
   return (
     <div className="RequestDetails-card-container">
       <ToastContainer />
@@ -237,6 +242,7 @@ const InventoryRequestCard: React.FC<Props> = ({ requests }) => {
                     message={selectedRequestDetails.message}
                     reason = {selectedRequestDetails.reason}
                     handleClose={handleClosePopup}
+                    //onAdd={handleAddInventory}
                 />
             )}
         </div>

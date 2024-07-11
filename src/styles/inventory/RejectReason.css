@@ -26,11 +26,11 @@
     font-size: 20px;
     position: relative;
     left:50px;
-    top:40px;
+    
 }
 .button-submit-rejectReason{
     position: relative;
-   bottom: 40px;
+    bottom: 80px;
     left:-550px;
 }
 .rejectReason-heading{
@@ -42,7 +42,7 @@
 }
 .button-close-rejectReason{
     position: relative;
-    bottom: 100px;
+    bottom: 140px;
     left:-70px;
 }
 
@@ -54,7 +54,7 @@
     width:300px;
     height:20px; 
     position: relative;
-    bottom:-30px;
+   bottom: 20px;
     right:-40px;
    
 }

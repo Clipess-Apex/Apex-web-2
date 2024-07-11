@@ -5,6 +5,7 @@ import '../../styles/inventory/InventoryCardForAccept.css';
 import DropdownIcon from './DropdownIcon'
 import ShowAlertForAccept from './ShowAlertForAccept'
 import RejectReason from './RejectReason'
+import LottieAnimation from './LotieAnimation';
 interface Props {
   inventories: Inventory[];
   requestdetails: Request;
@@ -46,7 +47,7 @@ interface Inventory {
 
 const CardForAccept: React.FC<Props> = ({ inventories, requestdetails }) => {
   const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
-  const [selectedInventoryId, setSelectedInventoryId] = useState<number>(0);
+  const [selectedInventoryId, setSelectedInventoryId] = useState<number>(-1);
   const [showPopupAccept, setshowPopupAccept] = useState<boolean>(false);
   const [showPopupReject, setshowPopupReject] = useState<boolean>(false);
   const [selectedInventory, setSelectedInventory]= useState<string>('')
@@ -125,44 +126,78 @@ const  setRejectMethod = ()=>{
   };
   const setRejectButtonDisable = () => {
     setButtonsDisabled(true);
-  }
+  };
 
   return (
     <div>
       <div className='inventory-card-containerForAccept'>
-          {inventories.map((inventory: Inventory) => (
-            <div key={inventory.inventoryId} className='inventoryDetailsForaccept' style={{display:"flex",justifyContent:"space-between",width:"900px"}}>
-              <div className='dropDown-Icon-ForAccept'>
+
+      {inventories.length > 0 ? (
+       <div>
+        <div className="inventory-list-for-acceptcard">
+                         
+                         {inventories.map((inventory: Inventory) => (
+            <div key={inventory.inventoryId} className = 'inventoryDetailsForaccept' style={{display:"flex",justifyContent:"space-between",width:"900px"}}>
+             <div className = 'dropDown-Icon-ForAccept'>
                <DropdownIcon size="30px" color="#00A7A7"/>
               </div>
               
               <div className='inventoryNameForAccept' style={{position:'relative',left:'-20px'}}>
                 {inventory.inventoryName}
-              </div>
+              </div> 
                   <div className='InventoryImageForAccept'>
                     <img src={inventory.imageUrl} alt="Thumbnail" onClick={handleImageView} style={{ height: "80px", width: "90px", border:"none",borderRadius:"50%"}}/>
-                    {showPopupImage&& (<ImagePopup handleClose={handleClosePopup} imageUrl={inventory.imageUrl} />)}
-                  </div>
+                    {showPopupImage && (<ImagePopup handleClose={handleClosePopup} imageUrl={inventory.imageUrl} />)}
+                  </div> 
               
-                <button className={`buttonForAccept ${buttonsDisabled||SelectedRequestDetails?.inventoryId != 0 ||SelectedRequestDetails?.rejected? 'disabled' : ''}`}onClick={() => handleInventoryChange(inventory.inventoryId,inventory.inventoryName)} disabled={buttonsDisabled||SelectedRequestDetails?.inventoryId != 0 || SelectedRequestDetails?.rejected}>
-                  Accept 
-                </button>
+                 <button className = {`buttonForAccept ${buttonsDisabled||SelectedRequestDetails?.inventoryId != 0 ||SelectedRequestDetails?.rejected? 'disabled' : ''}`}onClick={() => handleInventoryChange(inventory.inventoryId,inventory.inventoryName)} disabled={buttonsDisabled||SelectedRequestDetails?.inventoryId != 0 || SelectedRequestDetails?.rejected}>
+                   Accept 
+                 </button> 
+
+                
             </div>
           ))}
          
-          <button className={`buttonForReject ${buttonsDisabled || SelectedRequestDetails?.inventoryId != 0||SelectedRequestDetails?.rejected ? 'disabled' : ''}`} type="button" onClick={setRejectMethod} disabled={buttonsDisabled || SelectedRequestDetails?.inventoryId != 0||SelectedRequestDetails?.rejected} >Reject</button>
+         </div>
+         <div style={{position:"relative", left:"250px",width:"300px"}}>
+         <button className={`buttonForReject ${buttonsDisabled || SelectedRequestDetails?.inventoryId != 0||SelectedRequestDetails?.rejected ? 'disabled' : ''}`} type="button" onClick={setRejectMethod} disabled={buttonsDisabled || SelectedRequestDetails?.inventoryId != 0||SelectedRequestDetails?.rejected} >Reject</button>
+       </div>
+       </div>
+        
+        
+                    ) : (
+                      <div>
+                        <div className='no-requests-message-InventoryAssign'>
+                          <div>
+                            <h2>No inventories</h2>
+                            </div>
+                            <div>
+                                <LottieAnimation height="100px" width="100px" />
+                            </div>
+                        </div>
+                        <div>
+        <button className={`buttonForReject ${buttonsDisabled || SelectedRequestDetails?.inventoryId != 0||SelectedRequestDetails?.rejected ? 'disabled' : ''}`} type="button" onClick={setRejectMethod} disabled={buttonsDisabled || SelectedRequestDetails?.inventoryId != 0||SelectedRequestDetails?.rejected} >Reject</button>
+          </div>
+                        </div>
+                    )}
+
+         
         
         </div>
+
+        
        
 
-        {selectedInventoryId && showPopupAccept &&(
+        {selectedInventoryId && showPopupAccept &&
+        (
           <ShowAlertForAccept
              
               selectedInventory= {selectedInventory}
               handleClose={handleClosePopupAccept}
               handleConfirm={handleConfirm}
           />
-      )}
+      )
+      }
        {showPopupReject && requestdetails &&(
         <RejectReason
         RejectId ={requestdetails.requestId}

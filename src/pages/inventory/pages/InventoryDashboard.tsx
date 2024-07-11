@@ -3,6 +3,7 @@
 import Card from '../../../components/inventory/CardForNavigate'
 import PieChart from '../../../components/inventory/PieChart';
 import BarChart from '../../../components/inventory/BarChart';
+import '../../../styles/inventory/InventoryDashboard.css';
 import { useEffect, useState } from 'react';
 
 
@@ -67,8 +68,8 @@ const getTotalNumberOfUnreadRequests = async () => {
   
     return (
       <>
-     
-      <div className='card-container-InventoryDash' 
+     <div>
+      <div className='card-container-InventoryDash-one' 
        >
         <Card 
             title= "Inventory Manager"
@@ -91,27 +92,47 @@ const getTotalNumberOfUnreadRequests = async () => {
             content = { <i className="fa-regular fa-eye-slash" style={{color:"white",fontSize:"20px" }}></i>}
             count={NoOfUnreadRequests}
             icon= {<i className="fas fa-trash-alt"></i>}
-             path= '/inventory/manager/inventoryrequestManager'
+            path= '/inventory/manager/inventoryrequestManager'
             buttonContent='View Requests'
         />
         </div>
-
-
         <div className='chart-container-inventorydashboard'>
 
-        <div style={{boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)"}}>
-        <BarChart/>
-        </div>
-        
-        <div style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)"}}>
-        <PieChart/>
-        </div>
+<div style={{boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)"}}>
+<BarChart/>
+</div>
 
+<div style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)"}}>
+<PieChart/>
+</div>
+
+</div>
+       
+
+
+     
+       <div className='card-container-InventoryDash-two'>
+        <Card 
+            title= "My Inventories"
+            content = "Total"
+            count={NoOfInventoryTypes}
+            icon= {<i className="fas fa-trash-alt"></i>}
+             path= '/inventory/employee/employeeinventory'
+            buttonContent='View Inventories'
+        />
+         <Card 
+            title= "My Requests"
+            content = { <i className="fa-regular fa-eye-slash" style={{color:"white",fontSize:"20px" }}></i>}
+            count={NoOfUnreadRequests}
+            icon= {<i className="fas fa-trash-alt"></i>}
+             path= '/inventory/employee/inventoryrequest'
+            buttonContent='View Requests'
+        />
         </div>
         
         
         
-        
+        </div>
       </>
     );
   }

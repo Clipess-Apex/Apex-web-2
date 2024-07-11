@@ -1,0 +1,47 @@
+.timentry-notifications{
+    height: auto;
+    background-color: rgb(254, 246, 246);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid black;
+}
+
+.timentry-notifications .timeEntry-message{
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+    text-align: left;
+}
+
+.timentry-notifications .timeEntryNotificationContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+}
+
+.timentry-notifications .timeEntry-date{
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    margin: 0;
+    justify-self: flex-start;
+    text-align: left;
+}
+
+.timentry-notifications .timEntry-HideButton{
+    width: fit-content;
+    height: fit-content;
+    padding: 6px 14px;
+    font-size: 15px;
+    justify-self: flex-end;
+    background-color: #00a7a7;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
