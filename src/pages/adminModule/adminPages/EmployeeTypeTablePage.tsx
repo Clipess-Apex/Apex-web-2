@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../../components/shared/Header'
+import Header from '../../../components/shared/AdminHeader'
 import AdminSideBar from '../../../components/shared/AdminSideBar';
 import EmployeeTypeTable from '../lookupTables/EmployeeTypeTable';
 

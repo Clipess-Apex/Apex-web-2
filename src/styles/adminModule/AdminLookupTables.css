@@ -25,6 +25,10 @@
   display: grid;
 }
 
+.admin-lookup-table td{
+  color: #5d6679;
+}
+
 .admin-lookup-table {
   width: 100%;
   border-collapse: collapse;

@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../../components/shared/Header'
+import Header from '../../../components/shared/AdminHeader'
 import SideBar from '../../../components/shared/SideBar'
 import '../../../styles/inventory/inventoryLayout/inventoryLayout.css'
 import InventoryManager from '../pages/InventoryManager'

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../../styles/adminModule/AdminLookupTables.css";
+import { toast } from "react-toastify";
 
 interface Department {
   departmentID: number;
@@ -69,7 +70,7 @@ const DepartmentTable: React.FC = () => {
               (dept) => dept.departmentID !== departmentToRemove.departmentID
             )
           );
-          alert("Department status updated to deleted successfully.");
+          toast.success("Department status updated to deleted successfully.");
         } else {
           throw new Error("Failed to update department delete status");
         }
@@ -103,7 +104,7 @@ const DepartmentTable: React.FC = () => {
             dept.departmentID === updatedDept.departmentID ? updatedDept : dept
           )
         );
-        alert("Department updated successfully.");
+        toast.success("Department updated successfully.");
       } else {
         throw new Error("Failed to update department");
       }
@@ -132,6 +133,11 @@ const DepartmentTable: React.FC = () => {
   };
 
   const confirmAdd = async () => {
+    if (departments.some(department => department.departmentName === newDepartment.departmentName)) {
+      toast.error("Department already exists.");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await axios.post(
@@ -139,7 +145,7 @@ const DepartmentTable: React.FC = () => {
         newDepartment
       );
       if (response.status === 200) {
-        alert("Department added successfully.");
+        toast.success("Department added successfully.");
         setNewDepartment({
           departmentID: 0,
           departmentName: "",

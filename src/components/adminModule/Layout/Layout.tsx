@@ -1,4 +1,4 @@
-import Header from "../../shared/Header";
+import Header from "../../shared/AdminHeader";
 import SideBar from "../../shared/SideBar";
 import { Outlet } from "react-router-dom";
 

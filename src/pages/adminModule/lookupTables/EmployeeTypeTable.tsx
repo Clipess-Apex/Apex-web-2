@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../../styles/adminModule/AdminLookupTables.css";
+import { toast } from "react-toastify";
 
 interface EmployeeType {
   employeeTypeID: number;
@@ -60,7 +61,7 @@ const EmployeeTypeTable: React.FC = () => {
         );
         if (response.status === 200) {
           setEmployeeTypes(employeeTypes.filter((et) => et.employeeTypeID !== employeeTypeToRemove.employeeTypeID));
-          alert("Employee type status updated to deleted successfully.");
+          toast.success("Employee type status updated to deleted successfully.");
         } else {
           throw new Error("Failed to update employee type delete status");
         }
@@ -90,7 +91,7 @@ const EmployeeTypeTable: React.FC = () => {
       );
       if (response.status === 200) {
         setEmployeeTypes(employeeTypes.map((et) => (et.employeeTypeID === updatedEmployeeType.employeeTypeID ? updatedEmployeeType : et)));
-        alert("Employee type updated successfully.");
+        toast.success("Employee type updated successfully.");
       } else {
         throw new Error("Failed to update employee type");
       }
@@ -119,6 +120,11 @@ const EmployeeTypeTable: React.FC = () => {
   };
 
   const confirmAdd = async () => {
+    if (employeeTypes.some(employeeType => employeeType.employeeTypeName === newEmployeeType.employeeTypeName)) {
+      toast.error("EmployeeType already exists.");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await axios.post(
@@ -126,7 +132,7 @@ const EmployeeTypeTable: React.FC = () => {
         newEmployeeType
       );
       if (response.status === 200) {
-        alert("Employee type added successfully.");
+        toast.success("Employee type added successfully.");
         setNewEmployeeType({ employeeTypeID: 0, employeeTypeName: "", deleted: false });
         setShowAddPopup(false);
         // await fetchEmployeeTypes();  // Re-fetch employee types from the server
