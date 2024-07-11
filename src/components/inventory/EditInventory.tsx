@@ -27,6 +27,7 @@ interface Props {
     lastName: string;
     fileUrl: string;
     imageUrl: string;
+    onAdd: () => void; 
     selectedEditId: number;
     handleClose: () => void;
 }
@@ -35,14 +36,15 @@ interface Props {
 const CardComponent: React.FC<Props> = ({
     inventoryName,
     InventoryTypeId,
-    
     inventoryType,
     firstName,
     lastName,
     fileUrl,
     imageUrl,
+    onAdd,
     selectedEditId,
-    handleClose
+    handleClose,
+    
 }) => {
     const [values, setValues] = useState({
         inventoryType: inventoryType,
@@ -173,6 +175,7 @@ const CardComponent: React.FC<Props> = ({
             });
             console.log(res);
             handleClose();
+            onAdd();
             toast.success('Inventory updated successfully');
 
         } catch (err) {
@@ -241,7 +244,10 @@ const CardComponent: React.FC<Props> = ({
                     />
                 </div>
                 <form onSubmit={handleSubmit}>
-                    <h3 className='Add-Inventory-heading'>Update Inventory</h3>
+                        <div className='Add-Inventory-heading'>
+                            <h3 >Update Inventory</h3>
+                        </div>
+                   
 
                     <div className='Inventoryname-inventorypost'>
                         <InputField
@@ -250,7 +256,10 @@ const CardComponent: React.FC<Props> = ({
                             onChange={(e: ChangeEvent<HTMLInputElement>) => setValues({ ...values, InventoryName: e.target.value })}
                         />
                     </div>
-                    <label className='InventoryNameError-inventorypost' style={{ position: "relative", left: "50px", height: "60px" }}>{InventoryNameValidationError}</label>
+                    <div className ='InventoryNameError-inventorypost'>
+                           {InventoryNameValidationError}
+                        </div>
+        
 
                     <div className='InventoryType-fill-inventorypost'>
                         <DisplayValue
@@ -259,8 +268,9 @@ const CardComponent: React.FC<Props> = ({
                             onChange={handleChange}
                         />
                     </div>
-                    <label className='InventoryTypeError-inventorypost' style={{ position: "relative", left: "50px", height: "60px" }}>{InventoryTypeValidationError}</label>
-
+                    <div className='InventoryTypeError-inventorypost'>
+                        {InventoryTypeValidationError}
+                    </div>
                     <div className='Employee-fill-inventorypost'>
                         <DisplayValue
                             placeholder="Assigned To"
@@ -270,11 +280,11 @@ const CardComponent: React.FC<Props> = ({
                     </div>
 
                     <div className='FileInput-inventorypost'>
-                        <div>
-                            <label htmlFor="fileInput" className="custom-file-upload">
-                                Choose file
-                            </label>
-                        </div>
+                    <div className='file-input-button-inventorypost'>
+                        <label htmlFor="fileInput" className="custom-file-upload" style={{paddingBottom:"15px",position:"relative",left:"20px"}}>
+                            Choose file
+                        </label> 
+                    </div>
                         <input
                             type="file"
                             id="fileInput"
@@ -289,14 +299,17 @@ const CardComponent: React.FC<Props> = ({
                             style={{ border: "2px solid #00A7A7" }}
                         />
                     </div>
-                    {fileError && <div style={{ color: "red", fontSize: "14px", position: "relative", left: "500px", top: "30px" }}>{fileError}</div>}
+                    <div className='file-input-error'>
+                        {fileError && <div>{fileError}</div>}
+                </div>
+             
 
                     <div className='imageInput-inventorypost'>
-                        <div>
-                            <label htmlFor="imageFile" className="custom-file-upload">
-                                Choose image
-                            </label>
-                        </div>
+                    <div className='image-input-button-inventorypost'>
+                        <label htmlFor="imageFile" className="custom-file-upload" style={{paddingRight:"20px",paddingBottom:"40px",position:"relative",left:"20px"}}>
+                            Choose image
+                        </label>
+                    </div>
                         <input
                             type="file"
                             id="imageFile"
@@ -312,7 +325,9 @@ const CardComponent: React.FC<Props> = ({
                             style={{ border: "2px solid #00A7A7" }}
                         />
                     </div>
-                    {imageError && <div style={{ color: "red", fontSize: "14px", position: "relative", left: "800px", top: "-30px" }}>{imageError}</div>}
+                    <div style={{height:'15px'}} className='image-input-error'>
+                        {imageError && <div>{imageError}</div>}
+                        </div>
 
                     <div className="button-submit-inventorypost">
                         <AdvancedButton type="submit">Submit</AdvancedButton>

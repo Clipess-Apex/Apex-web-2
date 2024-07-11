@@ -31,26 +31,43 @@ interface ExpandedDetail {
   createdDate: string;
 }
 
-interface DecodedToken{
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
   EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
+
+interface DecodedToken {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
 }
 
 const EmployeeDailyRecords: React.FC<EmployeeDailyRecordsProps> = ({ startDateProp, endDateProp }) => {
 
   const { token } = useAuth();
+  const { logout } = useAuth();
 
-  let decodedToken: DecodedToken | null = null;
+let decodedToken: DecodedToken | null = null;
 
-  if (token) {
-    decodedToken = jwtDecode<DecodedToken>(token);
-    console.log("Decoded token:", decodedToken);
-  }
+if (token) {
+  decodedToken = jwtDecode<DecodedToken>(token);
+  console.log("Decoded token inside sideBar:", decodedToken);
+}
 
-const tokenEmployeeID = decodedToken ? decodedToken.EmployeeID : undefined;
+
+const userRole = decodedToken
+? decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+: null;
+
+const normalizedUserRole = userRole?.toLowerCase();
+
+  const Employee = useRef<StoredUser | null>(null); // Ref for storing user data
+
 
   const [startDate, setStartDate] = useState<string>(startDateProp);
   const [endDate, setEndDate] = useState<string>(endDateProp);
-  const [employeeId, setEmployeeId] = useState<number | undefined>(tokenEmployeeID); // ID, Should use from Token
+ const [employeeId, setEmployeeId] = useState<number | undefined>(); // ID, Should use from Token
   const [data, setData] = useState<DataItem[]>([]);
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [expandedDate, setExpandedDate] = useState<string | null>(null);
@@ -65,6 +82,15 @@ const tokenEmployeeID = decodedToken ? decodedToken.EmployeeID : undefined;
   const [sortBy, setSortBy] = useState<string>("Date");
   const [isAscending, setIsAscending] = useState<boolean>(true);
   const [sortingValue, setSortingValue] = useState<number>(1);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      Employee.current = parsedUser
+      setEmployeeId(Employee.current.EmployeeID)
+    }
+  },[])
 
   useEffect(() => {
     currentPageRef.current = currentPage;
@@ -319,7 +345,7 @@ const tokenEmployeeID = decodedToken ? decodedToken.EmployeeID : undefined;
       </div>
 
       <div className="Employee-Paginate-container">
-        <BackButton path={"/timeEntry/manager"} />
+        <BackButton path={normalizedUserRole === 'manager' ? "/timeEntry/manager" : "/timeEntry/employee"} />
         <ReactPaginate
           breakLabel=". . ."
           nextLabel="Next >"

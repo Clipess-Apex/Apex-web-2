@@ -71,15 +71,39 @@
 }
 
 .InventoryManagerPage .navigation-button button {
-  width: 150px;
-  height:60px;
+  width: 200px;
+  height: 60px;
   border: none;
-  border-radius: 5px;
-  background-color:#00A7A7;
-  font-size: 15px;
-  color:white;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #007575, #005959);
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  right:5px;
 }
 
-.InventoryManagerPage .navigation-button:hover{
-  background-color: #006666;
+.InventoryManagerPage .navigation-button button:hover {
+  background: linear-gradient(135deg, #005959, #003d3d);
+  transform: scale(1.05);
+}
+
+.no-inventory-message-InventoryManagerPage{
+  display: flex;
+  justify-content:space-around;
+  align-items: center; 
+  gap:50px;
+  background-color: #00A7A7;
+  color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  margin-top: 50px;
+  width: 400px;
+}
+
+.InventoryManager-inventory-list{
+  display: flex;
+  justify-content: center;
 }

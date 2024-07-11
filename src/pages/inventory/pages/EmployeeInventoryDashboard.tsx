@@ -1,11 +1,24 @@
 import Card from '../../../components/inventory/CardForNavigate'
 import { useEffect, useState } from 'react';
+import { useAuth } from '../../../providers/AuthContextProvider'
+import { jwtDecode } from "jwt-decode";
 
-
+interface DecodedToken{
+  EmployeeID: string;
+}
   
   const InventoryEmployeeDashboard: React.FC= () => {
     const [NoOfInventories, setNoOfInventories] = useState<string>('0');
     const [NoOfUnreadRequests, setNoOfUnreadRequests] = useState<string>('0');
+
+    const { token } = useAuth();
+
+  let decodedToken: DecodedToken | null = null;
+
+  if (token) {
+    decodedToken = jwtDecode<DecodedToken>(token);
+    console.log("Decoded token:", decodedToken);
+  }
 
     useEffect(()=>{
       getTotalNumberOfInventories();
@@ -13,9 +26,9 @@ import { useEffect, useState } from 'react';
    
     },[])
 
-  const getTotalNumberOfInventories = async () => {
+    const getTotalNumberOfInventories = async () => {
       try {
-        const url = "https://localhost:7166/api/inventory/totalNoOfInventories";
+        const url = `https://localhost:7166/api/inventory/totalInventories/${decodedToken?.EmployeeID}`;
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Failed to fetch details');
@@ -30,7 +43,7 @@ import { useEffect, useState } from 'react';
 
  const getTotalNumberOfUnreadRequests = async () => {
   try {
-    const url = "https://localhost:7166/api/Request/NoOfUnreadRequests";
+    const url = `https://localhost:7166/api/Request/NoOfUnreadRequestsforEmployee/${decodedToken?.EmployeeID}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch details');
@@ -44,46 +57,29 @@ import { useEffect, useState } from 'react';
 };
 
 return (
-    <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+<div>
     
-<div style={{display:"flex",justifyContent:"space-around", alignItems:"center",gap:"200px"}}>
-      {/* <Card 
-          title= "Inventory Manager"
-          content = "Total"
-          count = {NoOfInventories}
-          icon= {<i className="fas fa-trash-alt"></i>}
-          path= '/inventory'
-          buttonContent='View Inventory Details'
-      />
+<div style={{overflow:"hidden"}}>
      
-     
-       <Card 
-          title= "Request Manager"
-          content = { <i className="fa-regular fa-eye-slash" style={{color:"white",fontSize:"20px" }}></i>}
-          count={NoOfUnreadRequests}
-          icon= {<i className="fas fa-trash-alt"></i>}
-           path= '/inventoryrequestmanager'
-          buttonContent='View Requests'
-      /> */}
-      <div style={{height:"300px"}}>
+      <div style={{position:"relative",top:"200px",left:"680px",zIndex:100}}>
 
       <Card 
-          title= "Request Manager"
+          title= "My Requests"
           content = { <i className="fa-regular fa-eye-slash" style={{color:"white",fontSize:"20px" }}></i>}
           count={NoOfUnreadRequests}
           icon= {<i className="fas fa-trash-alt"></i>}
-           path= '/inventory/employee/inventoryrequest'
+          path= '/inventory/employee/inventoryrequest'
           buttonContent='View Requests'
       />
       </div>
-      <div style={{height:"300px"}}>
+      <div style={{position:"relative",left:"150px"}}>
       <Card 
-          title= "Inventory Manager"
+          title = "My Inventories"
           content = "Total"
           count = {NoOfInventories}
-          icon= {<i className="fas fa-trash-alt"></i>}
-          path= '/inventory/employee/employeeinventory'
-          buttonContent='View Inventory Details'
+          icon = {<i className="fas fa-trash-alt"></i>}
+          path = '/inventory/employee/employeeinventory'
+          buttonContent = 'View Inventory Details'
       />
       </div>
      

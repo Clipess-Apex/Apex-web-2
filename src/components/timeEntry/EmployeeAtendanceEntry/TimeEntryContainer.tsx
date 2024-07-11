@@ -11,6 +11,14 @@ import { ToastContainer, toast, Bounce, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BackButton from '../common/BackButton';
 
+import { useAuth } from "../../../providers/AuthContextProvider";
+import { jwtDecode } from "jwt-decode";
+
+interface DecodedToken {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+}
+
+
 interface TimeEntryType {
   id: number;
   typeId: number;
@@ -40,17 +48,55 @@ interface DragItem {
   timeEntryTypeId: number;
 }
 
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
+
 const TimeEntryContainer = () => {
+
+  const { token } = useAuth();
+  const { logout } = useAuth();
+
+let decodedToken: DecodedToken | null = null;
+
+if (token) {
+  decodedToken = jwtDecode<DecodedToken>(token);
+  console.log("Decoded token inside sideBar:", decodedToken);
+}
+
+
+const userRole = decodedToken
+? decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+: null;
+
+
+
+const normalizedUserRole = userRole?.toLowerCase();
+
+const Employee = useRef<StoredUser | null>(null);
 
   const [droppedTimeEntryEventIDs, setDroppedTimeEntryEventIDs] = useState<number[]>([]);
   const droppedTimeEntryEventIDsRef = useRef(droppedTimeEntryEventIDs);
   const [showTaskEntryPopup, setShowTaskEntryPopup] = useState(false);
-  const [employeeID, setEmployeeId] = useState(5);
-  const [today, setToday] = useState('2024-06-22');
+  const [employeeID, setEmployeeId] = useState<number>();
+  const [today, setToday] = useState(format(new Date(), 'yyyy-MM-dd'));
   const [timeEntryTypes, setTimeEntryTypes] = useState<TimeEntryType[]>([]);
   const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([]);
   const [TaskFormtypeId, setTaskFormtypeId] = useState<number | undefined>(undefined);
   const [currentTaskData, setCurrentTaskData] = useState<TaskData | undefined>(undefined);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      Employee.current = parsedUser
+      setEmployeeId(Employee.current.EmployeeID)
+    }
+  },[])
 
   useEffect(() => {
     getTimeEntryTypes();
@@ -321,7 +367,7 @@ const TimeEntryContainer = () => {
       </div>
 
       <div className="attendance-backButton-container">
-        <BackButton path={"/timeEntry/manager"} />
+        <BackButton path={normalizedUserRole === 'manager' ? "/timeEntry/manager" : "/timeEntry/employee"} />
       </div>
 
       {showTaskEntryPopup && (
@@ -331,7 +377,7 @@ const TimeEntryContainer = () => {
             onCancel={handleTaskEntryFormCancel}
             getTimeEntries={getTimeEntries}
             TaskFormtypeId={TaskFormtypeId}
-            employeeId={employeeID}
+            employeeId={employeeID }
             currentTaskData={currentTaskData}
           />
         </div>

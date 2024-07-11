@@ -89,7 +89,7 @@
       bottom: 30px;
       height:100px;
       width:100px;
-      border:2px solid #b4b2b2;
+      border: none;
       bottom: 60px;
       
     }
@@ -97,10 +97,10 @@
       
       position: absolute;
       right:100px;
-      
+      border: none;
       height:100px;
       width:110px;
-      border:2px solid #b4b2b2;
+      
       bottom: 223px;
     }
     

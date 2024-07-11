@@ -67,6 +67,8 @@ import PrimaryEmployeeDashboardPage from './pages/shared/MainEmployeeDashboardPa
 import PrimaryManagerDashboardPage from './pages/shared/MainManagerDashboardPage';
 import { ToastContainer } from 'react-toastify';
 
+
+
 const AppRoutes = () => {
    const employeeId = 4;
 
@@ -105,7 +107,7 @@ const AppRoutes = () => {
     { path: "/inventory/manager/inventoryAssign", element: <InventoryAssignLayout /> },
     
 
-    { path: '/', element: <LoginForm /> },
+    { path: '/', element: <LoginForm />},
     { path: '/password-reset-request', element: <PasswordResetRequest /> },
     { path: '/reset-password', element: <ResetPassword /> },
     { path: '/admin-dashboard', element: <AdminDashboardPage /> },
@@ -136,7 +138,7 @@ const AppRoutes = () => {
     { path: "/workplan/manager/employeeTasks", element: <EmployeeTaskViewCorrectPage /> },
 
     { path: "/primary-ManagerDashboardPage", element: <PrimaryManagerDashboardPage /> },
-    { path: "/primary-EmployeeDashboardPage", element: <PrimaryEmployeeDashboardPage /> }
+    { path: "/primary-EmployeeDashboardPage", element: <PrimaryEmployeeDashboardPage /> },
 
   ]);
   return routes;
