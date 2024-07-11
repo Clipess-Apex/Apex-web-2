@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface NotificationContextProps {
-  notificationCount: number;
-  setNotificationCount: (count: number) => void;
+  TasknotificationCount: number;
+  setTaskNotificationCount: (count: number) => void;
 }
 
 const NotificationContext = createContext<NotificationContextProps | undefined>(
@@ -12,11 +12,11 @@ const NotificationContext = createContext<NotificationContextProps | undefined>(
 export const NotificationProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [notificationCount, setNotificationCount] = useState<number>(0);
+  const [TasknotificationCount, setTaskNotificationCount] = useState<number>(0);
 
   return (
     <NotificationContext.Provider
-      value={{ notificationCount, setNotificationCount }}
+      value={{ TasknotificationCount,setTaskNotificationCount }}
     >
       {children}
     </NotificationContext.Provider>

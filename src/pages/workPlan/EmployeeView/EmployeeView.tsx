@@ -1,7 +1,7 @@
 import WorkPlanCard from "../../../components/workPlan/Shared/WorkPlanCard";
 import { ReactComponent as Calendar } from "../../../icons/workPlan/Calendar.svg";
-import { ReactComponent as ToDoList } from "../../../icons/workPlan/Tasks.svg";
-import { ReactComponent as Worksheet } from "../../../icons/workPlan/Worksheet.svg";
+import { ReactComponent as ToDoList } from "../../../icons/workPlan/AddProjects.svg";
+import { ReactComponent as Worksheet } from "../../../icons/workPlan/TaskList.svg";
 import { ReactComponent as Projects } from "../../../icons/workPlan/ManagerProjects.svg";
 import "../../../styles/workPlan/EmployeeView.css";
 import WidgetCard from "../../../components/workPlan/Shared/WidgetCard";
@@ -13,6 +13,16 @@ import {
 import { getEmployeeTasks } from "../../../services/workPlan/TaskServices";
 import { useEffect, useState } from "react";
 import { ProjectTask } from "../../../models/workPlan/ProjectTask";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../../../providers/AuthContextProvider";
+
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
 
 const EmployeeView = () => {
   const [tasks, setTasks] = useState<ProjectTask[]>([]);
@@ -21,8 +31,18 @@ const EmployeeView = () => {
   const [EmployeeToDoData, setEmployeeToDoData] = useState<ProjectTask[]>([]);
   const [EmployeeDoneData, setEmployeeDOneData] = useState<ProjectTask[]>([]);
   const [EmployeeProjects, setEmployeeProjects] = useState<number[]>([]);
+  const [EmployeeId, setEmployeeId] = useState<number | undefined>(); // ID, Should use from Token
 
-  let EmployeeId: number = 1;
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+  
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      setEmployeeId(parsedUser.EmployeeID)
+      console.log("Employee id in daily time netry is",EmployeeId);
+      console.log("Header Parsed user is",parsedUser.EmployeeID)
+    }
+  },[])
 
   useEffect(() => {
     async function fetchData() {

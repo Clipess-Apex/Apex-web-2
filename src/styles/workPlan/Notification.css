@@ -1,5 +1,5 @@
 /* Notifications.css */
-.tooltip {
+.workplan .tooltip {
   position: absolute;
   z-index: 1070;
   display: block;
@@ -9,11 +9,11 @@
   pointer-events: none;
 }
 
-.tooltip.show {
+.workplan .tooltip.show {
   opacity: 1;
 }
 
-.tooltip-inner {
+.workplan .tooltip-inner {
   max-width: 200px;
   padding: 0.25rem 0.5rem;
   color: #fff;
@@ -21,7 +21,7 @@
   border-radius: 0.25rem;
 }
 
-.popover {
+.workplan .popover {
   position: absolute;
   z-index: 1070;
   display: block;
@@ -35,7 +35,7 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-.popover-header {
+.workplan .popover-header {
   padding: 0.5rem 0.75rem;
   margin-bottom: 0;
   font-size: 1rem;
@@ -46,11 +46,11 @@
   border-top-right-radius: 0.3rem;
 }
 
-.popover-body {
+.workplan .popover-body {
   padding: 0.5rem 0.75rem;
 }
 
-.badge {
+.workplan .badge {
   position: absolute;
   top: 0;
   right: 0;
@@ -60,14 +60,15 @@
   color: white;
 }
 
-.list-group {
+.workplan .list-group {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
 }
 
-.list-group-item {
+.workplan .list-group-item {
   position: relative;
+  list-style: none;
   display: block;
   padding: 0.75rem 1.25rem;
   margin-bottom: -1px;

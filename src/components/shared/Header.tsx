@@ -6,6 +6,15 @@ import { useAuth } from "../../providers/AuthContextProvider";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import TimeEntryNotifications from "./TimeEntryNotifications";
+import Notifications from "./Notifications";
+import { useNotificationContext } from "../../providers/NotificationContext";
+import { readNotification } from "../../services/workPlan/NotificationServices";
+import {
+  HubConnection,
+  HubConnectionBuilder,
+  LogLevel,
+} from "@microsoft/signalr";
+import { getNotifications } from "../../services/workPlan/NotificationServices";
 
 interface DecodedToken {
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
@@ -38,6 +47,11 @@ interface InventoryNotification {
   createdDate: string;
 }
 
+interface WorkPlanNotification {
+  type: "workplan";
+  message: string;
+}
+
 type Notification = TimeEntryNotification | LeaveNotification | InventoryNotification;
 
 interface StoredUser {
@@ -56,10 +70,25 @@ const Header = () => {
   const navigate = useNavigate();
   const { token, user } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  
-  const [notifications, setNotifications] = useState<Notification[] >([])
-
+  const [notifications, setNotifications] = useState<Notification[] >([]);
+  const [EmployeeId, setEmployeeId] = useState<number | undefined>(); // ID, Should use from Token
   const Employee = useRef<StoredUser | null>(null); // Ref for storing user data
+  const [Tasknotifications, setTaskNotifications] = useState<string[]>([]);
+  const { TasknotificationCount, setTaskNotificationCount } = useNotificationContext();
+  const [connection, setConnection] = useState<HubConnection | null>(null);
+  const [badgeContent, setBadgeContent] = useState(0);
+
+  // let user: DecodedToken | null = null;
+
+  // if (token) {
+  //   user = jwtDecode<DecodedToken>(token);
+  //   console.log("Decoded token in Header:", user);
+  // }
+
+  // const tokenEmployeeID = user ? user.EmployeeID : undefined;
+
+  // const employeeId = useMemo(() => tokenEmployeeID, [])
+  // const [employeeId,setEmployeeId] = useState<number| undefined>(tokenEmployeeID);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -67,6 +96,7 @@ const Header = () => {
     if (storedUser) {
       const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
       Employee.current = parsedUser;
+      setEmployeeId(parsedUser.EmployeeID);
       console.log("Current ref user is",Employee.current )
       console.log("Header Parsed user is",parsedUser.EmployeeID)
     }
@@ -81,8 +111,40 @@ const Header = () => {
   };
 
   const handleNotificationClick = () => {
+    readNotification(EmployeeId);
     setIsDropdownOpen(!isDropdownOpen);
   };
+  useEffect(() => {
+    if (connection) {
+      connection
+        .start()
+        .then(() => {
+          connection.on("RecieveNotification", (receivedNotifications) => {
+            setTaskNotifications((notificationText) => [
+              ...notificationText,
+              receivedNotifications,
+            ]);
+            setTaskNotificationCount(Notifications.length);
+          });
+        })
+        .catch((error) => console.error("SignalR Connection Error:", error));
+    }
+  }, [connection, EmployeeId]);
+
+  useEffect(() => {
+    async function fetchTaskNotifications() {
+      try {
+        const data = await getNotifications(Employee.current?.EmployeeID);
+        setTaskNotifications(data);
+        console.log(data);
+        setTaskNotificationCount(Tasknotifications.length);
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    }
+
+    fetchTaskNotifications();
+  }, []);
 
   useEffect(() => {
     fetchNotifications()
@@ -100,8 +162,8 @@ const Header = () => {
     ]);
   };
 
-
-  const notificationCount = notifications.length;
+  console.log(TasknotificationCount);
+  const notificationCount = notifications.length + TasknotificationCount;
 
   return (
     <div className="header">
@@ -115,19 +177,27 @@ const Header = () => {
           {notificationCount > 0 && <span className="notification-count">{notificationCount}</span>}
           {isDropdownOpen && (
             <div className="notification-dropdown">
-              {notifications.length > 0 ? (
-                notifications.map((notification) => (
+              {notifications.length > 0 && Tasknotifications.length > 0? (
+                <>
+                {notifications.map((notification) => (
                   <div className="notification-item">
                     {notification.type == "timeEntry" && (
                       <TimeEntryNotifications 
                           id={notification.id}
                           message={notification.message}
-                          date={notification.createdDate}
+                          date={notification.createdDate} 
                           fetchNotifications = {fetchNotifications}
-                           />
+                          />
                     )}
+                    
                   </div>
-                ))
+                ))}
+                {Tasknotifications.map((notification, index) => (
+          <div key={index} className="notification-item">
+            {notification}
+          </div>
+        ))}
+                </>
               ) : (
                 <div className="no-notifications">No notifications</div>
               )}
