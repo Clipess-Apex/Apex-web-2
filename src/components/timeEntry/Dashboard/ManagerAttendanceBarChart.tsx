@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, Colors } from 'chart.js';
 import '../../../styles/timeEntry/DashBoard/ChartContainer.css'
+import { format } from 'date-fns';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -14,7 +15,7 @@ interface MonthlyTimeEntry {
 
 const ManagerAttendanceBarChart = () => {
 
-  const [currentDate, setCurrentDate] = useState<string>('2024-04-15');
+  const [currentDate, setCurrentDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
   const [monthlyTimeEntries, setMonthlyTimeEntries] = useState<MonthlyTimeEntry[]>([]);
   const [employeeNames, setEmployeeNames] = useState<string[]>([]);
   const [duration, setDuration] = useState<number[]>([]);

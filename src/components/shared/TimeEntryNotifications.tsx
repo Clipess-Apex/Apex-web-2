@@ -5,14 +5,29 @@ interface TimeEntryNotificationsProps{
   id:number,
   message:string,
   date:string
+  fetchNotifications:() => void,
 }
 
-
-
-const TimeEntryNotifications:React.FC<TimeEntryNotificationsProps> = ({id,message,date}) => {
+const TimeEntryNotifications:React.FC<TimeEntryNotificationsProps> = ({id,message,date,fetchNotifications}) => {
     
-      const handleHideNotification = (Id:number) => {
-        console.log("Clicked Notification is" ,Id)
+      const handleHideNotification = async (id:number) => {
+        try {
+          const response = await fetch(
+            `https://localhost:7166/api/attendanceNotification/HideTimeEntryNotification?notificationId=${id}`,
+            {
+              method: 'DELETE'
+            }
+          );
+          if (response.ok) {
+            console.log("Notification hidden successfully");
+            
+          } else {
+            console.error("Failed to hide notification:", response.statusText);
+          }
+        } catch (error) {
+          console.error("Error hiding notification:", error);
+        }
+        fetchNotifications();
       }
 
   return (

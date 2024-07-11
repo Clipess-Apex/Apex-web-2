@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js';
 import '../../../styles/timeEntry/DashBoard/ChartContainer.css'
+import { format } from 'date-fns';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -10,17 +11,40 @@ interface MonthlyTimeEntry {
   allocatedDuration: number;
 };
 
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
+
 const EmployeeAttendancePieChart = () => {
 
-  const [employeeId, setEmployeeId] = useState<number>(3);
-  const [currentDate, setCurrentDate] = useState<string>('2024-04-15');
+  const Employee = useRef<StoredUser | null>(null); // Ref for storing user data
+
+  const [employeeId, setEmployeeId] = useState<number>();
+  const [currentDate, setCurrentDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
   const [monthlyTimeEntry, setMonthlyTimeEntry] = useState<MonthlyTimeEntry | undefined>(undefined);
   const [completedTime, setCompletedTime] = useState<{ numeric: number; formatted: string }>({ numeric: 0, formatted: '' });
   const [remainingTime, setRemainingTime] = useState<{ numeric: number; formatted: string }>({ numeric: 0, formatted: '' });
 
   useEffect(() => {
-    fetchMonthlyTimeEntry();
-  }, []);
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      Employee.current = parsedUser
+      
+      setEmployeeId(Employee.current.EmployeeID)
+    }
+  },[])
+
+
+  useEffect(() => {
+      fetchMonthlyTimeEntry();
+  },[employeeId])
+
+
 
   useEffect(() => {
     if (monthlyTimeEntry) {
@@ -30,6 +54,7 @@ const EmployeeAttendancePieChart = () => {
 
   const fetchMonthlyTimeEntry = async () => {
     try {
+      console.log("Pie chart Employee Id is ", employeeId)
       const response = await fetch(`https://localhost:7166/api/TimeEntry/GetMonthlyTimeEntryForPieChart?employeeId=${employeeId}&currentDate=${currentDate}`);
       if (response.ok) {
         const jsonData = await response.json();

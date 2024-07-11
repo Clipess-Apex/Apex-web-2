@@ -56,7 +56,7 @@ type Notification = TimeEntryNotification | LeaveNotification | InventoryNotific
 
 interface StoredUser {
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
-  EmployeeID: number;
+  EmployeeID: string;
   ImageUrl: string;
   FirstName: string;
   LastName: string;
@@ -185,7 +185,9 @@ const Header = () => {
                       <TimeEntryNotifications 
                           id={notification.id}
                           message={notification.message}
-                          date={notification.createdDate} />
+                          date={notification.createdDate} 
+                          fetchNotifications = {fetchNotifications}
+                          />
                     )}
                     
                   </div>
