@@ -106,7 +106,7 @@ const AppRoutes = () => {
     { path: "/inventory/manager/inventoryAssign", element: <InventoryAssignLayout /> },
     
 
-    { path: '/', element: <LoginForm /> },
+    { path: '/', element: <LoginForm />},
     { path: '/password-reset-request', element: <PasswordResetRequest /> },
     { path: '/reset-password', element: <ResetPassword /> },
     { path: '/admin-dashboard', element: <AdminDashboardPage /> },

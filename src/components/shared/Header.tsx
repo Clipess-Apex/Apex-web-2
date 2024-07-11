@@ -5,7 +5,9 @@ import NotificationIcon from '../../icons/shared/header/notifications-2.svg';
 import { useAuth } from "../../providers/AuthContextProvider";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import TimeEntryNotifications from "./TimeEntryNotifications";
+import TimeEntryNotifications from './TimeEntryNotifications'
+import InventoryNotifications from './InventoryNotification';
+
 import Notifications from "./Notifications";
 import { useNotificationContext } from "../../providers/NotificationContext";
 import { readNotification } from "../../services/workPlan/NotificationServices";
@@ -41,12 +43,11 @@ interface LeaveNotification {
 
 interface InventoryNotification {
   type: "inventory";
-  id: number;
-  item: string;
-  message: string;
-  createdDate: string;
+  userNotificationId: number;
+  employeeId: number;
+  notification: string;
+  IsRead: boolean;
 }
-
 interface WorkPlanNotification {
   type: "workplan";
   message: string;
@@ -152,15 +153,20 @@ const Header = () => {
 
   const fetchNotifications = async () => {
     const timeEntryResponse = await fetch(`https://localhost:7166/api/attendanceNotification/GetTimeEntryNotification?employeeId=${Employee.current?.EmployeeID}`);
-
+    const inventoryResponse = await fetch(`https://localhost:7166/api/InventoryNotification/getInventoryNotification/${Employee.current?.EmployeeID}`);
+   
     const timeEntryNotification: TimeEntryNotification[] = await timeEntryResponse.json();
-
+    const inventoryNotification: InventoryNotification[] = await inventoryResponse.json();
     console.log("timeEntryNotification is ",timeEntryNotification)
 
     setNotifications([
       ...timeEntryNotification.map( notif => ({...notif, type: "timeEntry" as const})),
+      ...inventoryNotification.map( notif => ({...notif, type: "inventory" as const}))
     ]);
   };
+
+  
+
 
   console.log(TasknotificationCount);
   const notificationCount = notifications.length + TasknotificationCount;
@@ -189,6 +195,14 @@ const Header = () => {
                           fetchNotifications = {fetchNotifications}
                           />
                     )}
+                    {notification.type === "inventory" && (
+                         <InventoryNotifications 
+                          userNotificationId={notification.userNotificationId}
+                          notification={notification.notification}
+                          employeeId={notification.employeeId} 
+                          IsRead={notification.IsRead}
+                          />
+                      )}
                     
                   </div>
                 ))}

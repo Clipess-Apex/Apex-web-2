@@ -57,7 +57,7 @@ const InventoryFilter: React.FC = () => {
   const navigate = useNavigate();
 
   const NavigateToInventoryTypePage = () => {
-    navigate('/inventoryrequestManager');
+    navigate('/inventory/manager/inventoryrequestManager');
   };
 
   const handleClick = (pageNumber: number) => {
@@ -118,33 +118,15 @@ const InventoryFilter: React.FC = () => {
           onChange={handleSearchChange}
         />
        
-       </div>
-
-       <div className='InventoryAssign-inventory-list'>
-                    {filteredInventories.length > 0 ? (
-                         <div className="inventory-list-InventoryAssign">
+      </div>
+      
+      <div className="inventory-list-InventoryAssign">
                          <InventoryCardForAccept
-                                         inventories={displayedInventories}
-                                         requestdetails= {selectedRequestDetails}
-                                         
-                         />
-                        
-                         </div>
-                    ) : (
-                        <div className='no-requests-message-InventoryAssign'>
-                          <div>
-                            <h2>No inventories</h2>
-                            </div>
-                            <div>
-                                <LottieAnimation height="100px" width="100px" />
-                            </div>
-                        </div>
-                    )}
-                </div>
+                          inventories={displayedInventories}
+                          requestdetails= {selectedRequestDetails}
+                          />
+      </div>
         
-       
-
-     
         <div className='pagination-container-inventoryAssign'>
                     <div className='pagination-buton-inventoryAssign'>
                         <Pagination
@@ -154,7 +136,7 @@ const InventoryFilter: React.FC = () => {
                         />
                     </div>
         <div>
-            <button onClick={NavigateToInventoryTypePage} className='navigateButton-InventoryAssign'><i className="fa-solid fa-arrow-left" style={{color:"white"}}></i> Request Manager</button>
+            <button onClick={NavigateToInventoryTypePage} className='navigateButton-InventoryAssign'>Back</button>
         </div>
       </div>
       </div>

@@ -5,6 +5,8 @@ import RequestForm from '../../../components/inventory/RequestForm';
 import  '../../../styles/inventory/DropdownMenu.css'
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../../../components/inventory/PaginationInventory';
+import { useAuth } from '../../../providers/AuthContextProvider'
+import { jwtDecode } from "jwt-decode";
 
 interface Request{
     requestId: number,
@@ -23,22 +25,38 @@ interface Request{
     }
     
 }
+interface DecodedToken{
+    EmployeeID: string;
+  }
 function EmployeeRequest() {
     
     const [requests, setRequests] = useState<Request[]>([]);
     const [showPopup, setShowPopup] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const itemsPerPage: number = 2;
+    const itemsPerPage: number = 5;
     const [activePage,setActivePage] = useState<number>(1);
     const [selectedFilter, setSelectedFilter] = useState<string>('');
-   
-    
+    const [requestCounts, setRequestCounts] = useState({
+        unreadRequests: 0,
+        totalRequests: 0,
+        acceptedRequests: 0,
+        rejectedRequests: 0,
+        pendingRequests: 0,
+    });
+    const { token } = useAuth();
+
+    let decodedToken: DecodedToken | null = null;
+
+    if (token) {
+    decodedToken = jwtDecode<DecodedToken>(token);
+    console.log("Decoded token:", decodedToken);
+    }
     
     const reversedrequests = [...requests].reverse();
     const navigate = useNavigate();
 
     const NavigateToInventoryTypePage = () => {
-      navigate('/employee');
+      navigate('/inventory/manager/inventoryrequest');
     };
 
     const handleClick = (pageNumber: number) => {
@@ -50,11 +68,15 @@ function EmployeeRequest() {
         
     }, [ currentPage,selectedFilter,requests]);
 
-    
+    useEffect(() => {
+        fetchRequestCounts();
+    }, []);
 
     const togglePopup = () => {
         setShowPopup(!showPopup);
     };
+
+
 
     // To Calculate the start and end indexes for the current page
     const startIndex: number = (currentPage - 1) * itemsPerPage;
@@ -62,26 +84,43 @@ function EmployeeRequest() {
 
     // To Slice the inventories array to display only the items for the current page
     const displayedRequests: Request[] = reversedrequests.slice(startIndex, endIndex);
+
+    const fetchRequestCounts = async () => {
+        try {
+            
+           console.log(decodedToken?.EmployeeID);
+            let url = `https://localhost:7166/api/Request/requestCounts/${decodedToken?.EmployeeID}`;
+            
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Failed to fetch request counts');
+            }
+            const data = await response.json();
+            setRequestCounts(data);
+        } catch (error) {
+            console.error('Error fetching request counts:', error);
+        }
+    };
      
     const FilteredRequestsFetch = async () => {
         try {
-            let   url = 'https://localhost:7166/api/Request/allrequests/5';
+            let   url = `https://localhost:7166/api/Request/allrequests/${decodedToken?.EmployeeID}`;
   
             switch (selectedFilter) {
                 case 'accepted':
-                    url = 'https://localhost:7166/api/Request/acceptedrequests/5';
+                    url = `https://localhost:7166/api/Request/acceptedrequests/${decodedToken?.EmployeeID}`;
                     break;
                 case 'rejected':
-                    url = 'https://localhost:7166/api/Request/rejectedrequests/5';
+                    url = `https://localhost:7166/api/Request/rejectedrequests/${decodedToken?.EmployeeID}`;
                     break;
                 case 'pending':
-                    url = 'https://localhost:7166/api/Request/pendingrequests/5';
+                    url = `https://localhost:7166/api/Request/pendingrequests/${decodedToken?.EmployeeID}`;
                     break;
                 case 'unread':
-                    url = 'https://localhost:7166/api/Request/notreadrequests/5';
+                    url = `https://localhost:7166/api/Request/notreadrequests/${decodedToken?.EmployeeID}`;
                     break;
                 case 'all':
-                      url = 'https://localhost:7166/api/Request/allrequests/5';
+                      url = `https://localhost:7166/api/Request/allrequests/${decodedToken?.EmployeeID}`;
                     break;
                 default:
                    
@@ -102,6 +141,11 @@ function EmployeeRequest() {
         setSelectedFilter(filter);
         setCurrentPage(1);// Reset to first page on filter change
     }
+
+    const handleAddInventory = () => {
+        FilteredRequestsFetch();
+        fetchRequestCounts(); // Refetch inventories after adding a new one
+    };
 return (
         <>
        <div className='container-main-InventoryRequest'>
@@ -112,22 +156,24 @@ return (
                         
             <div className="button-card-requestManager">
                     <div className={`req-button-card-item1 ${selectedFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterChange('all')}>
-                        <div>All</div><br />
-                        
+                        <div className='status'>All</div>
+                        <div className='number'>{requestCounts.totalRequests}</div>
                     </div>
                     <div className={`req-button-card-item2 ${selectedFilter === 'accepted' ? 'active' : ''}`} onClick={() => handleFilterChange('accepted')}>
-                        <div>Accepted</div>
-                       
+                        <div className='status'>Accepted</div>
+                        <div className='number'>{requestCounts.acceptedRequests}</div>
                     </div>
                     <div className={`req-button-card-item3 ${selectedFilter === 'rejected' ? 'active' : ''}`} onClick={() => handleFilterChange('rejected')}>
-                        <div>Rejected</div>
+                        <div className='status'>Rejected</div>
+                        <div className='number'>{requestCounts.rejectedRequests}</div>
                     </div>
                     <div className={`req-button-card-item4 ${selectedFilter === 'pending' ? 'active' : ''}`} onClick={() => handleFilterChange('pending')}>
-                        <div>Pending</div>
-                        
+                        <div className='status'>Pending</div>
+                        <div className='number'>{requestCounts.pendingRequests}</div>
                     </div>
                     <div className={`req-button-card-item5 ${selectedFilter === 'unread' ? 'active' : ''}`} onClick={() => handleFilterChange('unread')}>
-                        <div>Unread</div>
+                        <div className='status'>Unread</div>
+                        <div className='number'>{requestCounts.unreadRequests}</div>
                     </div>
                 </div>
                       
@@ -155,11 +201,11 @@ return (
                 </div>
             
                 <div>
-                <button className='navigateButton-InventoryRequest' onClick={NavigateToInventoryTypePage}><i className="fa-solid fa-arrow-left" style={{color:"white"}}></i> My inventories </button>
+                    <button className='navigateButton-InventoryRequest' onClick={NavigateToInventoryTypePage}><i className="fa-solid fa-arrow-left" style={{color:"white", fontSize:"20px"}}></i> My inventories </button>
               
                 </div>
-            </div>
-                {showPopup && <RequestForm handleClose={togglePopup}/>} 
+                    </div>
+                {showPopup && <RequestForm handleClose={togglePopup} onAdd={handleAddInventory}/>} 
        
                
             </div> 

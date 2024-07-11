@@ -114,12 +114,13 @@ const EmployeeInventories: React.FC<Props> = ({ inventories }) => {
                       displayvalue={selectedInventoryDetails.inventoryType.inventoryTypeName}
                     />
                   </div>
-                  <div className='AssignedDate'>
+                   <div className='AssignedDate'>
                     <DisplayDetailsField
                       displayplaceholder="Assigned Date"
                       displayvalue={selectedInventoryDetails.assignedDate.substring(0, 10)}
                     />
                   </div> 
+                  
                   <div className='InventoryFile-ex'>
                     <ImageWithPDFViewer
                       imageUrl2={"https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1667px-PDF_file_icon.svg.png"}

@@ -52,21 +52,24 @@
   margin-top: 50px;
 }
 
-.navigateButton-inventoryType button{
-  width: 150px;
+.navigateButton-inventoryType button {
+  width: 200px;
   height: 60px;
   border: none;
-  border-radius: 5px;
-  background-color:#00A7A7;
-  font-size: 15px;
-  color:white;
-  left:78%;
-  margin-bottom: 40px;
-  
+  border-radius: 10px;
+  background: linear-gradient(135deg, #007575, #005959);
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  right:5px;
 }
 
-.navigateButton-inventoryType button:hover{
-  background-color: #006666;
+ .navigateButton-inventoryType button:hover {
+  background: linear-gradient(135deg, #005959, #003d3d);
+  transform: scale(1.05);
 } 
 
 .NumberOfInventories-inventoryType{
