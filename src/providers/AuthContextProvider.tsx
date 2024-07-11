@@ -1,11 +1,10 @@
 import React, { useState, ReactNode, useContext, FC, useEffect } from "react";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; 
 
 interface DecodedToken {
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
-  EmployeeID: string;
+  EmployeeID: number;
   ImageUrl: string;
   FirstName: string;
   LastName: string;
@@ -15,8 +14,17 @@ interface AuthContextType {
   token: string | null;
   role: string | null;
   employeeId: number | null;
-  login: (token: string, role: string, employeeId: number) => void;
+  login: (token: string) => void;
   logout: () => void;
+  user: DecodedToken | null;
+}
+
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
 }
 
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
@@ -29,54 +37,71 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthContextProvider: FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const AuthContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
   const [employeeId, setEmployeeId] = useState<number | null>(null);
   const [user, setUser] = useState<DecodedToken | null>(null);
   const navigate = useNavigate();
 
-  
-  const login = (newToken: string, userRole: string, empId: number) => {
-    const expires = new Date(new Date().getTime() +   60*60* 1000);
-    setToken(newToken);
-    setRole(userRole);
-    setEmployeeId(empId);
-    Cookies.set("token", newToken, { expires, secure: true }); // Example: expires in 1 day, secure flag enabled
+  const decodeAndSetUser = (jwtToken: string) => {
+    try {
+      const decodedToken = jwtDecode<DecodedToken>(jwtToken);
+      updateUser(decodedToken);
+      setToken(jwtToken);
+      setRole(decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
+      setEmployeeId(decodedToken.EmployeeID);
+    } catch (error) {
+      console.error("Invalid token:", error);
+      logout();
+    }
+  };
+
+  const login = (newToken: string) => {
+    setToken(newToken); 
+    if (newToken) {
+      localStorage.setItem("token", newToken);
+      decodeAndSetUser(newToken);
+    }
+  };
+
+  const updateUser = (updatedUser: DecodedToken) => {
+    try {
+      setUser(updatedUser);
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
   };
 
   const logout = () => {
     setToken(null);
     setRole(null);
     setEmployeeId(null);
-    Cookies.remove("token");
-    
+    setUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/"); // Redirect to login page after logout
   };
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    if (token) {
-      try {
-        const decodedToken = jwtDecode<DecodedToken>(token);
-        setUser(decodedToken);
-        setToken(token);
-      } catch (error) {
-        console.error("Invalid token:", error);
-        logout(); 
-        window.location.reload();
-        // Logout user if token is invalid or expired
-      }
-    } else {
-      setUser(null);
-      logout();
+    const jwtToken = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); 
+      updateUser(parsedUser);
+      console.log("Parsed user is",parsedUser.EmployeeID)
+      console.log("pASED USER IS", user)
+      const decodedToken = jwtDecode<DecodedToken>(jwtToken || "");
+      setToken(jwtToken);
+      setRole(decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
+      setEmployeeId(decodedToken.EmployeeID);
     }
-  }, [ ]);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ token, role, employeeId, login, logout }}>
+    <AuthContext.Provider value={{ token, role, employeeId, login, logout, user }}>
       {children}
     </AuthContext.Provider>
   );

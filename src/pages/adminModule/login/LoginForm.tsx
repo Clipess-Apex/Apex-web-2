@@ -1,22 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthContextProvider";
 import "../../../styles/shared/LoginForm.css";
-import LogoIcon from "../../../icons/shared/header/logo.png"
-
-interface DecodedToken {
-  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
-  EmployeeID: string;
-}
+import LogoIcon from "../../../icons/shared/header/logo.png";
+import { toast } from "react-toastify";
 
 const LoginForm: React.FC = () => {
   const [companyEmail, setCompanyEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,23 +24,18 @@ const LoginForm: React.FC = () => {
         }
       );
       const token = response.data.token;
+      await login(token);
+      toast("Welcome to Clipess");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Invalid email or password");
+    }
+  };
 
-      const decodedToken = jwtDecode(token) as DecodedToken;
-      console.log("Decoded token:", decodedToken);
-
-      const userRole =
-        decodedToken[
-          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-        ];
-      console.log("Extracted user role:", userRole);
-
-      const employeeId = parseInt(decodedToken.EmployeeID, 10);
-      console.log("Extracted employee ID:", employeeId);
-
-      const normalizedUserRole = userRole.toLowerCase();
-
-      login(token, normalizedUserRole, employeeId);
-
+  useEffect(() => {
+    if (user) {
+      const normalizedUserRole = user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"].toLowerCase();
+      console.log("Normalizesd user",normalizedUserRole)
       switch (normalizedUserRole) {
         case "manager":
           navigate("/primary-ManagerDashboardPage");
@@ -56,21 +46,20 @@ const LoginForm: React.FC = () => {
         case "admin":
           navigate("/admin-dashboard");
           break;
+        default:
+          navigate("/"); // Default case if role is not recognized
+          break;
       }
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("Invalid email or password");
     }
-  };
+  }, [user, navigate]);
 
   return (
-    <>
-      <div className="login-container">
-        <div className="login-container-left-section">
-        <img src={LogoIcon} alt="logo" className="login-logo" /> 
-        <h1>CLIPESS</h1>         
-        </div>
-        <div className="login-container-right-section">
+    <div className="login-container">
+      <div className="login-container-left-section">
+        <img src={LogoIcon} alt="logo" className="login-logo" />
+        <h1>CLIPESS</h1>
+      </div>
+      <div className="login-container-right-section">
         <h2>Log into your account</h2>
         <form className="login-form" onSubmit={handleLogin}>
           <div>
@@ -97,10 +86,8 @@ const LoginForm: React.FC = () => {
           {error && <p style={{ color: "red" }}>{error}</p>}
           <button type="submit">Login</button>
         </form>
-        </div>
-
       </div>
-    </>
+    </div>
   );
 };
 

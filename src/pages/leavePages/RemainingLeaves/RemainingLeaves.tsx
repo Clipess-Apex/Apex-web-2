@@ -23,7 +23,7 @@ const LeaveTypeChart: React.FC = () => {
     useEffect(() => {
         const getData = async () => {
             if (employeeId === null) {
-                setError('Employee ID is not available.');
+                //setError('Employee ID is not available.');
                 return;
             }
 

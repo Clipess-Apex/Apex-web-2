@@ -7,7 +7,7 @@ import PendingLeaves from './PendingLeaves';
 import { LeaveType } from '../../../models/LeaveTypes';
 import { LeaveDetails, LeaveResponse } from '../../../models/LeaveDetailes';
 import LeaveChart from './LeaveCreateChart';
-import { createNotification } from '../../../services/LeaveNotificationServices';
+import { createNotification, getEmployeeNameById} from '../../../services/LeaveNotificationServices';
 import { useAuth } from '../../../providers/AuthContextProvider';
 import { format } from 'date-fns';
 
@@ -151,11 +151,12 @@ const LeaveForm: React.FC = () => {
             const submitResult = await submitLeaveRequest(leaveDetails);
             result = submitResult ?? undefined;
             if (result) {
+                const employeeName = await getEmployeeNameById(employeeId)
                 const currentDateTime = format(new Date(), 'yyyy-MM-dd \'at\' HH:mm');
                 const notificationData = {
                     EmployeeId: employeeId,
                     LeaveId: result.leaveId,
-                    Message: `New leave request from Employee ${employeeId} for ${selectedLeaveType.leaveTypeName} on ${leaveDate}. Requested on ${currentDateTime}`,
+                    Message: `New leave request from ${employeeName} for ${selectedLeaveType.leaveTypeName}on ${leaveDate}. Requested on ${currentDateTime}`,
                 };
                 await createNotification(notificationData);
             }

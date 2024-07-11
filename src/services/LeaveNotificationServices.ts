@@ -56,14 +56,12 @@ export const getUnreadNotificationsForManager = async (managerId: number) => {
   }
 };
 
-
-
-export const fetchManagers = async () => {
-  try {
-      const response = await axios.get('https://localhost:7166/api/employees/managers');
-      return response.data;
-  } catch (error) {
-      console.error('Error fetching managers:', error);
-      throw error;
-  }
+export const getEmployeeNameById = async (employeeId: number): Promise<string> => {
+    try {
+        const response = await axios.get<string>(`https://localhost:7166/api/employee/employeeName/${employeeId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching employee name:', error);
+        throw error;
+    }
 };
