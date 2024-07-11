@@ -5,6 +5,9 @@ import InventoryTypeSelect from '../../../components/inventory/InventoryTypeFilt
 import Pagination from '../../../components/inventory/PaginationInventory';
 import { useNavigate } from 'react-router-dom';
 import LottieAnimation from '../../../components/inventory/LotieAnimation';  
+import { useAuth } from '../../../providers/AuthContextProvider'
+import { jwtDecode } from "jwt-decode";
+import axios from 'axios';
 
 interface InventoryType {
     inventoryTypeId: number;
@@ -30,12 +33,23 @@ interface Inventory {
    
 }
 
+interface DecodedToken{
+    EmployeeID: string;
+  }
+
+  interface Notification {
+    userNotificationId: number;
+    employeeId: number;
+    notification:string;
+    IsRead:boolean}
 
 function InventoryFilter() {
     const [inventories, setInventories] = useState<Inventory[]>([]);
+    const [notifications, setNotfications] = useState<Notification[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage: number = 5;
     const [inventoryTypes, setInventoryTypes] = useState<InventoryType[]>([]);
+    const [SelectedNotification, setSelectedNotification] = useState<Notification>();
     const [activePage, setActivePage] = useState<number>(1);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [selectedInventoryTypeId, setSelectedInventoryTypeId] = useState<number>(0);
@@ -43,6 +57,15 @@ function InventoryFilter() {
         setCurrentPage(pageNumber); //To  Update current page
         setActivePage(pageNumber); // To Update active page
     };
+
+  const { token } = useAuth();
+
+  let decodedToken: DecodedToken | null = null;
+
+  if (token) {
+    decodedToken = jwtDecode<DecodedToken>(token);
+    console.log("Decoded token:", decodedToken);
+  }
 
     const navigate = useNavigate();
 
@@ -53,6 +76,7 @@ function InventoryFilter() {
     useEffect(() => {
        
         fetchInventoryTypes();
+        
     }, []);
     useEffect(() => {
        
@@ -75,9 +99,9 @@ function InventoryFilter() {
     const fetchInventories = async () => {
         try {
             let url = 'https://localhost:7166/api/inventory/filter';
-            url += `/employee/6`;
+            url += `/employee/${decodedToken?.EmployeeID}`;
             if(selectedInventoryTypeId){
-                url += `/type/${selectedInventoryTypeId}/6`
+                url += `/type/${selectedInventoryTypeId}/${decodedToken?.EmployeeID}`
             }
             const response = await fetch(url);
             if (!response.ok) {
@@ -89,6 +113,9 @@ function InventoryFilter() {
             console.error('Error fetching inventories:', error);
         }
     };
+
+   
+   
   
 
     const filteredInventories = inventories.filter(inventory => {
@@ -105,16 +132,31 @@ function InventoryFilter() {
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
     };
+
     const handleInventoryTypeChange = (selectedInventoryTypeId: number) => {
         setSelectedInventoryTypeId(selectedInventoryTypeId);
     };
+  
+    const handleNotificationHide = (notification: Notification) => {
+            setSelectedNotification(notification);
+          
+    }
+   
 
     return (
         <>
-        {/* <Header/>
-        <SideBar/> */}
+      
         <div className='container-main-employeeInventory'>
             <h2 className='heading-employeeInventory'>My Inventory Details</h2>
+           
+            <div className='Inventory-notification-container' style={{backgroundColor:"red",color:"white"}}>
+                {notifications.map((notification) => (
+                    <div>
+                        <div> {notification.notification} </div>
+                        <button onClick={() => handleNotificationHide(notification)} >Hide</button>
+                    </div>
+                ))}
+        </div>
           
           <div className='search-bar-container-employeeInventory'>
                     <div className='search-bar-employeeInventory'>
@@ -163,7 +205,7 @@ function InventoryFilter() {
                     </div>
 
                     <div className='navigation-button-employeeInventory'>
-                        <button onClick={NavigateToInventoryTypePage}>My Requests<i className="fa-solid fa-arrow-right" style={{ color: "white" }}></i></button>
+                        <button onClick={NavigateToInventoryTypePage}>Back To Dashboard</button>
                     </div>
                 </div>
              

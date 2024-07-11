@@ -145,6 +145,10 @@ const InventoryCard2: React.FC<Props> = ({ inventories }) => {
     setShowPopup3(true);
   };
 
+  const handleAddInventory = () => {
+    fetchInventoryDetails(); // Refetch inventories after adding a new one
+};
+
   return (
     <div className="inventory-card-container-InventoryDetails">
       <ToastContainer />
@@ -227,12 +231,7 @@ const InventoryCard2: React.FC<Props> = ({ inventories }) => {
                         </div>
                     )}
                     </div>
-
-
-
-                 
-                 
-                  <div className="button_arrange-InventoryDetails" >
+                    <div className="button_arrange-InventoryDetails" >
                     <button style={{ width: "30px", backgroundColor: "white", border: "white" }} onClick={() => handleDeleteClick(inventory.inventoryId)}><DeleteIcon size="30px" color="red" /></button>
                     <button style={{ width: "30px", backgroundColor: "white", border: "white" }} onClick={() => handleEditClick(inventory.inventoryId)}><EditIcon size="30px" color="black" /></button>
                   </div>
@@ -252,7 +251,7 @@ const InventoryCard2: React.FC<Props> = ({ inventories }) => {
             InventoryTypeId={selectedInventoryDetails.inventoryTypeId}
             imageUrl={selectedInventoryDetails.imageUrl}
             selectedEditId={selectedEditId}
-           
+            onAdd={handleAddInventory}
             handleClose={handleClosePopup} />
         )}
       </div>

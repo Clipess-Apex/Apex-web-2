@@ -130,7 +130,7 @@ const RequestCardManagerView: React.FC<Props> = ({ requests }) => {
     
     if(selectedRequestDetails.inventoryId == 0 && !selectedRequestDetails.rejected){
       
-      navigate('/inventoryAssign', { state: { selectedRequestDetails } });
+      navigate('/inventory/manager/inventoryAssign', { state: { selectedRequestDetails } });
     }
     
   };
