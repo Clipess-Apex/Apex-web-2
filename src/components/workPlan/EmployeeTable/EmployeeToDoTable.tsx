@@ -8,6 +8,16 @@ import {
   getFormTeams,
 } from "../../../services/workPlan/TaskModalServices";
 import { FormProject } from "../../../models/workPlan/FormProject";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../../../providers/AuthContextProvider";
+
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
 
 const columns = [
   { key: "taskName", header: "Task", width: 200 },
@@ -24,7 +34,19 @@ const EmployeeToDoTable = () => {
   const [items, setItems] = useState<ProjectTask[]>([]);
   const [EmployeeTaskData, setEmployeeTaskData] = useState<ProjectTask[]>([]);
   const [EmployeeToDoData, setEmployeeToDoData] = useState<ProjectTask[]>([]);
-  let EmployeeId: number = 1;
+  const [EmployeeId, setEmployeeId] = useState<number | undefined>(); // ID, Should use from Token
+
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+  
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      setEmployeeId(parsedUser.EmployeeID)
+      console.log("Employee id in daily time netry is",EmployeeId);
+      console.log("Header Parsed user is",parsedUser.EmployeeID)
+    }
+  },[])
 
   useEffect(() => {
     async function fetchData() {

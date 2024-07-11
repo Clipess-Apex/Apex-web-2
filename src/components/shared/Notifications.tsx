@@ -7,12 +7,34 @@ import {
 import { getNotifications } from "../../services/workPlan/NotificationServices";
 import { useNotificationContext } from "../../providers/NotificationContext";
 
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../../providers/AuthContextProvider";
+
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: number;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
+}
+
 const Notifications: React.FC = () => {
-  const [notifications, setNotifications] = useState<string[]>([]);
-  const { notificationCount, setNotificationCount } = useNotificationContext();
+  const [Tasknotifications, setTaskNotifications] = useState<string[]>([]);
+  const { TasknotificationCount, setTaskNotificationCount } = useNotificationContext();
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const [badgeContent, setBadgeContent] = useState(0);
-  let EmployeeId: number = 4;
+  const [EmployeeId, setEmployeeId] = useState<number>(0);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+  
+    if (storedUser) {
+      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+      setEmployeeId(parsedUser.EmployeeID)
+      console.log("Employee id in daily time netry is",EmployeeId)
+      console.log("Header Parsed user is",parsedUser.EmployeeID)
+    }
+  },[])
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
@@ -34,11 +56,11 @@ const Notifications: React.FC = () => {
         .start()
         .then(() => {
           connection.on("RecieveNotification", (receivedNotifications) => {
-            setNotifications((notificationText) => [
+            setTaskNotifications((notificationText) => [
               ...notificationText,
               receivedNotifications,
             ]);
-            setNotificationCount(Notifications.length);
+            setTaskNotificationCount(Notifications.length);
           });
         })
         .catch((error) => console.error("SignalR Connection Error:", error));
@@ -46,29 +68,31 @@ const Notifications: React.FC = () => {
   }, [connection, EmployeeId]);
 
   useEffect(() => {
-    async function fetchNotifications() {
+    async function fetchTaskNotifications() {
       try {
         const data = await getNotifications(EmployeeId);
-        setNotifications(data);
+        setTaskNotifications(data);
         console.log(data);
-        setNotificationCount(notifications.length);
+        setTaskNotificationCount(Tasknotifications.length);
       } catch (error) {
         console.error("Error fetching teams:", error);
       }
     }
 
-    fetchNotifications();
+    fetchTaskNotifications();
   }, []);
 
   return (
     <div>
+      <div className="worplan">
       <ul className="list-group">
-        {notifications.map((notification, index) => (
+        {Tasknotifications.map((notification, index) => (
           <li key={index} className="list-group-item notification-text">
             <p>{notification}</p>
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };
