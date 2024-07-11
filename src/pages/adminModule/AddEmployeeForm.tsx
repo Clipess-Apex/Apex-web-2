@@ -1,7 +1,14 @@
 import React, { FormEvent, useEffect, useState, ChangeEvent } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../../providers/AuthContextProvider"
 import { Link } from "react-router-dom";
 import "../../styles/adminModule/addEmployeeForm/AddEmployeeForm.css";
+import { toast } from "react-toastify";
+
+interface DecodedToken{
+  EmployeeID: string;
+}
 
 interface FormData {
   firstName: string;
@@ -94,6 +101,15 @@ interface MaritalStatus {
 }
 
 const AddEmployeeForm: React.FC = () => {
+  const { token } = useAuth();
+
+  let decodedToken: DecodedToken | null = null;
+
+  if (token) {
+    decodedToken = jwtDecode<DecodedToken>(token);
+    console.log("Decoded token:", decodedToken);
+  }
+
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -113,7 +129,7 @@ const AddEmployeeForm: React.FC = () => {
     roleID: "",
     departmentID: "",
     maritalStatusID: "",
-    createdBy: "",
+    createdBy: decodedToken ? decodedToken.EmployeeID : "",
     deleted: false,
     deletedDate: "",
     deletedBy: "",
@@ -161,7 +177,7 @@ const AddEmployeeForm: React.FC = () => {
     roleID: "",
     departmentID: "",
     maritalStatusID: "",
-    createdBy: "",
+    createdBy: decodedToken ? decodedToken.EmployeeID : "",
     deleted: false,
     deletedDate: "",
     deletedBy: "",
@@ -426,7 +442,7 @@ const AddEmployeeForm: React.FC = () => {
       );
       console.log(response.data);
 
-      alert("Employee added successfully!");
+      toast.success("Employee added successfully!");
 
       setFormData(initialFormData);
       setImageFile(null);
@@ -435,17 +451,17 @@ const AddEmployeeForm: React.FC = () => {
       if (axios.isAxiosError(error)) {
         if (error.response) {
           console.error("Server error:", error.response.data);
-          alert("Server error. Please check the form data.");
+          toast.error("Server error. Please check the form data.");
         } else if (error.request) {
           console.error("No response received:", error.request);
-          alert("No response received from the server. Please try again.");
+          toast.error("No response received from the server. Please try again.");
         } else {
           console.error("Error:", error.message);
-          alert("An error occurred. Please try again.");
+          toast.error("An error occurred. Please try again.");
         }
       } else {
         console.error("Generic error:", error);
-        alert("An error occurred. Please try again.");
+        toast.error("An error occurred. Please try again.");
       }
     }
   };
@@ -498,7 +514,6 @@ const AddEmployeeForm: React.FC = () => {
               <br />
               <input
                 type="date"
-                // className="datepicker-input"
                 id="dateOfBirth"
                 name="dateOfBirth"
                 value={formData.dateOfBirth}
@@ -771,20 +786,6 @@ const AddEmployeeForm: React.FC = () => {
               {formErrors.departmentID && (
                 <span style={{ color: "red" }}>{formErrors.departmentID}</span>
               )}
-            </div>
-          </div>
-
-          <div className="add-employee-form-dividers">
-            <div>
-              <label htmlFor="createdBy">Created By: </label>
-              <br />
-              <input
-                type="text"
-                id="createdBy"
-                name="createdBy"
-                value={formData.createdBy}
-                onChange={handleInputChange}
-              />
             </div>
           </div>
 

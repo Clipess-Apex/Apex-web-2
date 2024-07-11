@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../../styles/shared/ChangePassword.css'
+import EyeIcon from "../../../icons/adminModule/eye-svgrepo-com.svg";
+import EyeOffIcon from "../../../icons/adminModule/eye-closed-svgrepo-com.svg";
+import '../../../styles/shared/ChangePassword.css';
 
 interface PasswordChange {
     CompanyEmail: string;
@@ -15,6 +17,8 @@ const ChangePassword: React.FC = () => {
         NewPassword: '',
     });
 
+    const [isCurrentPasswordVisible, setIsCurrentPasswordVisible] = useState<boolean>(false);
+    const [isNewPasswordVisible, setIsNewPasswordVisible] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,25 +59,41 @@ const ChangePassword: React.FC = () => {
                 </div>
                 <div className="change-password-form-group">
                     <label htmlFor="CurrentPassword">Current Password</label>
-                    <input
-                        type="password"
-                        name="CurrentPassword"
-                        id="CurrentPassword"
-                        value={model.CurrentPassword}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className="password-wrapper">
+                        <input
+                            type={isCurrentPasswordVisible ? "text" : "password"}
+                            name="CurrentPassword"
+                            id="CurrentPassword"
+                            value={model.CurrentPassword}
+                            onChange={handleChange}
+                            required
+                        />
+                        <img
+                            src={isCurrentPasswordVisible ? EyeOffIcon : EyeIcon}
+                            alt="toggle visibility"
+                            className="password-toggle-icon-one"
+                            onClick={() => setIsCurrentPasswordVisible(!isCurrentPasswordVisible)}
+                        />
+                    </div>
                 </div>
                 <div className="change-password-form-group">
                     <label htmlFor="NewPassword">New Password</label>
-                    <input
-                        type="password"
-                        name="NewPassword"
-                        id="NewPassword"
-                        value={model.NewPassword}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className="password-wrapper">
+                        <input
+                            type={isNewPasswordVisible ? "text" : "password"}
+                            name="NewPassword"
+                            id="NewPassword"
+                            value={model.NewPassword}
+                            onChange={handleChange}
+                            required
+                        />
+                        <img
+                            src={isNewPasswordVisible ? EyeOffIcon : EyeIcon}
+                            alt="toggle visibility"
+                            className="password-toggle-icon-two"
+                            onClick={() => setIsNewPasswordVisible(!isNewPasswordVisible)}
+                        />
+                    </div>
                 </div>
                 <button type="submit" className="change-password-submit-button">Change Password</button>
                 {message && <p className="change-password-message">{message}</p>}

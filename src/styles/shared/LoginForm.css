@@ -8,7 +8,6 @@
 }
 
 .login-container-left-section {
-  /* background: linear-gradient(to bottom right, #00a7a7, #0e9b9b); */
   color: white;
   width: 40%;
   padding: 40px 20px;
@@ -97,4 +96,25 @@
   position:relative;
   top: 10px;
   left: 10px;
+}
+
+.password-input-group {
+  position: relative;
+}
+
+.password-input-group input {
+  flex: 1;
+  padding-right: 30px;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  /* right: 10px;;
+  top:50%; */
+  right: 355px;
+  top: 335px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
 }

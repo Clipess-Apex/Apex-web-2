@@ -65,6 +65,7 @@ import EmployeeProjectViewCorrectPage from "./pages/workPlan/Pages/EmployeeProje
 
 import PrimaryEmployeeDashboardPage from './pages/shared/MainEmployeeDashboardPage';
 import PrimaryManagerDashboardPage from './pages/shared/MainManagerDashboardPage';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -147,6 +148,7 @@ const AppRoutes = () => {
 const App: React.FC = () => {
   return (
     <StyleContextProvider>
+      <ToastContainer/>
       <BrowserRouter>
         <AuthContextProvider>
         <NotificationProvider>
@@ -158,6 +160,6 @@ const App: React.FC = () => {
       </BrowserRouter>
     </StyleContextProvider>
   );
-};
+}; 
 
 export default App;

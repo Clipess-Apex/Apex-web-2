@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../../styles/timeEntry/pages/ManagerRecordsPage.css'
 import ManagerMonthlyCalendar from '../../components/timeEntry/ManagerRecords/ManagerMonthlyCalendar'
 import ManagerDailyCalendar from '../../components/timeEntry/ManagerRecords/ManagerDailyCalendar'
-import Header from '../../components/shared/Header'
+import Header from '../../components/shared/AdminHeader'
 import SideBar from '../../components/shared/SideBar'
 
 

@@ -4,12 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthContextProvider";
 import "../../../styles/shared/LoginForm.css";
 import LogoIcon from "../../../icons/shared/header/logo.png";
+import EyeIcon from "../../../icons/adminModule/eye-svgrepo-com.svg";
+import EyeOffIcon from "../../../icons/adminModule/eye-closed-svgrepo-com.svg";
 import { toast } from "react-toastify";
 
 const LoginForm: React.FC = () => {
-  const [companyEmail, setCompanyEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [companyEmail, setCompanyEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
   const { login, user } = useAuth();
 
@@ -24,7 +27,7 @@ const LoginForm: React.FC = () => {
         }
       );
       const token = response.data.token;
-      await login(token);
+      login(token);
       toast("Welcome to Clipess");
     } catch (err) {
       console.error("Login error:", err);
@@ -34,8 +37,11 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      const normalizedUserRole = user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"].toLowerCase();
-      console.log("Normalizesd user",normalizedUserRole)
+      const normalizedUserRole =
+        user[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ].toLowerCase();
+      console.log("Normalized user role:", normalizedUserRole);
       switch (normalizedUserRole) {
         case "manager":
           navigate("/primary-ManagerDashboardPage");
@@ -71,20 +77,29 @@ const LoginForm: React.FC = () => {
               required
             />
           </div>
-          <div>
+          <div className="password-input-container">
             <label>Password:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="password-wrapper">
+              <input
+                type={isPasswordVisible ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <img
+                src={isPasswordVisible ? EyeOffIcon : EyeIcon}
+                alt="toggle visibility"
+                className="password-toggle-icon"
+                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+              />
+            </div>
           </div>
           <div className="forgot">
             <Link to="/password-reset-request">Forgot Password?</Link>
           </div>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+
           <button type="submit">Login</button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
       </div>
     </div>

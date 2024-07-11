@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../../styles/adminModule/AdminLookupTables.css";
+import { toast } from "react-toastify";
 
 interface Role {
   roleID: number;
@@ -62,7 +63,7 @@ const RoleTable: React.FC = () => {
           setRoles(
             roles.filter((role) => role.roleID !== roleToRemove.roleID)
           );
-          alert("Role status updated to deleted successfully.");
+          toast.success("Role status updated to deleted successfully.");
         } else {
           throw new Error("Failed to update role delete status");
         }
@@ -96,7 +97,7 @@ const RoleTable: React.FC = () => {
             role.roleID === updatedRole.roleID ? updatedRole : role
           )
         );
-        alert("Role updated successfully.");
+        toast.success("Role updated successfully.");
       } else {
         throw new Error("Failed to update role");
       }
@@ -125,13 +126,18 @@ const RoleTable: React.FC = () => {
   };
 
   const confirmAdd = async () => {
+    if (roles.some(role => role.roleName === newRole.roleName)) {
+      toast.error("Role already exists.");
+      return;
+    }
+    
     try {
       const response = await axios.post(
         "https://localhost:7166/api/role/addRole",
         newRole
       );
       if (response.status === 200) {
-        alert("Role added successfully.");
+        toast.success("Role added successfully.");
         setNewRole({ roleID: 0, roleName: "", deleted: false });
         setShowAddPopup(false);
         await fetchRoles();

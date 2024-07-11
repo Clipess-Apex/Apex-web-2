@@ -1,4 +1,4 @@
-import Header from '../../components/shared/Header'
+import Header from '../../components/shared/AdminHeader'
 import SideBar from '../../components/shared/SideBar'
 import '../../styles/DashboardLayout/DashboardLayout.css'
 import MainManagerDashboard from './MainManagerDashboard'

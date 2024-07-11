@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link, Navigate } from "react-router-dom";
 import ManageEmployees from "../../icons/adminModule/Manageemployees.svg";
 import RolesIcon from "../../icons/adminModule/roles.svg";
 import DepartmentIcon from "../../icons/adminModule/Department.svg";
 import EmployeetypesIcon from "../../icons/adminModule/Employeetypes.svg";
 import "../../styles/adminModule/AdminDashboard.css";
 import EmployeeStats from "../../components/adminModule/EmployeeStats";
+import AdminDashboardBarChart from "../../components/adminModule/AdminDashboardBarChart";
+import { Link, useNavigate } from "react-router-dom";
 
 interface CardProps {
   title: React.ReactNode;
   icon: React.ReactNode;
   path: string;
+}
+
+interface StoredUser {
+  "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
+  EmployeeID: string;
+  ImageUrl: string;
+  FirstName: string;
+  LastName: string;
 }
 
 const AdminCard: React.FC<CardProps> = ({ title, icon, path }) => {
@@ -22,6 +32,8 @@ const AdminCard: React.FC<CardProps> = ({ title, icon, path }) => {
     </div>
   );
 };
+
+
 
 const adminCardData = [
   {
@@ -70,10 +82,25 @@ const adminCardData = [
   },
 ];
 
+
+
 const AdminDashboard: React.FC = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+  
+    if (!storedUser) {
+      navigate("/");
+    }
+  },[])
+
   return (
     <div className="admin-dashboard">  
-    <EmployeeStats />    
+    <div className="admin-dashboard-elements">
+    <EmployeeStats />  
+    <AdminDashboardBarChart />
+    </div>  
       <div className="admin-dashboard-card-container">      
         {adminCardData.map((card) => (
           <Link to={card.path} key={card.id} style={{ textDecoration: "none" }}>
