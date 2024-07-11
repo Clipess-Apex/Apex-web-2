@@ -3,9 +3,11 @@ import { fetchPastLeaves } from '../../../services/LeaveServices';
 import { LeaveResponseByEmployee } from '../../../models/LeaveDetailes';
 import { fetchLeaveTypes } from '../../../services/LeaveTypeServices';
 import { LeaveType } from '../../../models/LeaveTypes';
+import { useAuth } from '../../../providers/AuthContextProvider';
 import './EmployeeLeaveHistory.css';
 
-const EmployeeLeaveHistory: React.FC<{ employeeId: number }> = ({ employeeId }) => {
+const EmployeeLeaveHistory: React.FC = () => {
+    const { employeeId } = useAuth();
     const [pastLeaves, setPastLeaves] = useState<LeaveResponseByEmployee[]>([]);
     const [filteredLeaves, setFilteredLeaves] = useState<LeaveResponseByEmployee[]>([]);
     const [leaveTypes, setLeaveTypes] = useState<LeaveType[]>([]);
@@ -17,17 +19,22 @@ const EmployeeLeaveHistory: React.FC<{ employeeId: number }> = ({ employeeId }) 
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const leaves = await fetchPastLeaves(employeeId);
-                const types = await fetchLeaveTypes();
+            if (employeeId !== null) {
+                try {
+                    const leaves = await fetchPastLeaves(employeeId);
+                    const types = await fetchLeaveTypes();
 
-                setPastLeaves(leaves as LeaveResponseByEmployee[]);
-                setLeaveTypes(types as LeaveType[]);
-                setFilteredLeaves(leaves as LeaveResponseByEmployee[]); // Initialize with all leaves
-            } catch (error) {
-                setError('Failed to fetch data.');
-                console.error('Error fetching data:', error);
-            } finally {
+                    setPastLeaves(leaves as LeaveResponseByEmployee[]);
+                    setLeaveTypes(types as LeaveType[]);
+                    setFilteredLeaves(leaves as LeaveResponseByEmployee[]); // Initialize with all leaves
+                } catch (error) {
+                    setError('Failed to fetch data.');
+                    console.error('Error fetching data:', error);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                setError('Invalid employee ID.');
                 setLoading(false);
             }
         };

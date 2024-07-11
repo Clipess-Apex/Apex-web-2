@@ -59,14 +59,14 @@ const LeaveTypeForm: React.FC = () => {
             : await addLeaveType(leaveType);
 
         if (success) {
-            navigate('/leave-settings');
+            navigate('/leave/manager/leave-settings');
         } else {
             setErrorMessage('Failed to save leave type.');
         }
     };
 
     const handleCancel = () => {
-        navigate('/leave-settings');
+        navigate('/leave/manager/leave-settings');
     };
 
     const closePopup = () => {

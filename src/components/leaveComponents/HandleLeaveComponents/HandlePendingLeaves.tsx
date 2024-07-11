@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './HandlePendingLeaves.css';
 import rejectIcon from '../../../icons/leaves/thumb-down-Leave.svg';
 import approveIcon from '../../../icons/leaves/thumb-up-svgrepo-com.svg';
-import ConfirmationPopup from './LeaveManagePopup'
+import ConfirmationPopup from './LeaveManagePopup';
 
 interface Leave {
   leaveId: number;
@@ -16,6 +16,7 @@ interface Leave {
     lastName: string;
   };
   reason: string;
+  requestedDate: Date; // assuming requestedDate is part of the Leave object
 }
 
 interface HandleLeaveProps {
@@ -45,7 +46,8 @@ const LeavePage: React.FC = () => {
 
         const leavesWithDateConverted: Leave[] = data.map(item => ({
           ...item,
-          leaveDate: new Date(item.leaveDate)
+          leaveDate: new Date(item.leaveDate),
+          requestedDate: new Date(item.requestedDate) // ensure requestedDate is converted to Date
         }));
 
         setLeaves(leavesWithDateConverted);
@@ -58,19 +60,49 @@ const LeavePage: React.FC = () => {
     fetchLeaves();
   }, []);
 
+  // Function to check and update leave statuses based on timeout criteria
+  const checkLeaveTimeouts = async () => {
+    const now = new Date();
+    const fourteenDaysAgo = new Date();
+    fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
+
+    // Log the date from 14 days ago to the console
+    console.log('Date from 14 days ago:', fourteenDaysAgo);
+
+    leaves.forEach(async leave => {
+      const leaveDate = new Date(leave.leaveDate);
+      const requestedDate = new Date(leave.requestedDate);
+      console.log(leave.requestedDate)
+
+      if (leaveDate < now) {
+        if (requestedDate >= fourteenDaysAgo) {
+          await updateLeaveStatus(leave.leaveId, 4); // Status ID 4 for timeout within 14 days
+        } else {
+          await updateLeaveStatus(leave.leaveId, 5); // Status ID 5 for timeout beyond 14 days
+        }
+      }
+    });
+  };
+
+  // Call checkLeaveTimeouts periodically
+  useEffect(() => {
+    const interval = setInterval(checkLeaveTimeouts, 60000); // Check every 60 seconds
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, [leaves]);
+
   const handlePopupConfirm = () => {
     popupConfirmAction();
     setShowPopup(false);
   };
 
   const handleApprove = (id: number, employeeName: string) => {
-    setPopupMessage(`Are you sure you want to approve the leave request for  ${employeeName}?`);
+    setPopupMessage(`Are you sure you want to approve the leave request for ${employeeName}?`);
     setPopupConfirmAction(() => () => approveLeave(id, employeeName));
     setShowPopup(true);
   };
 
   const handleReject = (id: number, employeeName: string) => {
-    setPopupMessage(`Are you sure you want to reject the leave request for  ${employeeName}?`);
+    setPopupMessage(`Are you sure you want to reject the leave request for ${employeeName}?`);
     setPopupConfirmAction(() => () => rejectLeave(id, employeeName));
     setShowPopup(true);
   };
@@ -116,6 +148,28 @@ const LeavePage: React.FC = () => {
     } catch (error) {
       console.error('Error rejecting leave:', error);
       setError('Error rejecting leave');
+    }
+  };
+
+  const updateLeaveStatus = async (id: number, statusId: number) => {
+    try {
+      const response = await fetch(`https://localhost:7166/api/leave/updateLeave/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(statusId),
+      });
+      if (response.ok) {
+        console.log(`Leave status updated successfully to ${statusId}:`, id);
+        setLeaves(leaves.filter(leave => leave.leaveId !== id));
+      } else {
+        console.error('Failed to update leave status:', response.statusText);
+        setError('Failed to update leave status');
+      }
+    } catch (error) {
+      console.error('Error updating leave status:', error);
+      setError('Error updating leave status');
     }
   };
 

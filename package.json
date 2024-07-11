@@ -93,8 +93,14 @@
     "@types/react-date-range": "^1.4.9",
     "@types/react-dom": "^18.3.0",
     "@types/react-router-dom": "^5.3.3",
+    "typescript": "^4.9.5"
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
     "@types/react-tooltip": "^4.2.4",
     "react-router-dom": "^6.23.0",
     "typescript": "^4.9.5"
   }
-}
+

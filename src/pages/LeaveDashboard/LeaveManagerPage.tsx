@@ -26,13 +26,13 @@ const LeaveManagerCard: React.FC<CardProps> = ({ title, icon, path }) => {
 };
 
 const managerCardData = [
-  { id: 1, title: 'Manage Leave', icon: <img src={ManageLeaveIcon} alt="Manage Leave" className="leave-manager-card-icon" />, path: '/manage-leave' },
-  { id: 2, title: 'Company Leave History', icon: <img src={CompanyLeaveHistoryIcon} alt="Company Leave History" className="leave-manager-card-icon" />, path: '/company-leave-history' },
-  { id: 3, title: 'Leave Settings', icon: <img src={LeaveSettingsIcon} alt="Leave Settings" className="leave-manager-card-icon" />, path: '/leave-settings' },
-  { id: 4, title: 'Generate Leave Reports', icon: <img src={ReportGenerationIcon} alt="Report Generation" className="leave-manager-card-icon" />, path: '/report-generation' },
-  { id: 5, title: 'Create Leave', icon: <img src={LeaveRequestIcon} alt="Create Leave" className="leave-manager-card-icon" />, path: '/leave-request' },
-  { id: 6, title: 'Leave History', icon: <img src={LeaveHistoryIcon} alt="Leave History" className="leave-manager-card-icon" />, path: '/leave-history' },
-  { id: 7, title: 'Remaining Leaves', icon: <img src={RemainingLeavesIcon} alt="Remaining Leaves" className="leave-manager-card-icon" />, path: '/remaining-leaves' },
+  { id: 1, title: 'Manage Leave', icon: <img src={ManageLeaveIcon} alt="Manage Leave" className="leave-manager-card-icon" />, path: '/leave/manager/manage-leave' },
+  { id: 2, title: 'Company Leave History', icon: <img src={CompanyLeaveHistoryIcon} alt="Company Leave History" className="leave-manager-card-icon" />, path: '/leave/manager/company-leave-history' },
+  { id: 3, title: 'Leave Settings', icon: <img src={LeaveSettingsIcon} alt="Leave Settings" className="leave-manager-card-icon" />, path: '/leave/manager/leave-settings' },
+  { id: 4, title: 'Generate Leave Reports', icon: <img src={ReportGenerationIcon} alt="Report Generation" className="leave-manager-card-icon" />, path: '/leave/manager/report-generation' },
+  { id: 5, title: 'Create Leave', icon: <img src={LeaveRequestIcon} alt="Create Leave" className="leave-manager-card-icon" />, path: '/leave/manager/leave-request' },
+  { id: 6, title: 'Leave History', icon: <img src={LeaveHistoryIcon} alt="Leave History" className="leave-manager-card-icon" />, path: '/leave/manager/leave-history' },
+  { id: 7, title: 'Remaining Leaves', icon: <img src={RemainingLeavesIcon} alt="Remaining Leaves" className="leave-manager-card-icon" />, path: '/leave/manager/remaining-leaves' },
 ];
 
 const ManagerInterface: React.FC = () => {

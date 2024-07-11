@@ -9,7 +9,7 @@ import DashboardCard from './DashboardCard';
 const employeeCardData = [
   { id: 1, title: 'Time-Entry', icon: <img src={TimeEntryIcon} alt="Time Entry" className="dashboard-card-icon" />, path: '/timeEntry/employee' },
   { id: 2, title: 'Inventory', icon: <img src={InventoryIcon} alt="Inventory" className="dashboard-card-icon" />, path: '/inventory/employee/' },
-  { id: 3, title: 'Leaves', icon: <img src={LeaveIcon} alt="Leave" className="dashboard-card-icon" />, path: '/leave' },
+  { id: 3, title: 'Leaves', icon: <img src={LeaveIcon} alt="Leave" className="dashboard-card-icon" />, path: '/leave/employee' },
   { id: 4, title: 'Work-Plan', icon: <img src={WorkPlanIcon} alt="WorkPlan" className="dashboard-card-icon" />, path: '/workplan/employee' },
 ]
 

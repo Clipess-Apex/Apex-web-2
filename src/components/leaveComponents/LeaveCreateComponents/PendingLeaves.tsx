@@ -2,28 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { fetchPendingLeaves, deleteLeave } from '../../../services/LeaveServices';
 import './PendingLeaves.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../providers/AuthContextProvider';
 
 interface Leave {
     leaveId: number;
     leaveType: {
         leaveTypeName: string;
     };
-    leaveDate: string; 
+    leaveDate: string;
     reason: string;
-    createdDate: string; 
+    createdDate: string;
 }
 
 const PendingLeaves: React.FC = () => {
+    const { employeeId } = useAuth();
     const [leaves, setLeaves] = useState<Leave[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const getPendingLeaves = async () => {
-            const leaveData = await fetchPendingLeaves(4); // Replace with actual employeeId
-            setLeaves(leaveData);
-        };
-        getPendingLeaves();
-    }, []);
+        if (employeeId !== null) {
+            const getPendingLeaves = async () => {
+                const leaveData = await fetchPendingLeaves(employeeId);
+                setLeaves(leaveData);
+            };
+            getPendingLeaves();
+        }
+    }, [employeeId]);
 
     const handleEditClick = (leave: Leave) => {
         navigate('/edit-leave', { state: { leaveId: leave.leaveId } });
