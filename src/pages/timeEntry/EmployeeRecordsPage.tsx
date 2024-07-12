@@ -3,7 +3,7 @@ import '../../styles/timeEntry/pages/EmployeeRecordsPage.css'
 import EmployeeDailyCalendar from '../../components/timeEntry/EmployeeRecords/EmployeeDailyCalendar'
 import EmployeeMonthlyCalendar from '../../components/timeEntry/EmployeeRecords/EmployeeMonthlyCalendar'
 import EmployeePdfViewerCalendar from '../../components/timeEntry/EmployeeRecords/EmployeePdfViewerCalendar'
-import Header from '../../components/shared/AdminHeader'
+import Header from '../../components/shared/Header'
 import SideBar from '../../components/shared/SideBar'
 
 const EmployeeRecordsPage = () => {

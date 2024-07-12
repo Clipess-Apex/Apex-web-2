@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './InventoryNotification.css'
 
 interface InventoryNotificationProps {
   userNotificationId: number;
@@ -26,11 +27,11 @@ const InventoryNotification: React.FC<InventoryNotificationProps> = ({ userNotif
   };
 
   return (
-    <div className='inventory-notification-container' style={{ backgroundColor: isRead ? "gray" : "red", color: "white" }}>
-      <div style={{width:"300px"}}>
-        {notification}
-        <button onClick={handleInventoryRead}>Hide</button>
-      </div>
+    <div className='inventory-notification-container'>
+        <p className='inventory-notification-text'> {notification} </p>
+        <div className="notification-button-container">
+        <button className='inventory-notification-button' onClick={handleInventoryRead}>Hide</button>
+        </div>
     </div>
   );
 };

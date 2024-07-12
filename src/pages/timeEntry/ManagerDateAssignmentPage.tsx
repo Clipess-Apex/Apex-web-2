@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../../styles/timeEntry/pages/ManagerDateAssignmentPage.css'
 import CurrentMonthDateUpdateContainer from '../../components/timeEntry/ManagerDateAssignment/CurrentMonthDateUpdateContainer'
 import NextMonthDateDefineContainer from '../../components/timeEntry/ManagerDateAssignment/NextMonthDateDefineContainer'
-import Header from '../../components/shared/AdminHeader'
+import Header from '../../components/shared/Header'
 import SideBar from '../../components/shared/SideBar'
 
 const ManagerDateAssignmentPage = () => {

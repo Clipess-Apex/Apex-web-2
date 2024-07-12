@@ -5,7 +5,6 @@ import {
   LogLevel,
 } from "@microsoft/signalr";
 import { getNotifications } from "../../services/workPlan/NotificationServices";
-import { useNotificationContext } from "../../providers/NotificationContext";
 
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../../providers/AuthContextProvider";
@@ -20,7 +19,7 @@ interface StoredUser {
 
 const Notifications: React.FC = () => {
   const [Tasknotifications, setTaskNotifications] = useState<string[]>([]);
-  const { TasknotificationCount, setTaskNotificationCount } = useNotificationContext();
+  const [ TasknotificationCount, setTaskNotificationCount ] = useState<number>(0);
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const [badgeContent, setBadgeContent] = useState(0);
   const [EmployeeId, setEmployeeId] = useState<number>(0);
@@ -60,7 +59,7 @@ const Notifications: React.FC = () => {
               ...notificationText,
               receivedNotifications,
             ]);
-            setTaskNotificationCount(Notifications.length);
+            setTaskNotificationCount(Tasknotifications.length);
           });
         })
         .catch((error) => console.error("SignalR Connection Error:", error));

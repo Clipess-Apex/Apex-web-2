@@ -4,7 +4,6 @@ import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { StyleContextProvider } from './providers/StyleContextProvider';
 import { AuthContextProvider } from './providers/AuthContextProvider';
 import { HelmetProvider } from 'react-helmet-async';
-import { NotificationProvider } from "./providers/NotificationContext";
 import '@fortawesome/fontawesome-free/css/all.css';
 
 import InventoryManagerLayout from './pages/inventory/layoutPage/InventoryManagerLayout';
@@ -154,11 +153,9 @@ const App: React.FC = () => {
       <ToastContainer/>
       <BrowserRouter>
         <AuthContextProvider>
-        <NotificationProvider>
           <HelmetProvider>
             <AppRoutes />
           </HelmetProvider>
-          </NotificationProvider>
         </AuthContextProvider>
       </BrowserRouter>
     </StyleContextProvider>
