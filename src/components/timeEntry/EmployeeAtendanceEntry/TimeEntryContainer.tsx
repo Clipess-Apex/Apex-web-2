@@ -18,6 +18,9 @@ interface DecodedToken {
   "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string;
 }
 
+interface DecodedToken{
+  EmployeeID: number;
+}
 
 interface TimeEntryType {
   id: number;
@@ -82,27 +85,35 @@ const Employee = useRef<StoredUser | null>(null);
   const [droppedTimeEntryEventIDs, setDroppedTimeEntryEventIDs] = useState<number[]>([]);
   const droppedTimeEntryEventIDsRef = useRef(droppedTimeEntryEventIDs);
   const [showTaskEntryPopup, setShowTaskEntryPopup] = useState(false);
-  const [employeeID, setEmployeeId] = useState<number>();
+  const [employeeID, setEmployeeId] = useState<number | undefined>(5);
   const [today, setToday] = useState(format(new Date(), 'yyyy-MM-dd'));
   const [timeEntryTypes, setTimeEntryTypes] = useState<TimeEntryType[]>([]);
   const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([]);
   const [TaskFormtypeId, setTaskFormtypeId] = useState<number | undefined>(undefined);
   const [currentTaskData, setCurrentTaskData] = useState<TaskData | undefined>(undefined);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
-      Employee.current = parsedUser
-      setEmployeeId(Employee.current.EmployeeID)
-    }
-  },[])
+
+  if (token) {
+    decodedToken = jwtDecode<DecodedToken>(token);
+    console.log("Decoded token:", decodedToken);
+  }
+
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   if (storedUser) {
+  //     const parsedUser: StoredUser = JSON.parse(storedUser); // Parse storedUser as StoredUser type
+  //     Employee.current = parsedUser
+  //     setEmployeeId(parsedUser.EmployeeID)
+  //   }
+  // },[])
 
   useEffect(() => {
     getTimeEntryTypes();
-    getTimeEntries();
     setCurrentTaskData(undefined);
+    getTimeEntries();
   }, []);
+
+
 
   useEffect(() => {
   }, [currentTaskData]);
@@ -127,6 +138,8 @@ const Employee = useRef<StoredUser | null>(null);
 
   const getTimeEntries = async () => {
     try {
+
+      console.log("EmployeeId in tim entries", employeeID)
       const response = await fetch(`https://localhost:7166/api/TimeEntry/GetTimeEntriesByEmployee?id=${employeeID}&date=${today}`);
       if (response.ok) {
         const jsonData: TimeEntry[] = await response.json();
@@ -171,6 +184,7 @@ const Employee = useRef<StoredUser | null>(null);
     switch (id) {
       case 2: // Lunch-In
         if (!droppedTimeEntryEventIDsRef.current.includes(1)) {
+          console.log("Please drop Check-In first")
           toast.warn("Please drop Check-In first")
           return false;
         }
@@ -178,12 +192,14 @@ const Employee = useRef<StoredUser | null>(null);
       case 3: // Lunch-Out
         if (!droppedTimeEntryEventIDsRef.current.includes(1) || !droppedTimeEntryEventIDsRef.current.includes(2)) {
           toast.warn("Please drop Lunch-In first");
+          console.log("Please drop Lunch-In first")
           return false;
         }
         return true;
       case 4: // Check-Out
         if (!droppedTimeEntryEventIDsRef.current.includes(1) || !droppedTimeEntryEventIDsRef.current.includes(2) || !droppedTimeEntryEventIDsRef.current.includes(3)) {
           toast.warn("Please drop Lunch-Out first");
+          console.log("Please drop Lunch-Out first")
           return false;
         }
         return true;
@@ -206,15 +222,18 @@ const Employee = useRef<StoredUser | null>(null);
   const isAddTaskAllowed = () => {
     if (!droppedTimeEntryEventIDsRef.current.includes(1)) {
       toast.warn("Please add Check In Before Add Task")
+      console.log("Please add Check In Before Add Task")
       return false
     }
     else if (droppedTimeEntryEventIDsRef.current.includes(1) && droppedTimeEntryEventIDsRef.current.includes(2) &&
       !droppedTimeEntryEventIDsRef.current.includes(3) && !droppedTimeEntryEventIDsRef.current.includes(4)) {
       toast.warn("Please add Lunch Out Before Add Task")
+      console.log("Please add Lunch Out Before Add Task")
       return false
     }
     else if (droppedTimeEntryEventIDsRef.current.includes(4)) {
       toast.warn("Please Remove Check Out before add Task")
+      console.log("Please Remove Check Out before add Task")
       return false
     }
     return true;
