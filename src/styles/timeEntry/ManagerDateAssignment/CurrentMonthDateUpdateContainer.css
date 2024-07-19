@@ -1,0 +1,95 @@
+.DateUpdate-selectedTile {
+  background-color: rgba(0, 167, 167, 0.85);
+  width: 100%;
+  height: 150%;
+  border-radius: 25%;
+}
+
+.DateUpdate-mainContainer {
+  display: grid;
+  height: auto;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 400px;
+  grid-template-areas: "ls ls ls rs rs rs rs";
+}
+
+
+
+.DateUpdate-leftSubContainer {
+  grid-area: ls;
+  display: grid;
+  justify-content: center;
+}
+
+.DateUpdate-rightSubContainer {
+  grid-area: rs;
+  display: grid;
+}
+
+.DateUpdate-rightSubContainer .textDiv {
+  width: 80%;
+  height: 150px;
+  background-color: rgb(0, 167, 167);
+  justify-self: center;
+  align-self: center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+}
+
+.DateUpdate-rightSubContainer .textDiv .text-Container {
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+
+.DateUpdate-rightSubContainer .textDiv .text-Container p {
+  color: #ffffff;
+  font-size: large;
+  font-weight: 500;
+}
+
+.DateUpdate-leftSubContainer .currentMonth-button {
+  font-family: "Inter", sans-serif;
+  padding: 15px 15px;
+  height: fit-content;
+  width: fit-content;
+  justify-self: center;
+  font-size: 16px;
+  background-color: rgba(0, 167, 167, 0.85);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+
+.DateUpdate-backButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 45px;
+}
+
+
+@media only screen and (max-width:1000px) {
+  .DateUpdate-mainContainer {
+    display: grid;
+    height: auto;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 400px 400px;
+    grid-template-areas: 
+    "ls ls ls"
+    " rs rs rs";
+  }
+
+  .DateUpdate-rightSubContainer {
+    margin-top: -150px;
+  }
+
+  .DateUpdate-backButtonContainer{
+    margin-top: -150px;
+  
+  }
+}

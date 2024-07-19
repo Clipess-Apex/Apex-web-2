@@ -1,0 +1,62 @@
+.inventory-notification-container{
+    height: auto;
+    background-color: rgb(254, 246, 246);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid black;
+}
+
+
+.inventory-notification-container .inventory-notification-text{
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+    text-align: left;
+}
+
+.inventory-notification-container .notification-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: 10px;
+
+}
+
+.inventory-notification-container .inventory-notification-button{
+    width: fit-content;
+    height: fit-content;
+    padding: 6px 14px;
+    font-size: 15px;
+    justify-self: flex-end;
+    background-color: #00a7a7;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+.tasknotification{
+    height: auto;
+    background-color: rgb(254, 246, 246);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid black;
+
+}
+
+.tasknotification .task-notification-text{
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+    text-align: left;
+
+}

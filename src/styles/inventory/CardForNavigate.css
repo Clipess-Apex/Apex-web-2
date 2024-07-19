@@ -1,0 +1,45 @@
+.card-inventory {
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(to bottom right, rgba(0, 167, 167, 0.3), rgba(0, 167, 167, 0.7));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 16px;
+    box-shadow: 8px 8px 10px 0px rgba(0, 0, 0, 0.25);
+}
+.card-title-inventory {
+    margin-top: 30px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 23px;
+    color: white;
+}
+.middle-part-inventory{
+    display: flex;
+    justify-content:center;
+    gap:30px;
+    width:200px;
+    font-size: 25px;
+    font-weight: 500;
+    color: white;
+    position: relative;
+    bottom: 30px;
+}
+.card-inventory button{
+    width:300px;
+    height:100px;
+    border-radius: 0 0 16px 16px;
+    border: none;
+    position: relative;
+    background-color: #008B8B; 
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.4s ease, font-size 0.3s ease;
+}
+.card-inventory button:hover {
+    background-color: #006666;
+    font-size: 18px;
+}

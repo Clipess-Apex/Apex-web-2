@@ -1,0 +1,113 @@
+.leave-form-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1em;
+  max-width: 1200px;
+}
+
+.leave-form-chart-container.centered {
+  height: auto;
+}
+
+.leave-form-chart-container.left {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.leave-form-section,
+.leave-chart-section {
+  flex: 1;
+  min-width: 45%;
+  margin: 10px;
+  min-height: 400px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.leave-form-section {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  max-width: 450px;
+}
+.leave-Request-Header{
+  color: rgb(0, 167, 167);
+  display: flex;
+  justify-content: center;
+}
+
+.leave-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.leave-form select,
+.leave-form input,
+.leave-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.leave-form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.leave-form button:hover {
+  background-color: #45a049;
+}
+
+.leave-chart-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
+  min-height: 400px;
+  opacity: 0;
+  margin-left: 0px;
+}
+
+.leave-form-chart-container.left .leave-chart-section {
+  opacity: 1;
+  transform: rotateY(0deg);
+}
+
+.leave-form-chart-container.centered .leave-chart-section {
+  transform: rotateY(180deg);
+}
+
+@media (max-width: 768px) {
+  .leave-form-chart-container.left {
+    flex-direction: column;
+  }
+
+  .leave-form-section,
+  .leave-chart-section {
+    min-width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+}
+
+.leave-form-error-message {
+  color: red;
+  font-weight: bold;
+}

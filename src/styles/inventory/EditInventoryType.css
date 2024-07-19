@@ -1,0 +1,51 @@
+.popup-editInventoryType{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+.popup-inner-editInventoryType {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width:600px;
+    z-index: 20;
+    height: 280px;
+}
+.InventoryTypename-edittype{
+    position:relative;
+    bottom:320px;
+    right:250px;
+}
+.button-submit-edittype{
+    position: relative;
+    right:200px;
+    bottom: 50px;
+}
+.edit-InventoryType-heading{
+    color: #00A7A7 ;
+    font-size:30px;
+    position: relative;
+    left:50px;
+    bottom: 30px;
+}
+.button-close-edittype{
+    position: relative;
+    right: 550px; 
+    bottom: 110px;
+
+}
+.InventoryTypeEditNameError{
+    color:red;
+    font-size: 15px;
+    width:300px;
+    height:20px; 
+    position: relative;
+    left:40px; 
+}

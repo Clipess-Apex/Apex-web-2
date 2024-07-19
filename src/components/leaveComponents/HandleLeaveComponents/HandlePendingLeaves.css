@@ -1,0 +1,101 @@
+.leave-manage-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+}
+
+.leave-manage-page-title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: rgb(0, 167, 167);
+}
+
+.leave-manage-page-cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.leave-manage-page-error {
+  color: red;
+  margin-top: 20px;
+}
+
+.leave-manage-page-leaveSection {
+  background: rgba(0, 167, 167, 0.1);
+  border-radius: 8px;
+  box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  margin: 10px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.leave-manage-page-leaveSection:hover {
+  transform: translateY(-5px);
+}
+
+.leave-manage-page-leaveDetails {
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 10px;
+}
+
+.leave-manage-page-leaveDetails .leave-manage-page-label {
+  font-weight: bold;
+  margin-right: 10px; 
+}
+
+.leave-manage-page-leaveDetails .leave-manage-page-value {
+  flex: 1; 
+}
+
+.leave-manage-page-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.leave-manage-page-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex: 1;
+  margin: 0 5px;
+}
+
+.leave-manage-page-button:hover {
+  background-color: #0056b3;
+}
+
+.leave-manage-page-button.reject {
+  background-color: #dc3545;
+}
+
+.leave-manage-page-button.reject:hover {
+  background-color: #c82333;
+}
+
+.leave-manage-page-button.approve {
+  background-color: #28a745;
+}
+
+.leave-manage-page-button.approve:hover {
+  background-color: #218838;
+}
+
+.leave-manage-page-button-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  vertical-align: middle;
+}

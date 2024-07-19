@@ -1,0 +1,29 @@
+.container-field{
+    width:500px;
+    height:60px;
+    border: 2px solid #00A7A7;
+    border-radius: 5px;
+   
+
+}
+
+.placeholder1{
+    font-size: 15px;
+    background-color:#fff;
+    padding-right: 0;
+    position: relative;
+    bottom: 27px;
+    left: 22px;
+    width: max-content;
+    color:#00A7A7;
+    padding-left: 10px;
+    padding-right: 10px;
+
+
+}
+
+.value{
+ margin-left:20px ;
+ position: relative;
+ bottom: 30px;
+}

@@ -1,0 +1,96 @@
+.heading-requestManager{
+  color:#00A7A7;
+  font-size: 25px;
+} 
+
+.button-card-requestManager{
+  display:flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  
+}
+.container-requestManager .button-card-item{
+  height:150px;
+  width:150px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  background-color: #00A7A7;
+}
+.requestManager-request-list{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination-navigation-requestManager{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+.navigateButton-requestManager button {
+  width: 200px;
+  height: 60px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #007575, #005959);
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  right:5px;
+}
+
+.navigateButton-requestManager button:hover {
+  background: linear-gradient(135deg, #005959, #003d3d);
+  transform: scale(1.05);
+}
+
+
+
+.no-requests-message-requestManager{
+display: flex;
+justify-content:space-around;
+align-items: center; 
+gap:50px;
+background-color: #00A7A7;
+color: #fff;
+padding: 30px;
+border-radius: 5px;
+margin-top: 50px;
+}
+
+.req-button-card-item1, .req-button-card-item2, .req-button-card-item3, .req-button-card-item4, .req-button-card-item5 {
+width: 150px; 
+height: 150px; 
+background-color: #00b3b3;
+display: flex;
+flex-direction: column;
+align-items:center;
+justify-content: center;
+font-family: Arial, sans-serif;
+color: white;
+border-radius: 8px; 
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.req-button-card-item1.active, .req-button-card-item2.active, .req-button-card-item3.active, .req-button-card-item4.active, .req-button-card-item5.active {
+background-color: #007d7d; 
+}
+
+.number{
+font-size: 40px;
+margin-top: 10px;
+}
+
+.heading-and-filter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}

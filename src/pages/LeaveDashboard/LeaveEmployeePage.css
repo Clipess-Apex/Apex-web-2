@@ -1,0 +1,64 @@
+
+
+.leave-emplyee-card {
+    width: 240px;
+    height: 200px;
+    background-color: rgba(0, 167, 167, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  
+  .leave-emplyee-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .leave-employee-card-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .leave-employee-card-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: #00A7A7;
+  }
+  
+  .leave-employee-interface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-left: 0px;
+    overflow-y: auto;
+    margin: 46px auto;
+    max-width: 800px;
+  }
+  
+  .leave-employee-interface-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 70px;
+    width: 100%;
+    justify-items: center;
+  }
+  
+  @media (max-width: 768px) {
+    .leave-employee-interface-card-container {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .leave-employee-interface-card-container {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+  }
+  

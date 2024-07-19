@@ -1,0 +1,154 @@
+.inventory-card-InventoryDetails {
+    width: 900px; 
+    border: 1px solid #ddd;
+    border-radius: 0px 0px 10px 10px;
+    padding: 0px;
+    background-color:white;
+    cursor: pointer;
+    height:0px;
+    transition: height 0.7s ease-out, opacity 0.5s ease-out; 
+    margin-bottom: 20px;
+    place-items: center;
+    overflow: hidden; 
+    transform-origin: top;
+   
+  }
+  .initial-card-InventoryDetails{
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
+    border-radius: 10px 10px 0px 0px;
+    height:70px;
+    width: 900px;
+    background-color: #fff; 
+    
+   
+  }
+  .initial-card-InventoryDetails:hover{
+    background-color: rgba(210, 208, 208, 0.561);
+  }
+
+  .initial-card-InventoryDetails.expanded{
+    background-color: #c3ecec
+  }
+  
+  .inventory-card-InventoryDetails.expanded {
+    height: 300px;
+    opacity: 1;
+   
+  }
+  
+  .card-header {
+    text-align: center;
+    font-weight: bold; 
+  }
+  
+  .details-InventoryDetails{
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 900px;
+    height:300px;
+    position: relative;
+    top:80px;
+   
+  }
+   .button_arrange-InventoryDetails{
+     display: flex;
+     justify-content: space-between;
+     width:120px;
+     position: relative;
+     bottom: 300px;
+     left:500px;
+
+    
+  } 
+  .InventoryName-ex-InventoryDetails{
+    position: relative;
+    bottom: 60px;
+    
+}
+  .InventoryType-ex-InventoryDetails{
+   
+    position: relative;
+    left:500px;
+    bottom: 120px;
+    margin-left: 0;
+   
+    
+  }
+  .AssignedEmployee-InventoryDetails{
+   position: relative;
+   bottom: 100px;
+
+    
+  }
+  .AssignedDate-InventoryDetails{
+    position: relative;
+    bottom: 160px;
+    left:500px;
+  }
+  .InventoryFile-ex-InventoryDetails{
+   
+    position:relative;
+    bottom: 140px;
+    left:150px;
+   
+  }
+  .InventoryImage-ex-InventoryDetails{
+    
+    position:relative;
+    bottom: 240px;
+    
+    height:120px;
+    width:120px;
+    border: none;
+    border-radius: 50%;
+    
+  }
+  
+  .details p {
+    margin-bottom: 5px; 
+  }
+  
+ 
+  
+ 
+  .inventorylist_init-InventoryDetails{
+    list-style-type: none;
+    display: flex;
+    width:500px;
+    position: relative;
+   bottom: 5px;
+  }
+  .inventorylist_init-name-InventoryDetails{
+    position: relative;
+    left:100px;
+    top: 8px;
+  }
+ 
+ 
+
+
+  .dropdownicon-InventoryDetails{
+   position: relative;
+   left:50px; 
+   color:gray;
+   font-size:30px;
+   transition: transform 0.5s ease-out;
+  }
+  .dropdownicon-InventoryDetails.expanded{
+    transform: rotate(90deg);
+   
+  }
+.no-files-message-inventorydetails{
+      height:90px;
+      width:80px;
+      border-radius: 5px;
+      background-color: rgb(210, 207, 207);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      bottom: 10px;
+
+  }

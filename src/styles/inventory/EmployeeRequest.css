@@ -1,0 +1,118 @@
+.heading-InventoryRequest{
+    color:#00A7A7;
+    font-size: 25px;
+ } 
+
+.add-InventoryRequest-button{
+  display: flex;
+  justify-content: space-around;
+}
+
+.add-InventoryRequest-button button{
+    background-color: #00A7A7;
+    border: none;
+    color:#fff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border:2px solid #00A7A7;
+    margin-top: 60px;
+    margin-right: -200px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    transition: background-color 0.3s ease;
+    transition: box-shadow 0.2s ease-in-out;
+    transition: 0.7s;
+    height:50px;
+} 
+  
+.add-InventoryRequest-button button:hover{
+    background-color: #00A7A7;
+    cursor: pointer;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); 
+}
+   
+.search-bar{
+    
+    display: flex;
+    justify-content: right;
+    font-size: 20px;
+    border:2px solid #00A7A7;
+   
+  }
+
+  .card-item-InventoryRequest{
+    height:150px;
+    width:150px;
+    background-color: #00A7A7;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+  .cardItem-main-inventoryRequest{
+    display:flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .request-list-InventoryRequest{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .pagination-container-InventoryRequest{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+  }
+
+  .navigateButton-InventoryRequest{
+    width: 200px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #007575, #005959);
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    right:5px;
+  }
+  
+  .navigateButton-InventoryRequest:hover {
+    background: linear-gradient(135deg, #005959, #003d3d);
+    transform: scale(1.05);
+  }
+
+  
+ .req-button-card-item1, .req-button-card-item2, .req-button-card-item3, .req-button-card-item4, .req-button-card-item5 {
+  width: 150px; 
+  height: 150px; 
+  background-color: #00b3b3;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  color: white;
+  border-radius: 8px; 
+  cursor: pointer;
+  transition: background-color 0.3s;
+  }
+  
+  .req-button-card-item1.active, .req-button-card-item2.active, .req-button-card-item3.active, .req-button-card-item4.active, .req-button-card-item5.active {
+  background-color: #007d7d; 
+  }
+  
+  .number{
+  font-size: 40px;
+  margin-top: 10px;
+  }
+  
