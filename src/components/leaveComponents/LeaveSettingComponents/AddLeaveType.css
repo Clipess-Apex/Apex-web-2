@@ -1,0 +1,23 @@
+.add-leave-type-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    background-color:  rgba(0, 167, 167, 1);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 40px;
+    width: 915px;
+    margin-left: 50px;
+}
+
+.add-leave-type-card:hover {
+    background-color:  rgba(0, 167, 167, .8);
+}
+
+.add-leave-type-card h2 {
+    margin: 0;
+}

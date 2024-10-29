@@ -1,0 +1,24 @@
+.card-container-InventoryDash-one{
+    display: flex;
+    justify-content:space-around;
+    margin-top: 50px;
+    flex-wrap: wrap;
+  
+}
+.chart-container-inventorydashboard{
+ display: flex;
+ justify-content: space-around;
+ flex-wrap: wrap;
+ margin-top: 100px;
+ height:300px;
+ 
+}
+.card-container-InventoryDash-two{
+    display: flex;
+    justify-content:center;
+    margin-top: 100px;
+    flex-wrap: wrap;
+    height:300px;
+    gap: 200px;
+}
+

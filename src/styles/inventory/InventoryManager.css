@@ -1,0 +1,109 @@
+
+
+.InventoryManagerPage .heading {
+  color:#00A7A7;
+  font-size: 25px;
+  font-family:Arial, Helvetica, sans-serif;
+
+}
+.InventoryManagerPage .filtering-section{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height:250px;
+ 
+}
+.InventoryManagerPage .button-container{
+  
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap:280px;
+
+}
+.InventoryManagerPage  .add-button-inventorypage{
+  background-color: #00A7A7;
+  border: none;
+  color:#fff;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border:2px solid #00A7A7;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+  transition: background-color 0.3s ease;
+  transition: box-shadow 0.2s ease-in-out;
+  transition: 0.7s;
+  height:50px;
+} 
+
+.InventoryManagerPage .NumberOfInventories-InventoryPage{
+  width:200px;
+  height:40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#a6e1e1 ;
+  border-radius: 5px;
+  border: 2px solid #00A7A7;
+ }
+
+
+.InventoryManagerPage   .inventoryCardContainer{
+  display: flex;
+  justify-content: center;
+}
+
+.InventoryManagerPage .pagination-container{
+  margin-top: 40px;
+  
+  display: flex;
+  justify-content:space-around;
+  align-items:flex-start;
+  flex-wrap: wrap;
+  
+}
+
+.InventoryManagerPage .navigation-button button {
+  width: 200px;
+  height: 60px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #007575, #005959);
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  right:5px;
+}
+
+.InventoryManagerPage .navigation-button button:hover {
+  background: linear-gradient(135deg, #005959, #003d3d);
+  transform: scale(1.05);
+}
+
+.no-inventory-message-InventoryManagerPage{
+  display: flex;
+  justify-content:space-around;
+  align-items: center; 
+  gap:50px;
+  background-color: #00A7A7;
+  color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  margin-top: 50px;
+  width: 400px;
+}
+
+.InventoryManager-inventory-list{
+  display: flex;
+  justify-content: center;
+}

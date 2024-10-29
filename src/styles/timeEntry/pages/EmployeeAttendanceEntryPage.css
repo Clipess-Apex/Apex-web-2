@@ -1,0 +1,23 @@
+.EmployeeAttendanceEntryPage .mainContainer {
+  display: flex;
+  margin-top: 80px;
+  height: auto;
+  overflow-y: auto;
+}
+
+.EmployeeAttendanceEntryPage .content-container {
+  margin-left: 240px;
+  flex-grow: 1;
+  height: auto;
+  margin-top: 40px;
+  margin-right: 40px;
+
+}
+
+/* Layout responsive adjustments */
+@media (max-width: 768px) {
+  .EmployeeAttendanceEntryPage .content-container {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}

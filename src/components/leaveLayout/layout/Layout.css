@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+    overflow-y: hidden;
+  }
+  .mainContainer {
+    margin-left: 200px;
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      margin-top: 50px;
+    }
+  
+    .mainContainer {
+      padding: 10px;
+      margin-left: 200px;
+    }
+  }
+
+  @media(max-width:480px){
+    .mainContainer{
+        margin-left: 180px;
+    }
+  }
+  

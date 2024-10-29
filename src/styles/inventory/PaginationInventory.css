@@ -1,0 +1,34 @@
+.pagination-inventoryManager{
+   
+    width: 450px;
+    height:50px;
+    
+    margin-bottom: 100px;
+    display: inline-block;
+    justify-content: space-between;
+    
+    
+    
+   
+  }
+  .pagination-inventoryManager button{
+    height:40px;
+    width:40px;
+     
+    margin: auto;
+    border-radius: 10px;
+   
+    border: none;
+    margin: 5px;
+    
+  }
+  
+  .pagination-inventoryManager button:hover {
+    background-color: rgb(216, 211, 211); 
+  }
+  
+  .pagination-inventoryManager button.active {
+    background-color: #00A7A7;
+  } 
+  
+  

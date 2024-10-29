@@ -1,0 +1,29 @@
+
+.dashboard-container-leave-settings {
+    padding-left: 70px;
+    padding-right: 70px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-content-leave-settings {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.centered-heading-leave-settings {
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgba(0, 167, 167, 1);
+}

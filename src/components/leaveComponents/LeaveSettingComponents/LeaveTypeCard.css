@@ -1,0 +1,64 @@
+.leave-type-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.leave-type-card {
+  background: rgba(0, 167, 167, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.leave-type-card:hover {
+  transform: translateY(-5px);
+}
+
+.leave-type-card h3 {
+  margin: 0 0 10px 0;
+}
+
+.leave-type-card p {
+  margin: 10px 0;
+}
+.buttons-container-leave-type {
+  display: flex;
+  justify-content: space-between;
+}
+
+.editButton-leave-type {
+  background-color: rgb(40, 167, 69,0.8);
+}
+.editButton-leave-type:hover {
+  background-color: #0b6a21; 
+}
+
+.hideButton-leave-type, .unhideButton-leave-type {
+  background-color: #96d61e; 
+}
+.hideButton-leave-type:hover, .unhideButton-leave-type:hover {
+  background-color: #649803; 
+}
+
+.deleteButton-leave-type {
+  background-color: #dc3545;
+}
+.deleteButton-leave-type:hover {
+  background-color: #9c2f3a;
+}
+.editButton-leave-type, .hideButton-leave-type, .deleteButton-leave-type,.unhideButton-leave-type {
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}

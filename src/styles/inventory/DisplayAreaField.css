@@ -1,0 +1,23 @@
+.container-field2{
+    width:700px;
+    height:100px;
+    border: 2px solid #00A7A7;
+    border-radius: 5px;
+}
+
+.placeholder2{
+    font-size: 15px;
+    background-color:#fff;
+    padding-right: 0;
+    position: relative;
+    bottom: 30px;
+    left: 22px;
+    width: max-content;
+    color:#00A7A7;
+}
+
+.value2{
+ margin-left:20px ;
+ position: relative;
+ bottom: 10px;
+}

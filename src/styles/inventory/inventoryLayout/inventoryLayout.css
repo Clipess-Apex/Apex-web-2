@@ -1,0 +1,22 @@
+.inventory .mainContainer {
+    display: flex;
+    height: auto;
+    overflow-y: auto;
+    margin-top: 30px;
+}
+
+.inventory .content-container {
+    margin-left: 240px;
+    flex-grow: 1;
+    height: auto;
+    margin-top: 40px;
+    margin-right: 40px;
+}
+
+@media (max-width: 768px) {
+    .inventory .content-container {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
