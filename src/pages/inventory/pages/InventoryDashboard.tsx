@@ -1,5 +1,3 @@
-// import SideBar from '../../../components/shared/SideBar';
-// import Header from '../../../components/shared/Header';
 import Card from '../../../components/inventory/CardForNavigate'
 import PieChart from '../../../components/inventory/PieChart';
 import BarChart from '../../../components/inventory/BarChart';
