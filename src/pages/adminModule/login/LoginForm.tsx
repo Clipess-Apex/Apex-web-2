@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthContextProvider";
 import "../../../styles/shared/LoginForm.css";
-import LogoIcon from "../../../icons/shared/header/logo.png";
+import LogoIcon from "../../../icons/shared/navBar/Logo 2.jpg"
 import EyeIcon from "../../../icons/adminModule/eye-svgrepo-com.svg";
 import EyeOffIcon from "../../../icons/adminModule/eye-closed-svgrepo-com.svg";
 import { toast } from "react-toastify";
